@@ -1,0 +1,51 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/medecineList/medicineList",
+    "pages/personalSpace/personalSpace",
+    "pages/groups/groups",
+    "pages/medicineArticles/medicineArticles"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle":"black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "selectedColor": "#000000",
+    "color": "#C9C9C9",
+    "borderStyle": "white",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "清单",
+        "iconPath": "images/清单列表页/list_off.png",
+        "selectedIconPath": "images/清单列表页/list_on.png"
+      },
+      {
+        "pagePath": "pages/groups/groups",
+        "text": "组织",
+        "iconPath": "images/清单列表页/group_off.png",
+        "selectedIconPath": "images/清单列表页/group_on.png"
+      },
+      {
+        "pagePath": "pages/medicineArticles/medicineArticles",
+        "text": "服药科普",
+        "iconPath": "images/清单列表页/medicineArticle_off.png",
+        "selectedIconPath": "images/清单列表页/medicineArticle_on.png"
+        
+      },
+      {
+        "pagePath": "pages/personalSpace/personalSpace",
+        "text": "我的",
+        "iconPath": "images/清单列表页/personalSpace_off.png",
+        "selectedIconPath": "images/清单列表页/personalSpace_on.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

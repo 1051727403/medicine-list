@@ -1,0 +1,27 @@
+@import "ripples.wxss";
+.nav_top {
+  position: fixed;
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  background-color: #FFF1BE;
+  z-index: 999;
+}
+
+.nav_top_name {
+  color: #FF0073;
+  margin-left: 5%;
+  font-size: 36rpx;
+  text-shadow: rgb(182, 180, 180) 2px 2px 3px;
+}
+
+.empty_nav_top {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  background-color: #FFF1BE;
+}
+.back_icon{
+  width: 48rpx;
+  height: 48rpx;
+}

@@ -1,0 +1,59 @@
+<!--顶部导航栏自定义 start-->
+<view class="nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;">
+  <view class="ripple fadeInLeft" style="display: flex; flex-direction: row; align-items: center;">
+    <image class="logo"src="https://img-blog.csdnimg.cn/0957638d311a48479de3dceec4dcf988.png#pic_center" style="margin-left: 10rpx; width: 76rpx;height: 76rpx;"></image>
+    <text class="nav_top_name"style="font-size:40rpx; font-weight:bold;">药单·</text>
+    <text class="nav_top_name"style="font-size:28rpx;margin-top:10rpx;">助您快速生成药品清单</text>
+  </view>
+</view>
+<view class="empty_nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;"></view>
+<!--顶部导航栏自定义 end-->
+<!--我的清单 start-->
+<view class="ripple fadeInDown">
+  <view class="myList_line">
+    <view class="myList">我的清单</view>
+    <view class="decorate_line"></view>
+  </view>
+</view>
+<!--我的清单 end-->
+<!--清单列表 start-->
+<view class="list" wx:for="{{medicineList}}" wx:for-item="single_list" wx:for-index="index">
+  <view class="ripple fadeInLeft">
+    <view class="single_list">
+      <view class="content">
+        <view class="leftPart">
+          <view class="single_list_name">{{single_list.name}}</view>
+          <view class="single_list_lastModifyTime">{{single_list.lastModifyTime}}</view>
+        </view>
+        <view class="rightPart">
+          <image class="modify" src="https://img-blog.csdnimg.cn/7398f716fee04bfba4747839a03ec7a6.png#pic_center" style="width: 50rpx;height: 50rpx;" bindtap="modify"  ></image>
+          <view class="status">{{single_list.status==0?'':'已完成'}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--清单列表 end-->
+<!--添加清单 start-->
+<image class="addList"src="{{clickAddListButtom==false?'https://img-blog.csdnimg.cn/d72d057134ff47b48ee40218fa577a75.png#pic_center':'https://img-blog.csdnimg.cn/f518e7428b844801b14b5bb680b312df.png#pic_center'}}" bindtap="addList" style="  position: fixed;z-index: 997;right:5%; bottom: 10%;"></image>
+<!--添加清单遮罩 start-->
+<view class="cover" wx:if="{{clickAddListButtom==true}}"style="position:fixed; z-index:998; top:{{statusBarHeight*2}}rpx;width:100%; height:{{windowHeight*2-statusBarHeight*2}}rpx"></view>
+<view class="creatList" wx:if="{{clickAddListButtom==true}}"style="position:fixed; z-index:999; top:33%;">
+    <view class="promot">新建清单</view>
+    <view class="input"><input type="text"placeholder="请输入清单名称"placeholder-class="placeholder"bindinput="input" /></view>
+    <view class="check">
+      <view class="cancle" bindtap="cancle" style="color:#fb6969;  border-right: 1rpx solid #f5f5f5;">取消</view>
+      <view class="comfirm"bindtap="comfirm" style="color: #1ACB26;">确认</view>
+    </view>
+</view>
+<!--添加清单遮罩 end-->
+<!--添加清单 start-->
+<!--修改管理单个清单 start-->
+  <view class="cover" wx:if="{{is_modify==1}}"style="position:fixed; z-index:998; top:{{statusBarHeight*2}}rpx;width:100%; height:{{windowHeight*2-statusBarHeight*2}}rpx" bindtap="back"></view>
+  <view class="modify_bar ripple {{is_modify==1?'fadeInUp':'fadeOutDown'}} "wx:if="{{is_modify!=0}}"style="position:fixed; z-index:999; bottom:0rpx">
+    <view class="modify_kind " bindtap="share" style="color:#0ed81b;">分享</view>
+    <view class="modify_kind" bindtap="rename" style="color:#236adb;">重命名</view>
+    <view class="modify_kind" bindtap="del" style="color:#ee525f;"> 删除</view>
+    <view class="modify_kind" bindtap="back" style=" border-bottom:0rpx solid #ffffff;">取消</view>
+  </view>
+<!--修改管理单个清单 end-->
