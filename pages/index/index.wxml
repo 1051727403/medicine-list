@@ -18,7 +18,7 @@
 <!--我的清单 end-->
 <!--清单列表 start-->
 <view class="list" wx:for="{{medicineList}}" wx:for-item="single_list" wx:for-index="index">
-  <view class="ripple fadeInLeft">
+  <view class="fadeInLeft">
     <view class="single_list">
       <view class="content" >
         <view class="leftPart"bindtap="jumpToList" data-list="{{single_list}}">

@@ -3,9 +3,24 @@
 <!--顶部导航栏自定义 end-->
 
 <!-- 药品清单列表 start-->
-<view class="list" wx:for="{{list}}" wx:for-item="medicine" wx:for-index="index" wx:key="">
-  <view class="single_medicine">
-  <image class="medicine_photo" src="{{medicine.url}}"></image>
+<view class="medicines" wx:for="{{list.medicines}}" wx:for-item="medicine" wx:for-index="index" wx:key="">
+  <view class="single_medicine fadeInRight" style="height:{{windowWidth*0.9*0.38*2}}rpx;">
+    <image class="medicine_photo fadeInRight" src="{{medicine.url}}" mode="heightFix"></image>
+    <view class="right_part">
+      <view class="detail">
+        <view class="detail_name">{{medicine.name}}</view>
+        <view class="detail_brand">品牌：{{medicine.brand}}</view>
+        <view class="detail_specification">规格：{{medicine.specification}}</view>
+      </view>
+      <view class="number_line">
+        <view class="detail_number"style="margin-top:0rpx;">数量：</view>
+        <view class="change_number">
+          <image class="minus" bindtap="minus" src="https://img-blog.csdnimg.cn/1e4daaa161f844ee8db4eb9be0463c08.png#pic_center"></image>
+          <view class="number">{{medicine.number}}</view>
+          <image class="add" bindtap="add" src="https://img-blog.csdnimg.cn/de489ff39bb0481db8e9b0dcfed388fc.png#pic_center"></image>
+        </view>
+      </view>
+    </view>
   </view>
 </view>
 <!--药品清单列表 end -->
@@ -18,7 +33,7 @@
 <!--各种添加药品方式&分享 end-->
 <!--底部栏预览&提交 start-->
 <view class="bottom_bar">
-  <view class="preview"bindtap="preview">预览</view>
+  <view class="share"bindtap="share">分享</view>
   <view class="submit" bindtap="submit">提交</view>
 </view>
 <!--底部栏预览&提交 end-->
