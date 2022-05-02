@@ -22,3 +22,4 @@
 8、flex弹性布局博客：https://www.cnblogs.com/hellocd/p/10443237.html  
 9、菜鸟驿站、W3school等学习css、js的网站  
 10、微信小程序开发大赛规则：https://developers.weixin.qq.com/community/competition/intro  
+11、https://mp.weixin.qq.com/wxamp/home/guide?lang=zh_CN&token=1535826188  
