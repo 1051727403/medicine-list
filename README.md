@@ -24,4 +24,3 @@
 10、微信小程序开发大赛规则：https://developers.weixin.qq.com/community/competition/intro  
 11、https://mp.weixin.qq.com/wxamp/home/guide?lang=zh_CN&token=1535826188  
 
-111111111111111111111111111111111111111111111111111111111111111
