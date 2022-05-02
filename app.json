@@ -3,8 +3,10 @@
     "pages/index/index",
     "pages/medecineList/medicineList",
     "pages/personalSpace/personalSpace",
-    "pages/groups/groups",
-    "pages/medicineArticles/medicineArticles"
+    "pages/searchGroups/searchGroups",
+    "pages/manageGroups/manageGroups",
+    "pages/myGroups/myGroups",
+    "pages/personnalInfo/personalInfo"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -22,27 +24,27 @@
       {
         "pagePath": "pages/index/index",
         "text": "清单",
-        "iconPath": "images/清单列表页/list_off.png",
-        "selectedIconPath": "images/清单列表页/list_on.png"
+        "iconPath": "images/index/list_off.png",
+        "selectedIconPath": "images/index/list_on.png"
       },
       {
-        "pagePath": "pages/groups/groups",
-        "text": "组织",
-        "iconPath": "images/清单列表页/group_off.png",
-        "selectedIconPath": "images/清单列表页/group_on.png"
+        "pagePath": "pages/searchGroups/searchGroups",
+        "text": "寻找组织",
+        "iconPath": "images/index/group_off.png",
+        "selectedIconPath": "images/index/group_on.png"
       },
       {
-        "pagePath": "pages/medicineArticles/medicineArticles",
-        "text": "服药科普",
-        "iconPath": "images/清单列表页/medicineArticle_off.png",
-        "selectedIconPath": "images/清单列表页/medicineArticle_on.png"
+        "pagePath": "pages/manageGroups/manageGroups",
+        "text": "组织管理",
+        "iconPath": "images/index/medicineArticle_off.png",
+        "selectedIconPath": "images/index/medicineArticle_on.png"
         
       },
       {
         "pagePath": "pages/personalSpace/personalSpace",
         "text": "我的",
-        "iconPath": "images/清单列表页/personalSpace_off.png",
-        "selectedIconPath": "images/清单列表页/personalSpace_on.png"
+        "iconPath": "images/index/personalSpace_off.png",
+        "selectedIconPath": "images/index/personalSpace_on.png"
       }
     ]
   },

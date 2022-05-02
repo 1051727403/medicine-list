@@ -1,2 +1,58 @@
-<!--pages/personalSpace/personalSpace.wxml-->
-<text>pages/personalSpace/personalSpace.wxml</text>
+<!--顶部导航栏自定义 start-->
+<view class="nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;">
+  <view class="fadeInLeft">
+    <text class="nav_top_name">个人中心</text>
+  </view>
+</view>
+<view class="empty_nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;"></view>
+<!--顶部导航栏自定义 end-->
+<!--个人信息展示 start-->
+<view class="person">
+  <view class="fadeInLeft"style="width:100%; display:flex;flex-direction:row;align-items: center;">
+    <image class="person_avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" bindtap="getuserinfo"></image>
+    <view class="person_info">
+      <view class="person_info_nickname" bindtap="getuserinfo">{{userInfo.nickname}}</view>
+    </view>
+  </view>
+</view>
+<!--个人信息展示 end-->
+<!--各类功能 start-->
+<view class="">
+  <view class="fadeInRight func">
+    <view class="func_line" bindtap="jumpToPersonalInfo">
+      <image src="https://img-blog.csdnimg.cn/437b8d1c399149fe983e7d82c9b671cf.png#pic_center" class="icon" mode="aspectFit"></image>
+      <text>个人信息</text>
+      <image src="https://img-blog.csdnimg.cn/dd3a28836503445198ed24eecbf70a5b.png#pic_center" class="jump" mode="aspectFit"></image>
+    </view>
+    <view class="func_line" bindtap="jumpToIndex">
+      <image src="https://img-blog.csdnimg.cn/dc66c856fcfd44b48dad6793aaba54d8.png#pic_center" class="icon" mode="aspectFit"></image>
+      <text>已提交的清单</text>
+      <image src="https://img-blog.csdnimg.cn/dd3a28836503445198ed24eecbf70a5b.png#pic_center" class="jump" mode="aspectFit"></image>
+    </view>
+    <view class="func_line" bindtap="jumpToMydGroup">
+      <image src="https://img-blog.csdnimg.cn/0968bfc195824a92869bc05bc700b1a6.png#pic_center" class="icon" mode="aspectFit"></image>
+      <text>我的加入的组织</text>
+      <image src="https://img-blog.csdnimg.cn/dd3a28836503445198ed24eecbf70a5b.png#pic_center" class="jump" mode="aspectFit"></image>
+    </view>
+    <view class="func_line" bindtap="jumpToJoinedGroup" style="border-bottom: 0rpx solid white;">
+      <image src="https://img-blog.csdnimg.cn/2bc2b6ca22b04f4ab1dad1d276e3f3a3.png#pic_center" class="icon" mode="aspectFit"></image>
+      <text>我管理的组织</text>
+      <image src="https://img-blog.csdnimg.cn/dd3a28836503445198ed24eecbf70a5b.png#pic_center" class="jump" mode="aspectFit"></image>
+    </view>
+  </view>
+</view>
+<view class="">
+  <view class="fadeInRight func" style="height:225rpx;">
+    <button class="func_line"style=" width: 94%; height: 50%;padding: 0;line-height: 1;font-weight: normal;text-align: left;" open-type="feedback">
+      <image src="https://img-blog.csdnimg.cn/05d64779e0a74e60b1c401faecba6e06.png#pic_center" class="icon" mode="aspectFit"></image>
+      <text>联系与反馈</text>
+      <image src="https://img-blog.csdnimg.cn/dd3a28836503445198ed24eecbf70a5b.png#pic_center" class="jump" mode="aspectFit"></image>
+    </button>
+    <button class="func_line" style=" border-bottom: 0rpx solid white; width: 94%; height: 50%; padding: 0;line-height: 1;font-weight: normal;text-align: left;" open-type="share">
+      <image src="https://img-blog.csdnimg.cn/ec2e016390f64a9cb992446058aa08f3.png#pic_center" class="icon" mode="aspectFit"></image>
+      <text>分享小程序</text>
+      <image src="https://img-blog.csdnimg.cn/dd3a28836503445198ed24eecbf70a5b.png#pic_center" class="jump" mode="aspectFit"></image>
+    </button>
+  </view>
+</view>
+<!--各类功能 end-->

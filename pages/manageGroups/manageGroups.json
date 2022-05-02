@@ -1,7 +1,7 @@
 {
   "navigationBarBackgroundColor": "#ff0000",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "单个清单页面",
+  "navigationBarTitleText": "组织管理",
   "usingComponents": {
     "custom_nav_top":"../../components/custom_nav_top/custom_nav_top"
   }

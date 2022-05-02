@@ -1,2 +1,25 @@
-<!--pages/medecineList/medicineList.wxml-->
-<text>pages/medecineList/medicineList.wxml</text>
+<!--顶部导航栏自定义 start-->
+<custom_nav_top pageName="{{list.name}}" showBackIcon="true"></custom_nav_top>
+<!--顶部导航栏自定义 end-->
+
+<!-- 药品清单列表 start-->
+<view class="list" wx:for="{{list}}" wx:for-item="medicine" wx:for-index="index" wx:key="">
+  <view class="single_medicine">
+  <image class="medicine_photo" src="{{medicine.url}}"></image>
+  </view>
+</view>
+<!--药品清单列表 end -->
+<!--各种添加药品方式&分享 start-->
+<image class="addMedicine"src="{{clickAddMedicineButtom==false?'https://img-blog.csdnimg.cn/be2574459f88457ba2e43d812c4af234.png#pic_center':'https://img-blog.csdnimg.cn/122dfef2fd624dddb2d0f3fd4b8b58b5.png#pic_center'}}" bindtap="addMedicine"></image>
+<image class="add_custom fadeInUp " wx:if="{{clickAddMedicineButtom==true}}"src='https://img-blog.csdnimg.cn/822074b1ea044e03b1a1829ac20fed4a.png#pic_center' bindtap="add_custom"></image>
+<image class="add_scan fadeInUp " wx:if="{{clickAddMedicineButtom==true}}"src='https://img-blog.csdnimg.cn/8496172c20974de9927d107757a6e539.png#pic_center' bindtap="add_scan"></image>
+
+
+<!--各种添加药品方式&分享 end-->
+<!--底部栏预览&提交 start-->
+<view class="bottom_bar">
+  <view class="preview"bindtap="preview">预览</view>
+  <view class="submit" bindtap="submit">提交</view>
+</view>
+<!--底部栏预览&提交 end-->
+

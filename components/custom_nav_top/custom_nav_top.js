@@ -1,7 +1,4 @@
 const app = getApp()
-wx.cloud.init({
-  env: 'cloud1-1g9c7qo36f1aee1e',
-})
 const db = wx.cloud.database()
 const _ = db.command
 Component({

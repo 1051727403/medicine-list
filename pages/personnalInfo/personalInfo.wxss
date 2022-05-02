@@ -1,0 +1,87 @@
+Page{
+  background-color:white;
+}
+.nav_top {
+  position: fixed;
+  width: 100%;
+  height: 300rpx;
+  line-height: 90rpx;
+  z-index: 999;
+  background: linear-gradient(to top right,#765df7,30%,#16c2ee);
+}
+
+.nav_top_name {
+  color:white;
+  margin-left:5%;
+  font-size: 36rpx;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 4rpx;
+}
+
+.empty_nav_top {
+  width: 100%;
+  height: 300rpx;
+  line-height: 90rpx;
+  background-color: #ffffff;
+}
+.back_icon{
+  width: 48rpx;
+  height: 48rpx;
+  margin-top: 5rpx;
+}
+.title{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.promot{
+  height: 70rpx;
+  font-size: 40rpx;
+  color: white;
+  letter-spacing: 2rpx;
+}
+.decorate{
+  width: 230rpx;
+  height: 220rpx;
+}
+
+.content{
+  width: 90%;
+  height: auto;
+  background-color:white;
+  margin-right: 5%;
+  margin-left: 5%;
+  font-size: 32rpx;
+  color:black;
+  letter-spacing: 1rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 30rpx;
+}
+.line{
+  height:120rpx;
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  border-bottom: solid rgb(248, 248, 248) 2rpx;
+}
+.info{
+  margin-right: 80rpx;
+}
+.address{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.address_detail{
+  text-align:right;
+  width:100rpx;
+  margin-right: 20rpx;
+}
+.submit{
+  margin-top: 60rpx;
+  margin-bottom: 60rpx;
+  box-shadow: 4rpx 4rpx 6rpx #d3d3d3;
+}

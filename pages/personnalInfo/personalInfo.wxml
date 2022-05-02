@@ -1,0 +1,59 @@
+<!--顶部导航栏自定义 start-->
+<view class="nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;">
+  <view class="ripple fadeInLeft" style="display: flex; flex-direction: row; align-items: center;">
+    <image class="back_icon"src="https://img-blog.csdnimg.cn/373c7111d4434cc493e7f85cc6ae1b09.png#pic_center" style="margin-left: 10rpx; "bindtap="back"></image>
+    <text class="nav_top_name"style="margin-left:3%';">个人信息</text>
+  </view>
+  <view class="ripple fadeInLeft title">
+    <view class="left_title">
+      <view class="promot">请完善个人信息</view>
+      <view class="promot" style="font-size: 28rpx; letter-spacing: 0rpx;">完善个人信息后方可提交至组织</view>
+    </view>
+    <image class="decorate" src="https://img-blog.csdnimg.cn/244ec822a0fd437a94c628baadf4231e.png#pic_center" ></image>
+  </view>
+</view>
+<view class="empty_nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;"></view>
+<!--顶部导航栏自定义 end-->
+<!--个人信息填写  start-->
+
+<form catchsubmit="formSubmit" class="content">
+  <view class="line">
+    <view class="info">您的姓名</view>
+    <input type="text" placeholder="请输入姓名（必填）" value="{{userInfo.real_name}}" bindinput="getRealName"/>
+  </view>
+  <view class="line">
+    <view class="info">性别</view>
+        <radio-group name="gender"style="margin-left:2em;">
+          <label style="margin-right: 100rpx;"><radio value="1" checked="{{gender==1}}"/>男 </label>
+          <label ><radio value="2"checked="{{gender==2}}"/>女</label>
+        </radio-group>
+    </view>
+  <view class="line">
+    <view class="info">身份证号</view>
+    <input type="idcard" placeholder="请输入身份证号（必填）"value="{{userInfo.id_number}}"bindinput="getIdNumber"/>
+  </view>
+  <view class="line">
+    <view class="info">联系电话</view>
+    <input type="number" placeholder="请输入手机号码（必填）"value="{{userInfo.phone_number}}"bindinput="getPhoneNumber"/>
+  </view>
+  <view class="line">
+    <view class="info">医保卡号</view>
+    <input type="number" placeholder="请输入医保卡号（选填）"value="{{userInfo.health_number}}"bindinput="getHealthNumber"/>
+  </view>
+  <view class="line">
+    <view class="info">居住地址</view>
+    <view >
+      <input type="text" placeholder="xx市xx小区（选填）"value="{{area}}"bindinput="getArea"/>
+    </view>
+  </view>
+  <view class="line">
+    <view class="info"style="margin-right:40rpx;">----></view>
+    <view class="address">
+      <input type="number" placeholder="(必填)"value="{{building}}"class="address_detail"bindinput="getBuilding"/><view style="margin-right: 10rpx;">幢/栋</view>
+      <input type="number" placeholder="(必填)"value="{{no}}"class="address_detail"bindinput="getNo"/><view style="margin-right:20rpx;">号</view>
+      <input type="number" placeholder="(必填)"value="{{room}}"class="address_detail"bindinput="getRoom"/><view>室</view>
+    </view>
+  </view>
+  <button class="submit" type="primary" form-type="submit" style="background: linear-gradient(to left top,#16c2ee,45%,#b0f3e5);letter-spacing: 4rpx; ">保存</button>
+</form>
+<!--个人信息填写  end-->

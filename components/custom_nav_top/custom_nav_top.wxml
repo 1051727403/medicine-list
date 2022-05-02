@@ -1,8 +1,8 @@
 <!--顶部导航栏自定义 start-->
 <view class="nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;">
   <view class="ripple fadeInLeft" style="display: flex; flex-direction: row; align-items: center;">
-    <image class="back_icon"src="../../images/back_icon.png" style="margin-left: 10rpx;" wx:if="{{showBackIcon=='true'}}" bindtap="back"></image>
-    <text class="nav_top_name"style="margin-left:{{showBackIcon=='true'?'2%':'5%'}};">{{pageName}}</text>
+    <image class="back_icon"src="https://img-blog.csdnimg.cn/373c7111d4434cc493e7f85cc6ae1b09.png#pic_center" style="margin-left: 10rpx; " wx:if="{{showBackIcon=='true'}}" bindtap="back"></image>
+    <text class="nav_top_name"style="margin-left:{{showBackIcon=='true'?'3%':'5%'}};">{{pageName}}</text>
   </view>
 </view>
 <view class="empty_nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;"></view>

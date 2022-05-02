@@ -1,1 +1,123 @@
-/* pages/personalSpace/personalSpace.wxss */
+@charset "UTF-8";
+page {
+  background-color: #fafafc;
+  background: linear-gradient(#eaf3fc,20%,#fafafc);
+}
+.nav_top{
+  position: fixed;
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  background: linear-gradient(#CAE5FF,10%,#e3f0fd);
+  z-index: 999;
+}
+.nav_top_name{
+  color:#2F81FF;
+  margin-left:5%;
+  margin-top:14%;
+  font-size: 36rpx;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 4rpx;
+}
+.empty_nav_top{
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+}
+.person{
+  background:linear-gradient(#e3f0fd,#f4f8fd);
+  height:226rpx;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+}
+.person_avatar{
+  width: 150rpx;
+  height: 150rpx;
+  margin-left:5%;
+  border-radius: 85rpx;
+} 
+.person_info{
+  height: 100%;
+  width: 396rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.person_info_nickname{
+  font-size: 36rpx;
+  margin-left: 24rpx;
+}
+.func{
+  width: 90%;
+  height:450rpx;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 35rpx;
+  border-radius: 30rpx;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+.func_line{
+  background-color:white ;
+  width: 94%;
+  height: 33%;
+  margin-left: 3%;
+  margin-right: 3%;
+  border-bottom:1rpx solid #e2e2e2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.func_line .icon{
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+}
+.func_line .jump{
+  margin-left: auto;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+
+
+/*动画样式*/
+
+@-webkit-keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadeInLeft {
+  animation-name: fadeInLeft;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInRight {
+  animation-name: fadeInRight;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}

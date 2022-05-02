@@ -1,12 +1,8 @@
 {
   "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "cloudfunctionRoot": "cloudfunctions/",
   "packOptions": {
-    "ignore": [
-      {
-        "value": ".eslintrc.js",
-        "type": "file"
-      }
-    ],
+    "ignore": [],
     "include": []
   },
   "setting": {
@@ -26,7 +22,7 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "compileHotReLoad": true,
+    "compileHotReLoad": false,
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
@@ -49,10 +45,29 @@
     "useStaticServer": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.19.4",
-  "appid": "wx01f7d78d665b07cc",
-  "projectname": "project",
-  "condition": {},
+  "libVersion": "2.23.4",
+  "appid": "wx4998de63c98af1c6",
+  "projectname": "Medicine%20List",
+  "condition": {
+    "search": {
+      "list": []
+    },
+    "conversation": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "plugin": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": []
+    }
+  },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2

@@ -13,7 +13,12 @@ App({
       windowWidth:wx.getSystemInfoSync()['windowWidth'],
       windowHeight:wx.getSystemInfoSync()['windowHeight'],
       screenHeight:wx.getSystemInfoSync()['screenHeight'],
-      userInfo:[],
+      //初始默认人员信息
+      userInfo:{
+        nickname:"点击登录",
+        avatarUrl: "https://img-blog.csdnimg.cn/45adeb332b2e4d6f9820359d4f091f3f.png#pic_center",
+        gender:1,
+      },
       logged:false,
     };
   },
