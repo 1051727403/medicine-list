@@ -28,10 +28,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    back(){
-      wx.navigateBack({
-        delta: 1,
-      })
-    }
+
   }
 })

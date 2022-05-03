@@ -1,10 +1,16 @@
 <!--顶部导航栏自定义 start-->
-<custom_nav_top pageName="{{list.name}}" showBackIcon="true"></custom_nav_top>
+<custom_nav_top pageName="{{list.name}}" showBackIcon="true" bindtap="back"></custom_nav_top>
 <!--顶部导航栏自定义 end-->
-
+<!--若当前清单中无药品，则提示  start-->
+<view class="prompt" wx:if="{{list.medicines.length==0}}">当前清单还没有药品哦！</view>
+<view class="prompt" wx:if="{{list.medicines.length==0}}">可点击右下方按钮进行添加！</view>
+<view class="prompt" wx:if="{{list.medicines.length==0}}">添加方式如下：</view>
+<view class="prompt" wx:if="{{list.medicines.length==0}}">1、扫描药品包装盒上的条形码进行录入</view>
+<view class="prompt" wx:if="{{list.medicines.length==0}}">2、自定义手动输入药品名称、品牌、规格</view>
+<!--若当前清单中无药品，则提示  end-->
 <!-- 药品清单列表 start-->
 <view class="medicines" wx:for="{{list.medicines}}" wx:for-item="medicine" wx:for-index="index" wx:key="">
-  <view class="single_medicine fadeInRight" style="height:{{windowWidth*0.9*0.38*2}}rpx;">
+  <view class="single_medicine fadeInRight" style="height:{{windowWidth*0.9*0.4*2}}rpx;">
     <image class="medicine_photo fadeInRight" src="{{medicine.url}}" mode="heightFix"></image>
     <view class="right_part">
       <view class="detail">
@@ -14,23 +20,25 @@
       </view>
       <view class="number_line">
         <view class="detail_number"style="margin-top:0rpx;">数量：</view>
-        <view class="change_number">
-          <image class="minus" bindtap="minus" src="https://img-blog.csdnimg.cn/1e4daaa161f844ee8db4eb9be0463c08.png#pic_center"></image>
+        <view class="change_number" >
+          <image class="minus" bindtap="minus"  data-index="{{index}}" wx:if="{{medicine.number!=0}}" src="https://img-blog.csdnimg.cn/1e4daaa161f844ee8db4eb9be0463c08.png#pic_center" style="margin-right: 20rpx;"></image>
           <view class="number">{{medicine.number}}</view>
-          <image class="add" bindtap="add" src="https://img-blog.csdnimg.cn/de489ff39bb0481db8e9b0dcfed388fc.png#pic_center"></image>
+          <image class="add" bindtap="add"  data-index="{{index}}" src="https://img-blog.csdnimg.cn/de489ff39bb0481db8e9b0dcfed388fc.png#pic_center"></image>
         </view>
       </view>
     </view>
   </view>
 </view>
 <!--药品清单列表 end -->
+
+
 <!--各种添加药品方式&分享 start-->
 <image class="addMedicine"src="{{clickAddMedicineButtom==false?'https://img-blog.csdnimg.cn/be2574459f88457ba2e43d812c4af234.png#pic_center':'https://img-blog.csdnimg.cn/122dfef2fd624dddb2d0f3fd4b8b58b5.png#pic_center'}}" bindtap="addMedicine"></image>
 <image class="add_custom fadeInUp " wx:if="{{clickAddMedicineButtom==true}}"src='https://img-blog.csdnimg.cn/822074b1ea044e03b1a1829ac20fed4a.png#pic_center' bindtap="add_custom"></image>
 <image class="add_scan fadeInUp " wx:if="{{clickAddMedicineButtom==true}}"src='https://img-blog.csdnimg.cn/8496172c20974de9927d107757a6e539.png#pic_center' bindtap="add_scan"></image>
-
-
 <!--各种添加药品方式&分享 end-->
+
+
 <!--底部栏预览&提交 start-->
 <view class="bottom_bar">
   <view class="share"bindtap="share">分享</view>

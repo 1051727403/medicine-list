@@ -5,7 +5,10 @@
 ## 更新日志 
 
 ### 2022-5-2 更新内容：新建码云仓库，将代码上传到仓库  
-  
+### 2022-5-3 扫码api秘钥信息如下:  
+app_id:hvhmohepuqlrinmo  
+app_secret:TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09  
+### -----  
   
    
   

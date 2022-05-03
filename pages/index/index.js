@@ -51,7 +51,26 @@ Page({
     }
     return true
   },
-
+  //构造最新更新时间函数
+  getNowTime() {
+    //构造时间标准格式
+    var date = new Date
+    //console.log('【date】',date)
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    //console.log('【month】 ',month)
+    month = (month / 10 < 1) ? '0' + month : month
+    var day = date.getDate()
+    day = (day / 10 < 1) ? '0' + day : day
+    //console.log('【day】 ',day)
+    var hour = date.getHours()
+    hour = (hour / 10 < 1) ? '0' + hour : hour
+    var minutes = date.getMinutes()
+    minutes = (minutes / 10 < 1) ? '0' + minutes : minutes
+    var now_time = year + '.' + month + '.' + day + '   ' + hour + '.' + minutes
+    console.log('【now_time】', now_time)
+    return now_time
+  },
   //获取用户的所有清单函数,并更新
   async getTotalList(openid) {
     var that = this
@@ -144,7 +163,7 @@ Page({
         gender: '0', //默认为0，非男非女，男为1，女为2
         id_number: '',
         phone_number: '',
-        health_number:'',
+        health_number: '',
         address: {
           area: '',
           building: '',
@@ -264,7 +283,7 @@ Page({
     var gender = ''
     var id_number = ''
     var phone_number = ''
-    var health_number=''
+    var health_number = ''
     var address = {}
     await db.collection('user')
       .where({
@@ -381,7 +400,11 @@ Page({
         new_user: false,
         userInfo: app.globalData.userInfo,
       })
-      that.getTotalList(app.globalData.userInfo.openid)
+      setTimeout(() => {
+        console.log("【为防止数据库未更新完加载不完全，延迟中】");
+        that.getTotalList(app.globalData.userInfo.openid)
+      }, 100)
+      
     }
 
     //控制显示登录提醒
@@ -419,10 +442,10 @@ Page({
           wx.showModal({
             title: '提示',
             content: '为了获取更完善的功能，请填写相关信息',
-            showCancel:true,
-            confirmColor:"#07c160",
-            success:res=>{
-              if(res.confirm){
+            showCancel: true,
+            confirmColor: "#07c160",
+            success: res => {
+              if (res.confirm) {
                 console.log('【引导用户完善个人信息，用户点击确定】')
                 setTimeout(() => {
                   console.log("【引导用户完善个人信息，为防止过快点击加载不完全，延迟中】");
@@ -430,12 +453,12 @@ Page({
                     url: '../personnalInfo/personalInfo',
                   })
                 }, 500)
-              }else{
+              } else {
                 console.log('【引导用户完善个人信息，用户点击取消】')
               }
             }
-          })    
-          
+          })
+
         },
         fail: (res) => {
           console.log('用户取消授权登录')
@@ -512,19 +535,8 @@ Page({
       console.log('提示用户输入清单名称')
       return
     }
-    var date = new Date
-    var year = date.getFullYear()
-    var month = date.getMonth()
-    month = (month / 10 < 1) ? '0' + month : month
-    var day = date.getDay()
-    day = (day / 10 < 1) ? '0' + day : day
-    var hour = date.getHours()
-    hour = (hour / 10 < 1) ? '0' + hour : hour
-    var minutes = date.getMinutes()
-    minutes = (minutes / 10 < 1) ? '0' + minutes : minutes
-
-    var now_time = year + '.' + month + '.' + day + '   ' + hour + '.' + minutes
-    console.log(now_time)
+    //获取当前时间用于更新
+    var now_time = that.getNowTime()
     //利用时间戳+随机数与16进制生成uuid
     var id = new Date().getTime()
     id += (((1 + Math.random()) * 0x10000) | 0).toString(16)
@@ -622,18 +634,7 @@ Page({
     var medicines = new_medicineList[modifyIndex].medicines
 
     //构造时间标准格式
-    var date = new Date
-    var year = date.getFullYear()
-    var month = date.getMonth()
-    month = (month / 10 < 1) ? '0' + month : month
-    var day = date.getDay()
-    day = (day / 10 < 1) ? '0' + day : day
-    var hour = date.getHours()
-    hour = (hour / 10 < 1) ? '0' + hour : hour
-    var minutes = date.getMinutes()
-    minutes = (minutes / 10 < 1) ? '0' + minutes : minutes
-    var now_time = year + '.' + month + '.' + day + '   ' + hour + '.' + minutes
-
+    var now_time = that.getNowTime()
     //最新修改时间改变，调换顺序
     new_medicineList.splice(modifyIndex, 1)
     //console.log(new_medicineList)

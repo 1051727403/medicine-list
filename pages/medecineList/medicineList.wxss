@@ -1,6 +1,14 @@
 Page{
   background: linear-gradient(#f8f8ff,5%,#fafafc);
 }
+.prompt{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30rpx;
+  color:rgb(172, 172, 172);
+  font-size: 36rpx;
+}
 .medicines{
   width: 100%;
 }
@@ -47,43 +55,52 @@ Page{
   align-items: center;
   height: 60rpx;
 }
+.change_number{
+  margin-top: 5rpx;
+  margin-right: 15rpx;
+  width: 200rpx;
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-end;
+  align-items: center;
+}
 .minus,.add{
   width: 38rpx;
   height: 38rpx;
 }
-.change_number{
-  width: 140rpx;
-  display: flex;
-  flex-direction:row;
-  justify-content: space-between;
-  align-items: center;
-}
 .number{
-  font-size: 38rpx;
+  font-size: 36rpx;
+  margin-right: 20rpx;
 }
 .addMedicine{
+  background-color: #fafafc;
   width: 100rpx;
   height: 100rpx;
   position: fixed;
   z-index: 997;
   right:5%; 
   bottom: 19%;
+  border-radius: 30rpx;
 }
 .add_custom{
+  background-color: #fafafc;
   width: 100rpx;
   height: 100rpx;
   position: fixed;
   z-index: 997;
   right:5%; 
   bottom: 28%;
+  border-radius: 30rpx;
 }
 .add_scan{
+  background-color: #fafafc;
   width: 90rpx;
   height: 90rpx;
   position: fixed;
   z-index: 997;
   right:5%; 
   bottom: 37%;
+  border-radius: 30rpx;
 }
 
 .bottom_bar{
@@ -92,7 +109,7 @@ Page{
   width:100%;
   height: 110rpx;
   font-size: 42rpx;
-  position:absolute;
+  position:fixed;
   bottom: 0rpx;
   display: flex;
   justify-content: space-around;
