@@ -23,7 +23,7 @@
       <view class="content" >
         <view class="leftPart"bindtap="jumpToList" data-list="{{single_list}}">
           <view class="single_list_name">{{single_list.name}}</view>
-          <view class="single_list_lastModifyTime">{{single_list.lastModifyTime}}</view>
+          <view class="single_list_lastModifyTime" style="margin-top: 60rpx;">{{single_list.lastModifyTime}}</view>
         </view>
         <view class="rightPart">
           <image class="modify" src="https://img-blog.csdnimg.cn/7398f716fee04bfba4747839a03ec7a6.png#pic_center" style="width: 50rpx;height: 50rpx;" bindtap="modify" data-index="{{index}}" ></image>
@@ -45,7 +45,7 @@
     <view class="input"><input type="text"placeholder="请输入清单名称"placeholder-class="placeholder"bindinput="input" /></view>
     <view class="check">
       <view class="add_cancle" bindtap="add_cancle" style="color:#fb6969;  border-right: 1rpx solid #f5f5f5;">取消</view>
-      <view class="add_comfirm"bindtap="add_comfirm" style="color: #1ACB26;">确认</view>
+      <view class="add_confirm"bindtap="add_confirm" style="color: #1ACB26;">确认</view>
     </view>
 </view>
 <!--添加清单界面 end-->

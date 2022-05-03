@@ -49,8 +49,9 @@ page {
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 30rpx;
+  margin-bottom: 30rpx;
   width: 90%;
-  height: 180rpx; 
+  height: 200rpx; 
   border-radius: 30rpx;
   box-shadow: -2rpx 8rpx 26rpx #f2f3f7,2rpx -4rpx 16rpx #f2f3f7;
 }
@@ -107,7 +108,7 @@ page {
   margin-left: 8%;
   margin-right: 8%;
   background-color: white;
-  border-radius: 30rpx;
+  border-radius: 50rpx;
 }
 .creatList{
   display: flex;
@@ -141,7 +142,7 @@ page {
   justify-content: center;
   align-items: center;
 }
-.add_cancle,.add_comfirm,.rename_cancle,.rename_comfirm{
+.add_cancle,.add_confirm,.rename_cancle,.rename_confirm{
   display: flex;
   align-items: center;
   justify-content: center;

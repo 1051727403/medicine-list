@@ -220,7 +220,7 @@ Page({
     this.setData({
       medicineList: []
     })
-    this.add_comfirm()
+    this.add_confirm()
     this.setData({
       ListName: ""
     })
@@ -384,6 +384,14 @@ Page({
           that.judge_logged()
         }
       })
+      //延迟，读取数据库
+      wx.showLoading({
+        title: '同步用户信息中...',
+      })
+      setTimeout(function () {
+        wx.hideLoading()
+      }, 1000)
+      
     } else {
       that.setData({
         new_user: false,
@@ -522,7 +530,7 @@ Page({
 
   },
   //新增清单时点击确定
-  async add_comfirm() {
+  async add_confirm() {
     var that = this
     console.log('用户点击确认')
     if (this.data.ListName == "") {
@@ -614,7 +622,7 @@ Page({
 
   },
   //重命名时点击确定
-  async rename_comfirm() {
+  async rename_confirm() {
     var that = this
     if (this.data.ListName == "") {
       wx.showToast({
