@@ -114,12 +114,12 @@ Page({
 
   },
   //back函数
-  back() {
+  async back() {
     var that = this
     this.setData({
       press_back: true
     })
-    that.uploadDatabase()
+    await that.uploadDatabase()
     wx.navigateBack({
       delta: 1,
     })
@@ -129,10 +129,11 @@ Page({
     // }, 500)
   },
   //退出该页面保存当前所记录的所有
-  onUnload() {
+  async onUnload() {
     var that = this
+    //如果不是按左上角back退出，也需要上传数据库
     if (that.data.press_back == false) {
-      that.uploadDatabase()
+     await that.uploadDatabase()
       // //为防止数据库未更新完加载不完全，延迟中
       // setTimeout(() => {
       //   console.log("【为防止数据库未更新完加载不完全，延迟中】");
@@ -141,6 +142,17 @@ Page({
       //   })
       // }, 500)
     }
+    //将数据传输回去进行渲染，可以减少show函数中查询数据库的操作
+    var transport_list = that.data.list
+    console.log(transport_list)
+    wx.navigateTo({
+      url: '../',
+      success(res) {
+        res.eventChannel.emit('translate', {
+          data: transport_list
+        })
+      }
+    })
   },
   //点击增加清单后显示新增界面
   addMedicine() {

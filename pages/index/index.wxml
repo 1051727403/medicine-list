@@ -38,7 +38,7 @@
 <image class="addList"src="{{clickAddListButtom==false?'https://img-blog.csdnimg.cn/d72d057134ff47b48ee40218fa577a75.png#pic_center':'https://img-blog.csdnimg.cn/f518e7428b844801b14b5bb680b312df.png#pic_center'}}" bindtap="addList" style="  position: fixed;z-index: 997;right:5%; bottom: 10%;"></image>
 <!--添加清单界面 start-->
 <!--灰色遮罩 start-->
-<view class="cover" wx:if="{{clickAddListButtom==true||clickRenameListButtom==true}}"style="position:fixed; z-index:998; top:{{statusBarHeight*2}}rpx;width:100%; height:{{windowHeight*2-statusBarHeight*2}}rpx"></view>
+<view class="cover" wx:if="{{clickAddListButtom==true||clickRenameListButtom==true}}"style="position:fixed; z-index:998; top:{{statusBarHeight*2}}rpx;width:100%; height:{{screenHeight*2}}rpx"></view>
 <!--灰色遮罩 end-->
 <view class="creatList" wx:if="{{clickAddListButtom==true}}"style="position:fixed; z-index:999; top:33%;">
     <view class="promot">新建清单</view>

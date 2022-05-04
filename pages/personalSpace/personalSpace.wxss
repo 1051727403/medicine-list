@@ -91,7 +91,7 @@ page {
 @-webkit-keyframes fadeInLeft {
   from {
     opacity: 0;
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
   }
 
   to {
@@ -101,13 +101,13 @@ page {
 }
 .fadeInLeft {
   animation-name: fadeInLeft;
-  animation-duration: 1s;
+  animation-duration: 2s;
 	animation-fill-mode: both;
 }
-@keyframes fadeInRight {
+@-webkit-keyframes fadeInRight {
   from {
     opacity: 0;
-    transform: translate3d(100%, 0, 0);
+    transform: translate3d(130%, 0, 0);
   }
 
   to {
@@ -118,6 +118,58 @@ page {
 
 .fadeInRight {
   animation-name: fadeInRight;
+  animation-duration: 2s;
+	animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInDown {
+  animation-name: fadeInDown;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.fadeOutDown {
+  animation-name: fadeOutDown;
   animation-duration: 1s;
 	animation-fill-mode: both;
 }

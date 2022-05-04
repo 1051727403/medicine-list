@@ -212,10 +212,10 @@ Page{
 }
 .fadeInLeft {
   animation-name: fadeInLeft;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 	animation-fill-mode: both;
 }
-@keyframes fadeInRight {
+@-webkit-keyframes fadeInRight {
   from {
     opacity: 0;
     transform: translate3d(100%, 0, 0);
@@ -229,7 +229,7 @@ Page{
 
 .fadeInRight {
   animation-name: fadeInRight;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 	animation-fill-mode: both;
 }
 

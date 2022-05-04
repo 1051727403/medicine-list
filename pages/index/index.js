@@ -367,7 +367,13 @@ Page({
   onLoad() {
     //不调用云函数的方法
     const that = this
+     
     if (app.globalData.logged == false) {
+      //延迟，读取数据库
+      wx.showLoading({
+        title: '同步用户信息中...',
+        mask:true,
+      })
       //，根据openid判断是否曾经注册过，实现微信用户静默登录，
       //云函数获取openid
       wx.cloud.callFunction({
@@ -381,16 +387,16 @@ Page({
           }
           console.log("openid", openid)
           //判断曾经是否登陆过
-          that.judge_logged()
+          that.judge_logged().then(res=>{
+            console.log('------------------------------------')
+            wx.hideLoading()
+          })
+          
         }
       })
-      //延迟，读取数据库
-      wx.showLoading({
-        title: '同步用户信息中...',
-      })
-      setTimeout(function () {
-        wx.hideLoading()
-      }, 1000)
+     
+     
+
       
     } else {
       that.setData({
@@ -407,10 +413,22 @@ Page({
       this.setData({
         new_user: false,
         userInfo: app.globalData.userInfo,
+        clickAddListButtom:false,
+        clickRenameListButtom:false,
+        is_modify: 0,
+        modifyIndex: -1,
+      })
+      //延迟，读取数据库
+      wx.showLoading({
+        title: '同步用户信息中...',
+        mask:true,
       })
       setTimeout(() => {
         console.log("【为防止数据库未更新完加载不完全，延迟中】");
-        that.getTotalList(app.globalData.userInfo.openid)
+        that.getTotalList(app.globalData.userInfo.openid).then(res=>{
+          console.log('------------------------------------')
+          wx.hideLoading()
+        })
       }, 100)
       
     }
