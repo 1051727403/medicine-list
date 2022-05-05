@@ -363,6 +363,66 @@ Page({
       }
     })
   },
+  //分享该清单给他人
+  share(){
+
+  },
+  //提交清单到组织
+  submit(){
+    wx.showModal({
+      title: '提示',
+      content: '请问您真的要将该清单提交到组织吗？',
+      confirmColor: '#0ed81b',
+      cancelText:'我再想想',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          //检查用户个人信息是否填写完毕
+          var userInfo=app.globalData.userInfo
+          console.log("userInfo:",userInfo)
+          if(userInfo.address.building==""||userInfo.address.no==""||userInfo.address.room==""||userInfo.gender==""||userInfo.real_name==""||userInfo.phone_number==""){
+            wx.showModal({
+              title: '提示',
+              content: '请完善您的个人信息后再提交！',
+              success (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                  //跳转到个人信息页面
+                  wx.navigateTo({
+                    url: '../personnalInfo/personalInfo',
+                  })
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
+              }
+            })
+          }else{
+            //若个人信息全部填写完毕则上传数据库，提示提交成功
+            wx.showToast({
+              title: '提交成功',
+              icon: 'success',
+              duration: 1000
+            })
+            
+            
+
+
+
+          }
+
+
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+      
+  },
+
+
+
+
+
   //右上角分享按钮，分享小程序
   onShareAppMessage() {
     return {
