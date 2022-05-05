@@ -9,57 +9,56 @@
 <view class="prompt" wx:if="{{list.medicines.length==0}}">2、自定义手动输入药品名称、品牌、规格</view>
 <!--若当前清单中无药品，则提示  end-->
 <!-- 药品清单列表 start-->
-<view class="medicines" wx:for="{{list.medicines}}" wx:for-item="medicine" wx:for-index="index" wx:key="">
-  <view class="single_medicine fadeInRight" style="height:{{windowWidth*0.9*0.4*2}}rpx;">
-    <image class="medicine_photo fadeInRight" src="{{medicine.url}}" mode="heightFix"></image>
-    <view class="right_part">
-      <view class="detail">
-        <view class="detail_name">{{medicine.name}}</view>
-        <view class="detail_brand">品牌：{{medicine.brand}}</view>
-        <view class="detail_specification">规格：{{medicine.specification}}</view>
-      </view>
-      <view class="number_line">
-        <view class="detail_number"style="margin-top:0rpx;">数量：</view>
-        <view class="change_number" >
-          <image class="minus" bindtap="minus"  data-index="{{index}}" wx:if="{{medicine.number!=0}}" src="https://img-blog.csdnimg.cn/1e4daaa161f844ee8db4eb9be0463c08.png#pic_center" style="margin-right: 20rpx;"></image>
-          <view class="number">{{medicine.number}}</view>
-          <image class="add" bindtap="add"  data-index="{{index}}" src="https://img-blog.csdnimg.cn/de489ff39bb0481db8e9b0dcfed388fc.png#pic_center"></image>
+<movable-area class="medicines" wx:for="{{list.medicines}}" wx:for-item="medicine" wx:for-index="index" wx:key="" data-index="{{index}}" style="height:{{windowWidth*0.9*0.4*2}}rpx;">
+  <movable-view class="movebar" direction="horizontal" inertia="true" animation="true" damping="200" friction="0.001" data-index="{{index}}" bindchange="bindMove" x="{{clickDel==true?'0':''}}">
+    <view class="single_medicine fadeInRight" style="height:{{windowWidth*0.9*0.4*2}}rpx;">
+      <image class="medicine_photo fadeInRight" src="{{medicine.url}}" mode="heightFix"></image>
+      <view class="right_part">
+        <view class="detail">
+          <view class="detail_name">{{medicine.name}}</view>
+          <view class="detail_brand">品牌：{{medicine.brand}}</view>
+          <view class="detail_specification">规格：{{medicine.specification}}</view>
+        </view>
+        <view class="number_line">
+          <view class="detail_number" style="margin-top:0rpx;">数量：</view>
+          <view class="change_number">
+            <image class="minus" bindtap="minus" data-index="{{index}}" wx:if="{{medicine.number!=0}}" src="https://img-blog.csdnimg.cn/1e4daaa161f844ee8db4eb9be0463c08.png#pic_center" style="margin-right: 20rpx;"></image>
+            <view class="number">{{medicine.number}}</view>
+            <image class="add" bindtap="add" data-index="{{index}}" src="https://img-blog.csdnimg.cn/de489ff39bb0481db8e9b0dcfed388fc.png#pic_center"></image>
+          </view>
         </view>
       </view>
     </view>
-  </view>
-</view>
+    <image class="del_medicine" style=" height:{{windowWidth*0.9*0.4*2}}rpx;opacity: {{index==moveid?'0':opacity}}; " direction="horizontal" bindtap="del_medicine" data-index="{{index}}" mode="aspectFit" src="https://img-blog.csdnimg.cn/7a2c963a32f249e7ab1c998aa41ff29a.png#pic_center"></image>
+  </movable-view>
+</movable-area>
 <!--药品清单列表 end -->
 <!--两种添加药品方式 start-->
-<image class="addMedicine"src="{{clickAddMedicineButtom==false?'https://img-blog.csdnimg.cn/be2574459f88457ba2e43d812c4af234.png#pic_center':'https://img-blog.csdnimg.cn/122dfef2fd624dddb2d0f3fd4b8b58b5.png#pic_center'}}" bindtap="addMedicine"></image>
-<image class="add_custom fadeInUp " wx:if="{{clickAddMedicineButtom==true}}"src='https://img-blog.csdnimg.cn/822074b1ea044e03b1a1829ac20fed4a.png#pic_center' bindtap="add_custom"></image>
-<image class="add_scan fadeInUp " wx:if="{{clickAddMedicineButtom==true}}"src='https://img-blog.csdnimg.cn/8496172c20974de9927d107757a6e539.png#pic_center' bindtap="add_scan"></image>
+<image class="addMedicine" src="{{clickAddMedicineButtom==false?'https://img-blog.csdnimg.cn/be2574459f88457ba2e43d812c4af234.png#pic_center':'https://img-blog.csdnimg.cn/122dfef2fd624dddb2d0f3fd4b8b58b5.png#pic_center'}}" bindtap="addMedicine"></image>
+<image class="add_custom fadeInUp " wx:if="{{clickAddMedicineButtom==true}}" src='https://img-blog.csdnimg.cn/822074b1ea044e03b1a1829ac20fed4a.png#pic_center' bindtap="add_custom"></image>
+<image class="add_scan fadeInUp " wx:if="{{clickAddMedicineButtom==true}}" src='https://img-blog.csdnimg.cn/8496172c20974de9927d107757a6e539.png#pic_center' bindtap="add_scan"></image>
 <!--两种添加药品方式 end-->
 <!--添加清单界面 start-->
 <!--灰色遮罩 start-->
-<view class="cover" wx:if="{{clickAddCustom==true}}"style="position:fixed; z-index:998; top:{{statusBarHeight*2}}rpx;width:100%; height:{{screenHeight*2}}rpx"></view>
+<view class="cover" wx:if="{{clickAddCustom==true}}" style="position:fixed; z-index:998; top:{{statusBarHeight*2}}rpx;width:100%; height:{{screenHeight*2}}rpx"></view>
 <!--灰色遮罩 end-->
-<view class="addMedicine_custom" wx:if="{{clickAddCustom==true}}"style="position:fixed; z-index:999; top:33%;">
-    <view class="addMedicine_custom_title">新建药品</view>
-    <view class="addMedicine_custom_name">名称：<input type="text"placeholder="请输入药品名称(必填)"placeholder-class="placeholder"bindinput="addMedicine_custom_name" /></view>
-    <view class="addMedicine_custom_brand">品牌：<input type="text"placeholder="请输入药品品牌(选填)"placeholder-class="placeholder"bindinput="addMedicine_custom_brand" /></view>
-    <view class="addMedicine_custom_specification">规格：<input type="text"placeholder="请输入药品规格(选填)"placeholder-class="placeholder"bindinput="addMedicine_custom_specification" /></view>
-    <view class="check">
-      <view class="add_cancle" bindtap="add_cancle" style="color:#fb6969;  border-right: 1rpx solid #f5f5f5;">取消</view>
-      <view class="add_confirm"bindtap="add_comfirm" style="color: #1ACB26;">确认</view>
-    </view>
+<view class="addMedicine_custom" wx:if="{{clickAddCustom==true}}" style="position:fixed; z-index:999; top:33%;">
+  <view class="addMedicine_custom_title">新建药品</view>
+  <view class="addMedicine_custom_name">名称：<input type="text" placeholder="请输入药品名称(必填)" placeholder-class="placeholder" bindinput="addMedicine_custom_name" /></view>
+  <view class="addMedicine_custom_brand">品牌：<input type="text" placeholder="请输入药品品牌(选填)" placeholder-class="placeholder" bindinput="addMedicine_custom_brand" /></view>
+  <view class="addMedicine_custom_specification">规格：<input type="text" placeholder="请输入药品规格(选填)" placeholder-class="placeholder" bindinput="addMedicine_custom_specification" /></view>
+  <view class="check">
+    <view class="add_cancle" bindtap="add_cancle" style="color:#fb6969;  border-right: 1rpx solid #f5f5f5;">取消</view>
+    <view class="add_confirm" bindtap="add_comfirm" style="color: #1ACB26;">确认</view>
+  </view>
 </view>
 <!--添加清单界面 end-->
-
-
-
 
 
 <!--底部栏分享&提交 start-->
 <view class="empty_bottom_bar"></view>
 <view class="bottom_bar">
-  <view class="share"bindtap="share">分享</view>
+  <view class="share" bindtap="share">分享</view>
   <view class="submit" bindtap="submit">提交</view>
 </view>
 <!--底部栏预览&提交 end-->
-

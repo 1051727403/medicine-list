@@ -21,13 +21,19 @@ Page({
     //是否是由back函数退出的（节省一次查询数据库的时间）
     press_back: false,
     //是否按下自定义输入按钮
-    clickAddCustom:false,
+    clickAddCustom: false,
+    //是否点击确认删除
+    clickDel: false,
     //新增药品的名称
-    add_name:'',
+    add_name: '',
     //新增药品的品牌
-    add_brand:'无',
+    add_brand: '无',
     //新增药品的规格
-    add_specification:'无',
+    add_specification: '无',
+    //移动的元素下标
+    moveid: -1,
+    //监控x移动程度
+    movex: 0,
     //该清单中所包含的所有药品
     list: {
       id: '',
@@ -133,7 +139,7 @@ Page({
     var that = this
     //如果不是按左上角back退出，也需要上传数据库
     if (that.data.press_back == false) {
-     await that.uploadDatabase()
+      await that.uploadDatabase()
       // //为防止数据库未更新完加载不完全，延迟中
       // setTimeout(() => {
       //   console.log("【为防止数据库未更新完加载不完全，延迟中】");
@@ -185,42 +191,42 @@ Page({
     console.log("第", index, "个药品数量-1:", number)
   },
   //自定义手动输入添加药品
-  add_custom(){
-    var that=this
+  add_custom() {
+    var that = this
     this.setData({
-      clickAddCustom:true,
-      clickAddMedicineButtom:false
+      clickAddCustom: true,
+      clickAddMedicineButtom: false
     })
   },
   //新增药品的名称
-  addMedicine_custom_name(res){
+  addMedicine_custom_name(res) {
     this.setData({
-      add_name:res.detail.value
+      add_name: res.detail.value
     })
   },
   //新增药品的品牌 
-  addMedicine_custom_brand(res){
+  addMedicine_custom_brand(res) {
     this.setData({
-      add_brand:res.detail.value
-    })
-  },
-  addMedicine_custom_specification(res){
-    this.setData({
-      add_specification:res.detail.value
+      add_brand: res.detail.value
     })
   },
   //新增药品的规格
+  addMedicine_custom_specification(res) {
+    this.setData({
+      add_specification: res.detail.value
+    })
+  },
   //新增清单时点击取消
   add_cancle(res) {
-      console.log('用户点击取消')
-      this.setData({
-        clickAddCustom: false,
-      })
-    },
-    //新增清单时点击确认，改变页面渲染
-  add_comfirm(){
-    var that=this
-    if(that.data.add_name==''){
+    console.log('用户点击取消')
+    this.setData({
+      clickAddCustom: false,
+    })
+  },
+  //新增清单时点击确认，改变页面渲染
+  add_comfirm() {
+    var that = this
+    if (that.data.add_name == '') {
       wx.showToast({
         title: '请输入清单名称！',
         duration: 2000,
@@ -230,96 +236,133 @@ Page({
       console.log('提示用户输入药品名称')
       return
     }
-      var medicine={}
-      medicine.name=that.data.add_name
-      medicine.brand=that.data.add_brand
-      medicine.specification=that.data.add_specification
-      medicine.number=0
-      medicine.url=noPhoto_url
-      var list=that.data.list
-      list.medicines.push(medicine)
-      this.setData({
-        clickAddCustom: false,
-        list:list,
-        add_name:'',
-        add_brand:'无',
-        add_specification:'无',
-      })
-      console.log('【自定义手动添加药品成功！】',that.data.list.medicine)
+    var medicine = {}
+    medicine.name = that.data.add_name
+    medicine.brand = that.data.add_brand
+    medicine.specification = that.data.add_specification
+    medicine.number = 0
+    medicine.url = noPhoto_url
+    var list = that.data.list
+    list.medicines.unshift(medicine)
+    this.setData({
+      clickAddCustom: false,
+      list: list,
+      add_name: '',
+      add_brand: '无',
+      add_specification: '无',
+      clickDel: true,
+    })
+    console.log('【自定义手动添加药品成功！】', that.data.list.medicine)
   },
-    //扫描条形码添加药品
-    async add_scan() {
-      var that = this
-      var code
-      wx.scanCode({
-        onlyFromCamera: false,
-        success(res) {
-          console.log('【扫描条形码的结果】', res)
-          code = res.result
-          console.log('code:', code)
-          /*调用接口api获取药品详细信息 start*/
-          /*您的秘钥信息如下：
-          app_id:hvhmohepuqlrinmo
-          app_secret:TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09
-          */
-          wx.request({
-            url: 'https://www.mxnzp.com/api/barcode/goods/details',
-            method: 'GET',
-            data: {
-              'barcode': code,
-              'app_id': 'hvhmohepuqlrinmo',
-              'app_secret': 'TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09',
-            },
-            success: res => {
-              console.log('【免费api查询结果】：', res)
+  //扫描条形码添加药品
+  async add_scan() {
+    var that = this
+    var code
+    wx.scanCode({
+      onlyFromCamera: false,
+      success(res) {
+        console.log('【扫描条形码的结果】', res)
+        code = res.result
+        console.log('code:', code)
+        /*调用接口api获取药品详细信息 start*/
+        /*您的秘钥信息如下：
+        app_id:hvhmohepuqlrinmo
+        app_secret:TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09
+        */
+        wx.request({
+          url: 'https://www.mxnzp.com/api/barcode/goods/details',
+          method: 'GET',
+          data: {
+            'barcode': code,
+            'app_id': 'hvhmohepuqlrinmo',
+            'app_secret': 'TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09',
+          },
+          success: res => {
+            console.log('【免费api查询结果】：', res)
+            that.setData({
+              clickAddMedicineButtom: false
+            })
+            if (res.data.code != 1) {
+              console.log('【免费api中未能查询到该药品】')
+              wx.showModal({
+                title: '提示',
+                content: '很抱歉，未能查询到该药品\n请使用手动方式输入',
+                showCancel: false,
+                success(res) {
+                  if (res.confirm == true)
+                    console.log('用户点击确定')
+                }
+              })
+
+            } else {
+              console.log('【免费api查询药品成功！】')
+              //获取的药品信息
+              var medicine_data = res.data.data
+              //构造药品信息
+              var new_medicine = {}
+              new_medicine.name = medicine_data.goodsName
+              new_medicine.brand = medicine_data.brand
+              new_medicine.specification = medicine_data.standard
+              new_medicine.url = noPhoto_url
+              new_medicine.number = 0
+              console.log('【新构造的药品信息】:', new_medicine)
+              //更新清单列表&渲染页面
+              //原本的药品清单
+              var medicine_list = that.data.list.medicines
+              console.log(medicine_list)
+              medicine_list.unshift(new_medicine)
               that.setData({
+                ['list.medicines']: medicine_list,
                 clickAddMedicineButtom: false
               })
-              if (res.data.code != 1) {
-                console.log('【免费api中未能查询到该药品】')
-                wx.showModal({
-                  title: '提示',
-                  content: '很抱歉，未能查询到该药品\n请使用手动方式输入',
-                  showCancel: false,
-                  success(res) {
-                    if (res.confirm == true)
-                      console.log('用户点击确定')
-                  }
-                })
-
-              } else {
-                console.log('【免费api查询药品成功！】')
-                //获取的药品信息
-                var medicine_data = res.data.data
-                //构造药品信息
-                var new_medicine = {}
-                new_medicine.name = medicine_data.goodsName
-                new_medicine.brand = medicine_data.brand
-                new_medicine.specification = medicine_data.standard
-                new_medicine.url = noPhoto_url
-                new_medicine.number = 0
-                console.log('【新构造的药品信息】:', new_medicine)
-                //更新清单列表&渲染页面
-                //原本的药品清单
-                var medicine_list = that.data.list.medicines
-                console.log(medicine_list)
-                medicine_list.push(new_medicine)
-                that.setData({
-                  ['list.medicines']: medicine_list,
-                  clickAddMedicineButtom: false
-                })
-                console.log('扫码添加药品成功!', that.data.list.medicines)
-                return
-              }
+              console.log('扫码添加药品成功!', that.data.list.medicines)
+              return
             }
+          }
+        })
+        /*调用接口api获取药品详细信息 end*/
+      },
+      fail: res => {
+        console.log('【调用扫码失败】', res)
+      }
+    })
+  },
+  //监控滑动
+  bindMove(e) {
+    console.log(e)
+    var that = this
+    var movex = e.detail.x
+    var opacity = 1 / -94 * movex
+    this.setData({
+      movex: movex,
+      opacity: opacity
+    })
+  },
+  //删除药品
+  del_medicine(e) {
+    var that = this
+    console.log(e)
+    wx.showModal({
+      title: '删除',
+      content: '是否确认删除？',
+      confirmColor: '#0ed81b',
+      success(res) {
+        if (res.confirm) {
+          console.log('【del_medicine删除功能】用户点击确定')
+          //页面渲染删除
+          var index = e.currentTarget.dataset.index
+          var new_medicineList = that.data.list.medicines
+          new_medicineList.splice(index, 1)
+          that.setData({
+            ['list.medicines']: new_medicineList,
+            clickDel: true,
           })
-          /*调用接口api获取药品详细信息 end*/
-        },
-        fail: res => {
-          console.log('【调用扫码失败】', res)
+        } else if (res.cancel) {
+          console.log('【del删除功能】用户点击取消')
         }
-      })
-    },
+      }
+    })
+  },
   //右上角分享按钮，分享小程序
   onShareAppMessage() {
     return {
