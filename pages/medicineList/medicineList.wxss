@@ -43,8 +43,7 @@ Page{
   font-size: 28rpx;
 }
 .medicine_photo{
-  margin:3%;
-  height: 84%;
+  margin:0 5% 3% 4%;
   border-radius: 30rpx;
 }
 .right_part{

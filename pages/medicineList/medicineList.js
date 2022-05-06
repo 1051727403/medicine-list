@@ -269,21 +269,83 @@ Page({
         app_id:hvhmohepuqlrinmo
         app_secret:TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09
         */
+        //     wx.request({
+        //       url: 'https://www.mxnzp.com/api/barcode/goods/details',
+        //       method: 'GET',
+        //       data: {
+        //         'barcode': code,
+        //         'app_id': 'hvhmohepuqlrinmo',
+        //         'app_secret': 'TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09',
+        //       },
+        //       success: res => {
+        //         console.log('【免费api查询结果】：', res)
+        //         that.setData({
+        //           clickAddMedicineButtom: false
+        //         })
+        //         if (res.data.code != 1) {
+        //           console.log('【免费api中未能查询到该药品】')
+        //           wx.showModal({
+        //             title: '提示',
+        //             content: '很抱歉，未能查询到该药品\n请使用手动方式输入',
+        //             showCancel: false,
+        //             success(res) {
+        //               if (res.confirm == true)
+        //                 console.log('用户点击确定')
+        //             }
+        //           })
+
+        //         } else {
+        //           console.log('【免费api查询药品成功！】')
+        //           //获取的药品信息
+        //           var medicine_data = res.data.data
+        //           //构造药品信息
+        //           var new_medicine = {}
+        //           new_medicine.name = medicine_data.goodsName
+        //           new_medicine.brand = medicine_data.brand
+        //           new_medicine.specification = medicine_data.standard
+        //           new_medicine.url = noPhoto_url
+        //           new_medicine.number = 0
+        //           console.log('【新构造的药品信息】:', new_medicine)
+        //           //更新清单列表&渲染页面
+        //           //原本的药品清单
+        //           var medicine_list = that.data.list.medicines
+        //           console.log(medicine_list)
+        //           medicine_list.unshift(new_medicine)
+        //           that.setData({
+        //             ['list.medicines']: medicine_list,
+        //             clickAddMedicineButtom: false
+        //           })
+        //           console.log('扫码添加药品成功!', that.data.list.medicines)
+        //           return
+        //         }
+        //       }
+        //     })
+        //     /*调用接口api获取药品详细信息 end*/
+        //   },
+        //   fail: res => {
+        //     console.log('【调用扫码失败】', res)
+        //   }
+
+
+        //直接从国家信息服务平台上调用发现的api
         wx.request({
-          url: 'https://www.mxnzp.com/api/barcode/goods/details',
+          url: 'https://bff.gds.org.cn/gds/searching-api/ProductService/ProductListByGTIN?',
           method: 'GET',
           data: {
-            'barcode': code,
-            'app_id': 'hvhmohepuqlrinmo',
-            'app_secret': 'TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09',
+            SearchItem: code,
+            PageSize: 30,
+            PageIndex: 1,
+          },
+          header:{
+            'Authorization':'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkQzQ0QzQzYxRjYyMjE0N0U3MUZDODM2NDI3RDRFOUVGM0M5QzM2RUZSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IjA4MDhZZllpRkg1eF9JTmtKOVRwN3p5Y051OCJ9.eyJuYmYiOjE2NTE4MDcwMTUsImV4cCI6MTY1MTgxMDYxNSwiaXNzIjoiaHR0cHM6Ly9wYXNzcG9ydC5nZHMub3JnLmNuIiwiY2xpZW50X2lkIjoidnVlanNfY29kZV9jbGllbnQiLCJzdWIiOiIxODkxOTM2IiwiYXV0aF90aW1lIjoxNjUxODA3MDE1LCJpZHAiOiJsb2NhbCIsInJvbGUiOiJNaW5lIiwiVXNlckluZm8iOiJ7XCJVc2VyTmFtZVwiOm51bGwsXCJCcmFuZE93bmVySWRcIjowLFwiQnJhbmRPd25lck5hbWVcIjpudWxsLFwiR2NwQ29kZVwiOm51bGwsXCJVc2VyQ2FyZE5vXCI6XCLmmoLml6Dkv6Hmga9cIixcIklzUGFpZFwiOmZhbHNlLFwiQ29tcGFueU5hbWVFTlwiOm51bGwsXCJDb21wYW55QWRkcmVzc0NOXCI6bnVsbCxcIkNvbnRhY3RcIjpudWxsLFwiQ29udGFjdFRlbE5vXCI6bnVsbCxcIkdjcExpY2Vuc2VIb2xkZXJUeXBlXCI6bnVsbCxcIkxlZ2FsUmVwcmVzZW50YXRpdmVcIjpudWxsLFwiVW5pZmllZFNvY2lhbENyZWRpdENvZGVcIjpudWxsfSIsIlY0VXNlckluZm8iOiJ7XCJVc2VyTmFtZVwiOlwiczEwNTE3Mjc0MDNcIixcIkVtYWlsXCI6XCIxMDUxNzI3NDAzQHFxLmNvbVwiLFwiUGhvbmVcIjpcIjE1MzQ1ODA5NjczXCIsXCJDYXJkTm9cIjpcIlwifSIsImp0aSI6IkVERDBBRjAxMkQ1NUY0NDY3QTYxNTZCM0ZCNzFGM0REIiwic2lkIjoiMjEzMTNGRUE1QjFFQTNEMjQ3NTk0N0FCRDM1NTY4MDAiLCJpYXQiOjE2NTE4MDcwMTUsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJhcGkxIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.VgOOhXnHLN14X0imgL6KBs-DbjdKitnX1W3GCdnJNtn5XNMjUajYHjl8t60phvNq498NMx3OCy3hZnwHevx96jhhuiOHM7P3_xFrZC3nJp_jhzzvaXuoEjPKPZhAWDvNOyKNT-1SMBCnbB6ZepcUMpyCVth6aoY5cTD4dNV6ZxwRrM-2Zi1o5xEX_j90xcAFXkhdAWU-7lPFsljorPk_VeTbLgV9UBMWcEXyAnaQbJ0AFh8s-EbiZX62HPBrLnzXPnrZgQsjwuuSpS14HsRRhdnKyh7hOKuxbduGMndmEfnGMpmXilQifjjKF7Wv9hSdic6-iL6uzYukO5TexFEYrg'
           },
           success: res => {
-            console.log('【免费api查询结果】：', res)
-            that.setData({
-              clickAddMedicineButtom: false
-            })
-            if (res.data.code != 1) {
-              console.log('【免费api中未能查询到该药品】')
+            console.log('【国家商品信息服务平台获取的信息】', res)
+            console.log('【获取商品信息】', res.data.Data.Items[0])
+            //data中存放着商品信息
+            var data = res.data.Data.Items[0]
+            if (data == null) {
+              console.log('【未能查询到该药品】')
               wx.showModal({
                 title: '提示',
                 content: '很抱歉，未能查询到该药品\n请使用手动方式输入',
@@ -293,17 +355,24 @@ Page({
                     console.log('用户点击确定')
                 }
               })
-
             } else {
-              console.log('【免费api查询药品成功！】')
-              //获取的药品信息
-              var medicine_data = res.data.data
+              //获取药品图片的网站
+              var web_url = 'https://oss.gds.org.cn'
+              var picture_url = web_url + data.picture_filename
+              //若无图片，则使用默认图片进行加载
+              if(data.picture_filename==null){
+                picture_url=noPhoto_url
+              }else{
+              //图片过大,压缩图片
+
+              }
+
               //构造药品信息
               var new_medicine = {}
-              new_medicine.name = medicine_data.goodsName
-              new_medicine.brand = medicine_data.brand
-              new_medicine.specification = medicine_data.standard
-              new_medicine.url = noPhoto_url
+              new_medicine.name = data.description
+              new_medicine.brand = data.brandcn
+              new_medicine.specification = data.specification
+              new_medicine.url = picture_url
               new_medicine.number = 0
               console.log('【新构造的药品信息】:', new_medicine)
               //更新清单列表&渲染页面
@@ -320,12 +389,12 @@ Page({
             }
           }
         })
-        /*调用接口api获取药品详细信息 end*/
       },
       fail: res => {
-        console.log('【调用扫码失败】', res)
+        console.log('【用户点击取消扫码】', res)
       }
     })
+
   },
   //监控滑动
   bindMove(e) {
@@ -363,28 +432,24 @@ Page({
       }
     })
   },
-  //分享该清单给他人
-  share(){
-
-  },
   //提交清单到组织
-  submit(){
+  submit() {
     wx.showModal({
       title: '提示',
       content: '请问您真的要将该清单提交到组织吗？',
       confirmColor: '#0ed81b',
-      cancelText:'我再想想',
-      success (res) {
+      cancelText: '我再想想',
+      success(res) {
         if (res.confirm) {
           console.log('用户点击确定')
           //检查用户个人信息是否填写完毕
-          var userInfo=app.globalData.userInfo
-          console.log("userInfo:",userInfo)
-          if(userInfo.address.building==""||userInfo.address.no==""||userInfo.address.room==""||userInfo.gender==""||userInfo.real_name==""||userInfo.phone_number==""){
+          var userInfo = app.globalData.userInfo
+          console.log("userInfo:", userInfo)
+          if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == "") {
             wx.showModal({
               title: '提示',
               content: '请完善您的个人信息后再提交！',
-              success (res) {
+              success(res) {
                 if (res.confirm) {
                   console.log('用户点击确定')
                   //跳转到个人信息页面
@@ -396,39 +461,45 @@ Page({
                 }
               }
             })
-          }else{
+          } else {
             //若个人信息全部填写完毕则上传数据库，提示提交成功
             wx.showToast({
               title: '提交成功',
               icon: 'success',
               duration: 1000
             })
-            
-            
-
-
 
           }
-
-
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
       }
     })
-      
+
   },
 
 
 
 
 
-  //右上角分享按钮，分享小程序
-  onShareAppMessage() {
-    return {
-      title: "药清单",
-      path: "pages/index/index",
-      imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
+  //分享小程序
+  onShareAppMessage(res) {
+    //若点击分享按钮进行分享，将该页面数据封装后作为参数传递，好友点击后根据参数渲染
+    if (res.from == 'button') {
+      console.log('【点击按钮进行分享】')
+      //封装该页面所有信息
+
+      return {
+        title: "药清单",
+        path: "pages/medicineList/medicineList",
+        imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
+      }
+    } else {
+      return {
+        title: "药清单",
+        path: "pages/index/index",
+        imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
+      }
     }
   }
 })

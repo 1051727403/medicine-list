@@ -12,7 +12,7 @@
 <movable-area class="medicines" wx:for="{{list.medicines}}" wx:for-item="medicine" wx:for-index="index" wx:key="" data-index="{{index}}" style="height:{{windowWidth*0.9*0.4*2}}rpx;">
   <movable-view class="movebar" direction="horizontal" inertia="true" animation="true" damping="200" friction="0.001" data-index="{{index}}" bindchange="bindMove" x="{{clickDel==true?'0':''}}">
     <view class="single_medicine fadeInRight" style="height:{{windowWidth*0.9*0.4*2}}rpx;">
-      <image class="medicine_photo fadeInRight" src="{{medicine.url}}" mode="heightFix"></image>
+      <image class="medicine_photo fadeInRight" src="{{medicine.url}}" mode="aspectFit"style="height:{{windowWidth*0.9*0.4*2}}rpx;width:{{windowWidth*0.9*0.4*2}}rpx;"></image>
       <view class="right_part">
         <view class="detail">
           <view class="detail_name">{{medicine.name}}</view>
@@ -58,7 +58,7 @@
 <!--底部栏分享&提交 start-->
 <view class="empty_bottom_bar"></view>
 <view class="bottom_bar">
-  <view class="share" bindtap="share">分享</view>
-  <view class="submit" bindtap="submit">提交</view>
+  <button class="share"open-type="share" style="background-color: white; font-size: 36rpx;">分享</button>
+  <button class="submit" bindtap="submit"style="background-color: white; font-size: 36rpx;">提交</button>
 </view>
 <!--底部栏预览&提交 end-->

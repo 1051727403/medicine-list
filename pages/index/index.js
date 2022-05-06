@@ -738,7 +738,7 @@ Page({
     var transport_list = e.currentTarget.dataset.list
     console.log(transport_list)
     wx.navigateTo({
-      url: '../medecineList/medicineList',
+      url: '../medicineList/medicineList',
       success(res) {
         res.eventChannel.emit('translate', {
           data: transport_list

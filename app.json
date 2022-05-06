@@ -1,7 +1,7 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/medecineList/medicineList",
+    "pages/medicineList/medicineList",
     "pages/personalSpace/personalSpace",
     "pages/searchGroups/searchGroups",
     "pages/manageGroups/manageGroups",
