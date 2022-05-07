@@ -65,6 +65,9 @@ Page{
   font-size: 26rpx;
   letter-spacing: 1rpx;
   color:#C3C3C3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .number_line{
   display: flex;

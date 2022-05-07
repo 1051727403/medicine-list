@@ -18,7 +18,7 @@
 <!--我的清单 end-->
 <!--清单列表 start-->
 <view class="list" wx:for="{{medicineList}}" wx:for-item="single_list" wx:for-index="index">
-  <view class="fadeInLeft">
+  <view class="{{(index==0&&is_add_confirm==true)?'fadeInLeft':''}} {{is_first_show?'fadeInLeft':''}}">
     <view class="single_list">
       <view class="content" >
         <view class="leftPart"bindtap="jumpToList" data-list="{{single_list}}">
@@ -67,7 +67,7 @@
     <view class="input"><input type="text"placeholder="请输入新的清单名称"placeholder-class="placeholder"bindinput="input" /></view>
     <view class="check">
       <view class="rename_cancle" bindtap="rename_cancle" style="color:#fb6969;  border-right: 1rpx solid #f5f5f5;">取消</view>
-      <view class="rename_comfirm"bindtap="rename_comfirm" style="color: #1ACB26;">确认</view>
+      <view class="rename_confirm"bindtap="rename_confirm" style="color: #1ACB26;">确认</view>
     </view>
 </view>
 <!--重命名界面 end-->

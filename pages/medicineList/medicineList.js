@@ -30,6 +30,10 @@ Page({
     add_brand: '无',
     //新增药品的规格
     add_specification: '无',
+    //第一次渲染页面加载动画，和index页面相似
+    is_first_show: false,
+    //每次新增元素后进行动画渲染
+    is_add_confirm: false,
     //移动的元素下标
     moveid: -1,
     //监控x移动程度
@@ -72,9 +76,16 @@ Page({
         statusBarHeight: app.globalData.statusBarHeight,
         windowHeight: app.globalData.windowHeight,
         screenHeight: app.globalData.screenHeight,
+        is_first_show: true,
       })
     })
     console.log('windowWidth:', that.data.windowWidth)
+    //动画结束后将is_first_show关闭，这样在后续增加清单时便可以将第一个进行动画渲染
+    setTimeout(function () {
+      that.setData({
+        is_first_show: false
+      })
+    }, 1000)
   },
   getNowTime() {
     //构造时间标准格式
@@ -121,6 +132,7 @@ Page({
   },
   //back函数
   async back() {
+    if (this.data.press_back == true) return
     var that = this
     this.setData({
       press_back: true
@@ -148,17 +160,6 @@ Page({
       //   })
       // }, 500)
     }
-    //将数据传输回去进行渲染，可以减少show函数中查询数据库的操作
-    var transport_list = that.data.list
-    console.log(transport_list)
-    wx.navigateTo({
-      url: '../',
-      success(res) {
-        res.eventChannel.emit('translate', {
-          data: transport_list
-        })
-      }
-    })
   },
   //点击增加清单后显示新增界面
   addMedicine() {
@@ -251,8 +252,15 @@ Page({
       add_brand: '无',
       add_specification: '无',
       clickDel: true,
+      is_add_confirm: true,
     })
     console.log('【自定义手动添加药品成功！】', that.data.list.medicine)
+    //延迟等待数组第一项动画渲染完毕后将is_add_confirm置为false，便于下一次再次渲染动画
+    setTimeout(function () {
+      that.setData({
+        is_add_confirm: false
+      })
+    }, 500)
   },
   //扫描条形码添加药品
   async add_scan() {
@@ -336,8 +344,8 @@ Page({
             PageSize: 30,
             PageIndex: 1,
           },
-          header:{
-            'Authorization':'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkQzQ0QzQzYxRjYyMjE0N0U3MUZDODM2NDI3RDRFOUVGM0M5QzM2RUZSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IjA4MDhZZllpRkg1eF9JTmtKOVRwN3p5Y051OCJ9.eyJuYmYiOjE2NTE4MDcwMTUsImV4cCI6MTY1MTgxMDYxNSwiaXNzIjoiaHR0cHM6Ly9wYXNzcG9ydC5nZHMub3JnLmNuIiwiY2xpZW50X2lkIjoidnVlanNfY29kZV9jbGllbnQiLCJzdWIiOiIxODkxOTM2IiwiYXV0aF90aW1lIjoxNjUxODA3MDE1LCJpZHAiOiJsb2NhbCIsInJvbGUiOiJNaW5lIiwiVXNlckluZm8iOiJ7XCJVc2VyTmFtZVwiOm51bGwsXCJCcmFuZE93bmVySWRcIjowLFwiQnJhbmRPd25lck5hbWVcIjpudWxsLFwiR2NwQ29kZVwiOm51bGwsXCJVc2VyQ2FyZE5vXCI6XCLmmoLml6Dkv6Hmga9cIixcIklzUGFpZFwiOmZhbHNlLFwiQ29tcGFueU5hbWVFTlwiOm51bGwsXCJDb21wYW55QWRkcmVzc0NOXCI6bnVsbCxcIkNvbnRhY3RcIjpudWxsLFwiQ29udGFjdFRlbE5vXCI6bnVsbCxcIkdjcExpY2Vuc2VIb2xkZXJUeXBlXCI6bnVsbCxcIkxlZ2FsUmVwcmVzZW50YXRpdmVcIjpudWxsLFwiVW5pZmllZFNvY2lhbENyZWRpdENvZGVcIjpudWxsfSIsIlY0VXNlckluZm8iOiJ7XCJVc2VyTmFtZVwiOlwiczEwNTE3Mjc0MDNcIixcIkVtYWlsXCI6XCIxMDUxNzI3NDAzQHFxLmNvbVwiLFwiUGhvbmVcIjpcIjE1MzQ1ODA5NjczXCIsXCJDYXJkTm9cIjpcIlwifSIsImp0aSI6IkVERDBBRjAxMkQ1NUY0NDY3QTYxNTZCM0ZCNzFGM0REIiwic2lkIjoiMjEzMTNGRUE1QjFFQTNEMjQ3NTk0N0FCRDM1NTY4MDAiLCJpYXQiOjE2NTE4MDcwMTUsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJhcGkxIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.VgOOhXnHLN14X0imgL6KBs-DbjdKitnX1W3GCdnJNtn5XNMjUajYHjl8t60phvNq498NMx3OCy3hZnwHevx96jhhuiOHM7P3_xFrZC3nJp_jhzzvaXuoEjPKPZhAWDvNOyKNT-1SMBCnbB6ZepcUMpyCVth6aoY5cTD4dNV6ZxwRrM-2Zi1o5xEX_j90xcAFXkhdAWU-7lPFsljorPk_VeTbLgV9UBMWcEXyAnaQbJ0AFh8s-EbiZX62HPBrLnzXPnrZgQsjwuuSpS14HsRRhdnKyh7hOKuxbduGMndmEfnGMpmXilQifjjKF7Wv9hSdic6-iL6uzYukO5TexFEYrg'
+          header: {
+            'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkQzQ0QzQzYxRjYyMjE0N0U3MUZDODM2NDI3RDRFOUVGM0M5QzM2RUZSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IjA4MDhZZllpRkg1eF9JTmtKOVRwN3p5Y051OCJ9.eyJuYmYiOjE2NTE4MDcwMTUsImV4cCI6MTY1MTgxMDYxNSwiaXNzIjoiaHR0cHM6Ly9wYXNzcG9ydC5nZHMub3JnLmNuIiwiY2xpZW50X2lkIjoidnVlanNfY29kZV9jbGllbnQiLCJzdWIiOiIxODkxOTM2IiwiYXV0aF90aW1lIjoxNjUxODA3MDE1LCJpZHAiOiJsb2NhbCIsInJvbGUiOiJNaW5lIiwiVXNlckluZm8iOiJ7XCJVc2VyTmFtZVwiOm51bGwsXCJCcmFuZE93bmVySWRcIjowLFwiQnJhbmRPd25lck5hbWVcIjpudWxsLFwiR2NwQ29kZVwiOm51bGwsXCJVc2VyQ2FyZE5vXCI6XCLmmoLml6Dkv6Hmga9cIixcIklzUGFpZFwiOmZhbHNlLFwiQ29tcGFueU5hbWVFTlwiOm51bGwsXCJDb21wYW55QWRkcmVzc0NOXCI6bnVsbCxcIkNvbnRhY3RcIjpudWxsLFwiQ29udGFjdFRlbE5vXCI6bnVsbCxcIkdjcExpY2Vuc2VIb2xkZXJUeXBlXCI6bnVsbCxcIkxlZ2FsUmVwcmVzZW50YXRpdmVcIjpudWxsLFwiVW5pZmllZFNvY2lhbENyZWRpdENvZGVcIjpudWxsfSIsIlY0VXNlckluZm8iOiJ7XCJVc2VyTmFtZVwiOlwiczEwNTE3Mjc0MDNcIixcIkVtYWlsXCI6XCIxMDUxNzI3NDAzQHFxLmNvbVwiLFwiUGhvbmVcIjpcIjE1MzQ1ODA5NjczXCIsXCJDYXJkTm9cIjpcIlwifSIsImp0aSI6IkVERDBBRjAxMkQ1NUY0NDY3QTYxNTZCM0ZCNzFGM0REIiwic2lkIjoiMjEzMTNGRUE1QjFFQTNEMjQ3NTk0N0FCRDM1NTY4MDAiLCJpYXQiOjE2NTE4MDcwMTUsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJhcGkxIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.VgOOhXnHLN14X0imgL6KBs-DbjdKitnX1W3GCdnJNtn5XNMjUajYHjl8t60phvNq498NMx3OCy3hZnwHevx96jhhuiOHM7P3_xFrZC3nJp_jhzzvaXuoEjPKPZhAWDvNOyKNT-1SMBCnbB6ZepcUMpyCVth6aoY5cTD4dNV6ZxwRrM-2Zi1o5xEX_j90xcAFXkhdAWU-7lPFsljorPk_VeTbLgV9UBMWcEXyAnaQbJ0AFh8s-EbiZX62HPBrLnzXPnrZgQsjwuuSpS14HsRRhdnKyh7hOKuxbduGMndmEfnGMpmXilQifjjKF7Wv9hSdic6-iL6uzYukO5TexFEYrg'
           },
           success: res => {
             console.log('【国家商品信息服务平台获取的信息】', res)
@@ -360,10 +368,10 @@ Page({
               var web_url = 'https://oss.gds.org.cn'
               var picture_url = web_url + data.picture_filename
               //若无图片，则使用默认图片进行加载
-              if(data.picture_filename==null){
-                picture_url=noPhoto_url
-              }else{
-              //图片过大,压缩图片
+              if (data.picture_filename == null) {
+                picture_url = noPhoto_url
+              } else {
+                //图片过大,压缩图片
 
               }
 
@@ -382,9 +390,16 @@ Page({
               medicine_list.unshift(new_medicine)
               that.setData({
                 ['list.medicines']: medicine_list,
-                clickAddMedicineButtom: false
+                clickAddMedicineButtom: false,
+                is_add_confirm: true,
               })
               console.log('扫码添加药品成功!', that.data.list.medicines)
+              //延迟等待数组第一项动画渲染完毕后将is_add_confirm置为false，便于下一次再次渲染动画
+              setTimeout(function () {
+                that.setData({
+                  is_add_confirm: false
+                })
+              }, 500)
               return
             }
           }

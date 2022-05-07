@@ -17,6 +17,10 @@ Page({
     userInfo: app.globalData.userInfo,
     //是否点击增加清单
     clickAddListButtom: false,
+    //用户点击确认增加清单，控制数组第一项进行渲染
+    is_add_confirm: false,
+    //第一次加载，控制所有list进行动画渲染(只有在老用户重复登录时才需要将所有列表渲染)
+    is_first_show: false,
     //是否点击重命名
     clickRenameListButtom: false,
     //是否点击修改选项
@@ -108,7 +112,7 @@ Page({
     //将数组逆序，从新到旧
     medicineList.reverse()
     that.setData({
-      medicineList: medicineList
+      medicineList: medicineList,
     })
 
 
@@ -358,6 +362,7 @@ Page({
       logged: data.logged,
       userInfo: data,
       new_user: false,
+      is_first_show: true,
     })
     app.globalData.userInfo = data
     app.globalData.logged = that.data.logged
@@ -367,12 +372,12 @@ Page({
   onLoad() {
     //不调用云函数的方法
     const that = this
-     
+
     if (app.globalData.logged == false) {
       //延迟，读取数据库
       wx.showLoading({
         title: '同步用户信息中...',
-        mask:true,
+        mask: true,
       })
       //，根据openid判断是否曾经注册过，实现微信用户静默登录，
       //云函数获取openid
@@ -387,17 +392,23 @@ Page({
           }
           console.log("openid", openid)
           //判断曾经是否登陆过
-          that.judge_logged().then(res=>{
+          that.judge_logged().then(res => {
             console.log('------------------------------------')
             wx.hideLoading()
+            //动画结束后将is_first_show关闭，这样在后续增加清单时便可以将第一个进行动画渲染
+            setTimeout(function () {
+              that.setData({
+                is_first_show: false
+              })
+            }, 1000)
           })
-          
+
         }
       })
-     
-     
 
-      
+
+
+
     } else {
       that.setData({
         new_user: false,
@@ -413,24 +424,25 @@ Page({
       this.setData({
         new_user: false,
         userInfo: app.globalData.userInfo,
-        clickAddListButtom:false,
-        clickRenameListButtom:false,
+        clickAddListButtom: false,
+        clickRenameListButtom: false,
         is_modify: 0,
         modifyIndex: -1,
       })
       //延迟，读取数据库
       wx.showLoading({
         title: '同步用户信息中...',
-        mask:true,
+        mask: true,
       })
-      setTimeout(() => {
-        console.log("【为防止数据库未更新完加载不完全，延迟中】");
-        that.getTotalList(app.globalData.userInfo.openid).then(res=>{
+      console.log('【为防止用户使用手机自带的返回键退出，导致药品信息还未上传服务器便发生show函数读取数据库信息，延迟中------------------------------------】')
+      setTimeout(function () {
+        that.getTotalList(app.globalData.userInfo.openid).then(res => {
           console.log('------------------------------------')
           wx.hideLoading()
         })
-      }, 100)
-      
+      }, 500)
+
+
     }
 
     //控制显示登录提醒
@@ -585,10 +597,16 @@ Page({
     this.setData({
       clickAddListButtom: false,
       medicineList: new_list,
-      ListName: ""
+      ListName: "",
+      is_add_confirm: true,
     })
     /*该处上传数据库  end*/
-
+    //延迟等待数组第一项动画渲染完毕后将is_add_confirm置为false，便于下一次再次渲染动画
+    setTimeout(function () {
+      that.setData({
+        is_add_confirm: false
+      })
+    }, 1000)
   },
   /*新增清单 end*/
 
