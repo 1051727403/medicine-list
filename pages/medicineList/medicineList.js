@@ -1,7 +1,7 @@
 // pages/medecineList/medicineList.js
 const app = getApp()
 wx.cloud.init({
-  env: 'cloud-list-4gpfd3rebac5d193',
+  env: 'medicine-list-0gpcpvk471c437e4',
 })
 const db = wx.cloud.database()
 const _ = db.command
