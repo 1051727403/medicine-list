@@ -1,1 +1,16 @@
-/* pages/manageGroups/manageGroups.wxss */
+page {
+  background: linear-gradient(#f8f8ff,5%,#fafafc);
+}
+.createNewGroup{
+  margin: 0 5% 0 5%;
+  width: 90%;
+  opacity: 0.9;
+  border-radius: 30rpx;
+  box-shadow: -2rpx 8rpx 26rpx #CAE5FF,2rpx -4rpx 16rpx #CAE5FF;
+}
+.groupsTitle{
+  margin-left: 5%;
+  margin-top: 30rpx;
+  font-size: 38rpx;
+  letter-spacing: 2rpx;
+}

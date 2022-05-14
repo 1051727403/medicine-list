@@ -7,7 +7,24 @@ wx.cloud.init({
 const db = wx.cloud.database()
 Page({
   data: {
-
+    groups:[
+      {
+        unique_code:'',
+        name:'',
+        introduction:'',
+        create_time:'',
+        members_number:'',
+        address:'',
+      },
+      {
+        unique_code:'',
+        name:'',
+        introduction:'',
+        create_time:'',
+        members_number:'',
+        address:'',
+      }
+    ]
   },
   //Onload函数
   onLoad(options) {
@@ -20,7 +37,12 @@ Page({
   onShow() {
 
   },
-
+  //跳转到创建组织页面
+  createNewGroup(){
+    wx.navigateTo({
+      url: '/pages/createGroups/createGroups',
+    })
+  },
   //分享按钮
   onShareAppMessage() {
     return {

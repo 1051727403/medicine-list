@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#ff0000",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "创建组织",
+  "usingComponents": {
+    "custom_nav_top":"../../components/custom_nav_top/custom_nav_top"
+  }
+}

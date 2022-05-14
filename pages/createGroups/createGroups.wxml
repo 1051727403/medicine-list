@@ -1,0 +1,30 @@
+<!--顶部导航栏自定义 start-->
+<custom_nav_top pageName="创建组织" showBackIcon="true" bindtap="back"></custom_nav_top>
+<!--顶部导航栏自定义 end-->
+<!--顶部装饰&提示 start-->
+<image class="top_prompt" src="https://img-blog.csdnimg.cn/3aae82a05f874415a209fe99a34784f9.png#pic_center"mode="widthFix"></image>
+<!--顶部装饰&提示 end-->
+<!--填写想要创建的组织的详细信息  start-->
+<view class="group">
+  <view class="group_name">
+    <view class="group_prompt">组织名称：</view>
+    <input class="group_name_input"type="text"/>
+  </view>
+  <view class="group_founder_name">
+    <view class="group_prompt">创建人姓名：</view>
+    <input class="group_founder_name_input"type="text"/>
+  </view>
+  <view class="group_founder_phoneNumber">
+    <view class="group_prompt">联系电话：</view>
+    <input class="group_founder_phoneNumber_input"type="text"/>
+  </view>
+  <view class="group_address">
+    <view class="group_prompt">组织地址：</view>
+    <input class="group_address_input"type="text"/>
+  </view>
+  <view class="group_introduction">
+    <view class="group_prompt">组织介绍：</view>
+    <input class="group_introduction_input"type="text"/>
+  </view>
+</view>
+<!--填写想要创建的组织的详细信息  end-->

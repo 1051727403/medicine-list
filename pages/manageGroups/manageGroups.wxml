@@ -1,3 +1,15 @@
 <!--顶部导航栏自定义 start-->
 <custom_nav_top pageName="组织管理" showBackIcon="false"></custom_nav_top>
 <!--顶部导航栏自定义 end-->
+<!--创建组织大图标  start-->
+<image class="createNewGroup" src="https://img-blog.csdnimg.cn/70f4dfbf46a449558f8de267f3d1f910.png#pic_center" mode="widthFix" bindtap="createNewGroup"></image>
+<!--创建组织大图标  end-->
+<!--我管理的小区列表  start-->
+<view class="groupsTitle">我管理的小区：</view>
+<view class="manageGroups">
+
+
+
+</view>
+<!--我管理的小区列表  end-->
+

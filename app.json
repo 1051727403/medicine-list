@@ -5,6 +5,7 @@
     "pages/personalSpace/personalSpace",
     "pages/searchGroups/searchGroups",
     "pages/manageGroups/manageGroups",
+    "pages/createGroups/createGroups",
     "pages/myGroups/myGroups",
     "pages/personnalInfo/personalInfo"
   ],
