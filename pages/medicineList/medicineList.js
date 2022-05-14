@@ -109,6 +109,12 @@ Page({
   //离开页面时上传数据库
   async uploadDatabase() {
     var that = this
+    //给清单列表页面传值，表示从药品列表页面返回，需要重新加载清单
+    var pages=getCurrentPages()
+    var prePages=pages[pages.length-2]
+    prePages.setData({
+      is_from_medicineList:true,
+    })
     //删除原有清单
     await db.collection('list_table')
       .where({
@@ -126,7 +132,6 @@ Page({
           }).then(res => {
             console.log('【更新清单成功！】', res)
           })
-
       })
 
   },

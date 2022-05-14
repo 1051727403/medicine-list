@@ -1,6 +1,5 @@
 //注：
 //1、每次更新采用删除当前数据后再加入其，这样就能将其放到最后，在遍历数据库时只要逆序就能获得按时间排序后的清单
-
 //配置云环境
 const app = getApp()
 wx.cloud.init({
@@ -31,6 +30,8 @@ Page({
     new_user: false,
     //点击修改图标时点击的下标
     modifyIndex: -1,
+    //判断是否从清单页面返回，若是，则需要加载清单，若不是，则不需要
+    is_from_medicineList:false,
     //清单列表
     medicineList: [{
       //样品
@@ -420,7 +421,8 @@ Page({
   //OnShow函数，监视页面
   onShow() {
     var that = this
-    if (app.globalData.logged == true) {
+    console.log('检测上一级路径是否为清单列表页，若是，则加载，若不是，则不进行加载')
+    if (app.globalData.logged == true&&this.data.is_from_medicineList==true) {
       this.setData({
         new_user: false,
         userInfo: app.globalData.userInfo,
@@ -428,6 +430,7 @@ Page({
         clickRenameListButtom: false,
         is_modify: 0,
         modifyIndex: -1,
+        is_from_medicineList:false,
       })
       //延迟，读取数据库
       wx.showLoading({
@@ -442,7 +445,8 @@ Page({
         })
       }, 500)
 
-
+    }else{
+      console.log('不是从药品清单页面返回，不加载页面')
     }
 
     //控制显示登录提醒
