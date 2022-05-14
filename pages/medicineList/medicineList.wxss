@@ -61,6 +61,7 @@ Page{
   white-space: nowrap;
 }
 .detail_brand,.detail_specification,.detail_number{
+  width: 50%;
   margin-top: 15rpx;
   font-size: 26rpx;
   letter-spacing: 1rpx;
@@ -268,7 +269,7 @@ Page{
 
 .fadeInUp {
   animation-name: fadeInUp;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 	animation-fill-mode: both;
 }
 
