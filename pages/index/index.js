@@ -76,6 +76,19 @@ Page({
     console.log('【now_time】', now_time)
     return now_time
   },
+  //创建UUID
+  create_uuid() {
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+    var uuid = s.join("");
+    return uuid;
+},
   //获取用户的所有清单函数,并更新
   async getTotalList(openid) {
     var that = this
@@ -580,8 +593,7 @@ Page({
     //获取当前时间用于更新
     var now_time = that.getNowTime()
     //利用时间戳+随机数与16进制生成uuid
-    var id = new Date().getTime()
-    id += (((1 + Math.random()) * 0x10000) | 0).toString(16)
+    var id = that.create_uuid()
     console.log('【生成uuid】', id)
     var new_data = {
       openid: openid,

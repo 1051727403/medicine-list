@@ -407,6 +407,9 @@ Page({
               }, 500)
               return
             }
+          },
+          fail:res=>{
+            console.log('【扫码录入失败！】')
           }
         })
       },

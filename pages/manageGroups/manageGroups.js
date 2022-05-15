@@ -26,6 +26,20 @@ Page({
       }
     ]
   },
+    //复用型函数
+  //检测是否登录
+  islogined() {
+    if (!app.globalData.logged) {
+      wx.showModal({
+        title: '提示',
+        content: '请先登录',
+        showCancel: false,
+        confirmColor: "#0ed81b"
+      })
+      return false
+    }
+    return true
+  },
   //Onload函数
   onLoad(options) {
 
@@ -39,9 +53,11 @@ Page({
   },
   //跳转到创建组织页面
   createNewGroup(){
+    if(this.islogined()){
     wx.navigateTo({
       url: '/pages/createGroups/createGroups',
     })
+  }
   },
   //分享按钮
   onShareAppMessage() {

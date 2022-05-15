@@ -3,16 +3,77 @@ page {
 }
 .top_prompt{
   width: 100%;
-  position: fixed;
+  position: absolute;
   z-index: 1;
 }
 .group{
+  padding-top: 1rpx;
   width: 90%;
-  margin: 15% 5%;
+  margin: 15% 5%  0rpx 5%;
   background-color: white;
   border-radius: 30rpx;
-  position: fixed;
-  z-index: 999;
-  opacity: 0.8;
-  padding: 5%;
+  position: relative;
+  z-index: 2;
+  opacity: 0.95;
+  box-shadow: -10rpx 10rpx 30rpx #d6d6d6,10rpx 10rpx 30rpx #d6d6d6;
+}
+.group_name,.group_founder_name,.group_founder_phoneNumber,.group_address,.group_introduction{
+  margin-top: 40rpx;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.group_prompt{
+  font-weight: bold;
+}
+.group_input{
+  margin-top: 20rpx;
+  background-color: rgb(248, 248, 248);
+  border-radius: 10rpx;
+  height: 80rpx;
+  padding-left: 15rpx;
+  border: 1rpx solid rgb(207, 207, 207);
+}
+.showArea{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20rpx;
+}
+.choose{
+  height: 70rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28%;
+  background-color: rgb(248, 248, 248);
+  border: 1rpx solid rgb(207, 207, 207);
+  border-radius: 12rpx;
+  font-size: 28rpx;
+}
+.userAgreeMent{
+  margin:40rpx 5% 40rpx 5%;
+  color:rgb(29, 106, 230) ;
+}
+.bottom_bar{
+  margin:0rpx 5%;
+  height: 250rpx;
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+}
+.reset,.submit{
+  height: 100rpx;
+  width: 42%;
+  border-radius: 50rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 38rpx;
+  letter-spacing: 8rpx;
+  font-weight: bold;
+  box-shadow: -10rpx 10rpx 30rpx #d6d6d6,10rpx 10rpx 30rpx #d6d6d6;
 }

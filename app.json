@@ -3,7 +3,6 @@
     "pages/index/index",
     "pages/medicineList/medicineList",
     "pages/personalSpace/personalSpace",
-    "pages/searchGroups/searchGroups",
     "pages/manageGroups/manageGroups",
     "pages/createGroups/createGroups",
     "pages/myGroups/myGroups",
@@ -29,16 +28,10 @@
         "selectedIconPath": "images/index/list_on.png"
       },
       {
-        "pagePath": "pages/searchGroups/searchGroups",
-        "text": "寻找组织",
-        "iconPath": "images/index/group_off.png",
-        "selectedIconPath": "images/index/group_on.png"
-      },
-      {
         "pagePath": "pages/manageGroups/manageGroups",
         "text": "组织管理",
-        "iconPath": "images/index/medicineArticle_off.png",
-        "selectedIconPath": "images/index/medicineArticle_on.png"
+        "iconPath": "images/index/group_off.png",
+        "selectedIconPath": "images/index/group_on.png"
         
       },
       {
