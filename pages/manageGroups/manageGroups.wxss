@@ -15,5 +15,15 @@ page {
   letter-spacing: 2rpx;
 }
 .joinAndManagement{
-  height: 200rpx;
+  width: 90%;
+  margin:15rpx 5% 5% 30rpx;
+  display: flex;
+  flex-direction:row ;
+  justify-content: space-between;
+  align-items: center;
+}
+.myGroups{
+  height: 170rpx;
+  width: 47%;
+  border-radius: 30rpx;
 }

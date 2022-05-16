@@ -6,8 +6,8 @@
 <!--创建组织大图标  end-->
 <!--我加入的小区&管理的小区跳转图标 start-->
 <view class="joinAndManagement">
-  <image class="myGroups"src=""></image>
-  <image class="myGroups"src=""></image>
+  <image class="myGroups"src="https://img-blog.csdnimg.cn/0599bda7abaa4cbb8f4fa5ce8bb8b0f0.png#pic_center"mode="aspectFit" ></image>
+  <image class="myGroups"src=""mode=""></image>
 </view>
 <!--我加入的小区&管理的小区跳转图标 end-->
 <!--搜索小区，展示搜索结果  start-->
