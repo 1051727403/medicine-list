@@ -14,3 +14,6 @@ page {
   font-size: 38rpx;
   letter-spacing: 2rpx;
 }
+.joinAndManagement{
+  height: 200rpx;
+}

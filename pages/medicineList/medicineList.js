@@ -110,10 +110,10 @@ Page({
   async uploadDatabase() {
     var that = this
     //给清单列表页面传值，表示从药品列表页面返回，需要重新加载清单
-    var pages=getCurrentPages()
-    var prePages=pages[pages.length-2]
+    var pages = getCurrentPages()
+    var prePages = pages[pages.length - 2]
     prePages.setData({
-      is_from_medicineList:true,
+      is_from_medicineList: true,
     })
     //删除原有清单
     await db.collection('list_table')
@@ -350,7 +350,7 @@ Page({
             PageIndex: 1,
           },
           header: {
-            'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkQzQ0QzQzYxRjYyMjE0N0U3MUZDODM2NDI3RDRFOUVGM0M5QzM2RUZSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IjA4MDhZZllpRkg1eF9JTmtKOVRwN3p5Y051OCJ9.eyJuYmYiOjE2NTI0OTM2OTcsImV4cCI6MTY1MjQ5NzI5NywiaXNzIjoiaHR0cHM6Ly9wYXNzcG9ydC5nZHMub3JnLmNuIiwiY2xpZW50X2lkIjoidnVlanNfY29kZV9jbGllbnQiLCJzdWIiOiIxODkxOTM2IiwiYXV0aF90aW1lIjoxNjUyNDkzNjk2LCJpZHAiOiJsb2NhbCIsInJvbGUiOiJNaW5lIiwiVXNlckluZm8iOiJ7XCJVc2VyTmFtZVwiOm51bGwsXCJCcmFuZE93bmVySWRcIjowLFwiQnJhbmRPd25lck5hbWVcIjpudWxsLFwiR2NwQ29kZVwiOm51bGwsXCJVc2VyQ2FyZE5vXCI6XCLmmoLml6Dkv6Hmga9cIixcIklzUGFpZFwiOmZhbHNlLFwiQ29tcGFueU5hbWVFTlwiOm51bGwsXCJDb21wYW55QWRkcmVzc0NOXCI6bnVsbCxcIkNvbnRhY3RcIjpudWxsLFwiQ29udGFjdFRlbE5vXCI6bnVsbCxcIkdjcExpY2Vuc2VIb2xkZXJUeXBlXCI6bnVsbCxcIkxlZ2FsUmVwcmVzZW50YXRpdmVcIjpudWxsLFwiVW5pZmllZFNvY2lhbENyZWRpdENvZGVcIjpudWxsfSIsIlY0VXNlckluZm8iOiJ7XCJVc2VyTmFtZVwiOlwiczEwNTE3Mjc0MDNcIixcIkVtYWlsXCI6XCIxMDUxNzI3NDAzQHFxLmNvbVwiLFwiUGhvbmVcIjpcIjE1MzQ1ODA5NjczXCIsXCJDYXJkTm9cIjpcIlwifSIsImp0aSI6IjA3NUI1QUNEMTIyMzBDMDEzN0YyNkYyNERCQTk5NEFDIiwic2lkIjoiQkUzMTFBMzY4MUYwQUQ3QjlCODRBNUNFRkNFRkNCOUYiLCJpYXQiOjE2NTI0OTM2OTcsInNjb3BlIjpbIm9wZW5pZCJdLCJhbXIiOlsicHdkIl19.Kx68OpH8Rnyi_lTSWlB9nf_quc3LkPIGo7MsFPQw-LZzLwlwDj_pgPvd6YkU2MXs-h_EUnouDu7Uz1J95x4D2emhVrkd-DmM1I1nzpKNOOWMCWFfks9jgsHHehauYliVxZIHjgR8G8ccsinjMotjvBq4SYmROBuJne8YIOiWrEDJ9w3aJbYYmFb9m5Lg9GYDlCXBnOVHbdlGVodDExKxwxEW3W2nfyvvkinAiA4Zb7jK7vzQ7rBuIVXSO5o4doqK4PKaEGTuaREruqePWQLxfi2Ie02zF0qeYZee-r61L_3kJfHhCDqqVH6_Lg5JFY68ufSVvkiWpw2YmiSAF0RfEA',
+            'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkQzQ0QzQzYxRjYyMjE0N0U3MUZDODM2NDI3RDRFOUVGM0M5QzM2RUZSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IjA4MDhZZllpRkg1eF9JTmtKOVRwN3p5Y051OCJ9.eyJuYmYiOjE2NTI2ODAxNDEsImV4cCI6MTY1MjY4Mzc0MSwiaXNzIjoiaHR0cHM6Ly9wYXNzcG9ydC5nZHMub3JnLmNuIiwiY2xpZW50X2lkIjoidnVlanNfY29kZV9jbGllbnQiLCJzdWIiOiIxODkxOTM2IiwiYXV0aF90aW1lIjoxNjUyNjgwMTQwLCJpZHAiOiJsb2NhbCIsInJvbGUiOiJNaW5lIiwiVXNlckluZm8iOiJ7XCJVc2VyTmFtZVwiOm51bGwsXCJCcmFuZE93bmVySWRcIjowLFwiQnJhbmRPd25lck5hbWVcIjpudWxsLFwiR2NwQ29kZVwiOm51bGwsXCJVc2VyQ2FyZE5vXCI6XCLmmoLml6Dkv6Hmga9cIixcIklzUGFpZFwiOmZhbHNlLFwiQ29tcGFueU5hbWVFTlwiOm51bGwsXCJDb21wYW55QWRkcmVzc0NOXCI6bnVsbCxcIkNvbnRhY3RcIjpudWxsLFwiQ29udGFjdFRlbE5vXCI6bnVsbCxcIkdjcExpY2Vuc2VIb2xkZXJUeXBlXCI6bnVsbCxcIkxlZ2FsUmVwcmVzZW50YXRpdmVcIjpudWxsLFwiVW5pZmllZFNvY2lhbENyZWRpdENvZGVcIjpudWxsfSIsIlY0VXNlckluZm8iOiJ7XCJVc2VyTmFtZVwiOlwiczEwNTE3Mjc0MDNcIixcIkVtYWlsXCI6XCIxMDUxNzI3NDAzQHFxLmNvbVwiLFwiUGhvbmVcIjpcIjE1MzQ1ODA5NjczXCIsXCJDYXJkTm9cIjpcIlwifSIsImp0aSI6IjU4MUUyMDJFMzMwQTUwRkI3MkFCRDY1RTkxQUI5Rjg5Iiwic2lkIjoiNDE4RTRBODdGNzQ0NkU5QjY3RTM4ODlDNzhEMjkwREEiLCJpYXQiOjE2NTI2ODAxNDEsInNjb3BlIjpbIm9wZW5pZCJdLCJhbXIiOlsicHdkIl19.cF3cjdYFWPjiy80mfEbRsMJ00PIMZvJP5xI7LuQ0F5q0XGFw2UyKKtKP5vAhDLiiXnZp5hxbZYI896hUScR_yQkZgWF-jgAIG2v9uAroWJbH3nl9u-MkK7XpOHnvPYpPqAc_SreQzAejQw0-JKGyWGyElFuzE1lYhkSaqvVhjjYIwhRatXYMqiy-EOI3u_PQ8Sev5Ih70abu6P6AyijuaKs3z4dxkUvD-s3pNWcrPbRYOHP3m3VDKb6mI8jAAcf_lcttErdJlKx37B5jG0Ey40lN_kncdC-TUCAmfGpsf5vD9Jwy5Qm-X8ODmxm3_-eARJVovTugYYFc_3STPBVBDA',
           },
           success: res => {
             console.log('【国家商品信息服务平台获取的信息】', res)
@@ -369,14 +369,28 @@ Page({
                 }
               })
             } else {
-              //获取药品图片的网站
-              var web_url = 'https://oss.gds.org.cn'
-              var picture_url = web_url + data.picture_filename
               //若无图片，则使用默认图片进行加载
               if (data.picture_filename == null) {
                 picture_url = noPhoto_url
               } else {
+                console.log('【存在图片：】',data.picture_filename)
+                //获取药品图片的网站
+                var web_url = 'https://oss.gds.org.cn'
+                //网站上的加密，在最后一个/后面加了一个m
+                var arr=data.picture_filename.split("")
+                for (let i = arr.length - 1; i >= 0; i--) {
+                  if (arr[i] == '/') {
+                    arr.splice(i+1,0,'m')
+                    break
+                  }
+                }
+                data.picture_filename=arr.join("")
+                console.log('【处理后的图片网址:】', data.picture_filename)
+                var picture_url = web_url + data.picture_filename
+                
                 //图片过大,压缩图片
+
+
 
               }
 
@@ -408,7 +422,7 @@ Page({
               return
             }
           },
-          fail:res=>{
+          fail: res => {
             console.log('【扫码录入失败！】')
           }
         })

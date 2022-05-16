@@ -394,7 +394,8 @@ Page({
     var unique_code = that.create_uuid(8, 36)
     console.log('【创建的基于时间的UUID】', unique_code)
     new_group.unique_code = unique_code
-    //将创建者的openid放入管理员列表和成员列表中
+    //将创建者的openid赋给创始人并放入管理员列表和成员列表中
+    new_group.founder_openid=that.data.userInfo.openid
     new_group.administrator_list.push(that.data.userInfo.openid)
     new_group.member_list.push(that.data.userInfo.openid)
     console.log('【新创建的组织信息：】', new_group)
