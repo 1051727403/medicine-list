@@ -7,6 +7,10 @@ wx.cloud.init({
 const db = wx.cloud.database()
 Page({
   data: {
+    //机型参数
+    statusBarHeight: app.globalData.statusBarHeight,
+    windowHeight:app.globalData.windowHeight,
+    //搜索到的组织列表
     groups:[
       {
         unique_code:'',

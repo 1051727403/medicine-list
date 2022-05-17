@@ -1,13 +1,22 @@
 <!--顶部导航栏自定义 start-->
-<custom_nav_top pageName="组织管理" showBackIcon="false"></custom_nav_top>
+<view class="nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;">
+  <view class="fadeInLeft" style="display: flex; flex-direction: row; align-items: center;">
+    <text class="nav_top_name"style="margin-left:{{showBackIcon=='true'?'3%':'5%'}};">组织管理</text>
+  </view>
+</view>
+<view class="empty_nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;"></view>
 <!--顶部导航栏自定义 end-->
+<!--底部装饰 start-->
+<view class="behind_decorate"class="behind_decorate"></view>
+
+<!--底部装饰 end-->
 <!--创建组织大图标  start-->
 <image class="createNewGroup" src="https://img-blog.csdnimg.cn/70f4dfbf46a449558f8de267f3d1f910.png#pic_center" mode="widthFix" bindtap="createNewGroup"></image>
 <!--创建组织大图标  end-->
 <!--我加入的小区&管理的小区跳转图标 start-->
 <view class="joinAndManagement">
-  <image class="myGroups"src="https://img-blog.csdnimg.cn/0599bda7abaa4cbb8f4fa5ce8bb8b0f0.png#pic_center"mode="aspectFit" ></image>
-  <image class="myGroups"src=""mode=""></image>
+  <image class="myGroups"src="https://img-blog.csdnimg.cn/b880f9837e494ba2be75d81b15d0897d.png#pic_center"mode="widthFix" ></image>
+  <image class="myGroups"src="https://img-blog.csdnimg.cn/60e8b4522a974fc4a6943db30126054c.png#pic_center"mode="widthFix"></image>
 </view>
 <!--我加入的小区&管理的小区跳转图标 end-->
 <!--搜索小区，展示搜索结果  start-->

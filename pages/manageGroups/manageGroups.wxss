@@ -1,12 +1,45 @@
 page {
   background: linear-gradient(#f8f8ff,5%,#fafafc);
 }
+
+.nav_top {
+  position: fixed;
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  z-index: 999;
+  background: linear-gradient(#2b5ff0,30%,#a7e2ff);
+}
+
+.nav_top_name {
+  color:white;
+  margin-left:5%;
+  font-size: 36rpx;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 4rpx;
+}
+
+.empty_nav_top {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  background-color: #ffffff;
+}
+.behind_decorate{
+  width: 100%;
+  height: 15%;
+  background:linear-gradient(#a7e2ff,#e5f7ff);
+  position: absolute;
+  z-index: 1;
+}
 .createNewGroup{
-  margin: 0 5% 0 5%;
+  margin: 10rpx 5% 0 5%;
   width: 90%;
-  opacity: 0.9;
   border-radius: 30rpx;
-  box-shadow: -2rpx 8rpx 26rpx #CAE5FF,2rpx -4rpx 16rpx #CAE5FF;
+  box-shadow: -4rpx 4rpx 16rpx #CAE5FF,4rpx 4rpx 16rpx #CAE5FF;
+  position: relative;
+  z-index: 2;
+  
 }
 .groupsTitle{
   margin-left: 5%;
@@ -26,4 +59,92 @@ page {
   height: 170rpx;
   width: 47%;
   border-radius: 30rpx;
+  box-shadow: 4rpx 4rpx 8rpx #a2d2ff;
+}
+/*动画样式*/
+
+@-webkit-keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadeInLeft {
+  animation-name: fadeInLeft;
+  animation-duration: 0.5s;
+	animation-fill-mode: both;
+}
+@-webkit-keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInRight {
+  animation-name: fadeInRight;
+  animation-duration: 0.5s;
+	animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInDown {
+  animation-name: fadeInDown;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.fadeOutDown {
+  animation-name: fadeOutDown;
+  animation-duration: 1s;
+	animation-fill-mode: both;
 }
