@@ -222,12 +222,14 @@ Page({
     }
     return uuid.join('');
   },
+  //OnLoad函数
   onLoad(options) {
     var that = this
     this.setData({
       userInfo: app.globalData.userInfo,
     })
   },
+  //OnShow函数
   onShow(){
     var that = this
     this.setData({
@@ -393,6 +395,28 @@ Page({
       })
       return
     }
+    /*检查个人信息是否填写完整，若没有，则引导其进行填写  start*/
+    var userInfo=that.data.userInfo
+    if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == ""||userInfo.id_number=='') {
+      wx.showModal({
+        title: '提示',
+        content: '请完善您的个人信息后再提交！',
+        success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            //跳转到个人信息页面
+            wx.navigateTo({
+              url: '../personnalInfo/personalInfo',
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return
+    } 
+    /*检查个人信息是否填写完整，若没有，则引导其进行填写  end*/
+
     //构造组织创建日期
     var createTime = this.getNowTime()
     console.log('组织创建日期：', createTime)
@@ -401,10 +425,15 @@ Page({
     var unique_code = that.create_uuid(8, 36)
     console.log('【创建的基于时间的UUID】', unique_code)
     new_group.unique_code = unique_code
-    //将创建者的openid赋给创始人并放入管理员列表和成员列表中
-    new_group.founder_openid=that.data.userInfo.openid
-    new_group.administrator_list.push(that.data.userInfo.openid)
-    new_group.member_list.push(that.data.userInfo.openid)
+    //将创建者的openid赋给创始人
+    new_group.founder_openid=userInfo.openid
+    //将创始人的openid和姓名放入成员列表以及管理员列表
+    var person={
+      name:userInfo.real_name,
+      openid:userInfo.openid,
+    }
+    new_group.administrator_list.push(person)
+    new_group.member_list.push(person)
     console.log('【新创建的组织信息：】', new_group)
     //上传数据库
     await db.collection('groups_table')
@@ -423,14 +452,18 @@ Page({
           return
         }
       })
-    //将组织的唯一码放入到创始人的已加入组织列表中
+    //将组织的部分信息放入到创始人的已加入组织列表中
+    //构造组织信息
     var group={}
     group.permission='2'
     group.unique_code=unique_code
+    group.name=new_group.name
+    group.address=new_group.address
+    group.members_number=new_group.members_number
     console.log('【构造添加入user的组织数据】',group)
      await db.collection('user')
      .where({
-       openid:that.data.userInfo.openid
+       openid:userInfo.openid
      })
      .update({
         data:{
@@ -463,9 +496,7 @@ Page({
        },1000)
      })
   },
-  onShow() {
 
-  },
 
 
   onShareAppMessage() {

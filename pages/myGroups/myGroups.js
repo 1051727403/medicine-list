@@ -1,8 +1,19 @@
-// pages/myGroups/myGroups.js
+//配置云环境
+const app = getApp()
+wx.cloud.init({
+  env: 'medicine-list-0gpcpvk471c437e4',
+})
+const db = wx.cloud.database()
+const command=db.command
+var openid
 Page({
   data: {
+    //用户信息
+    userInfo:app.globalData.userInfo,
     //进入页面的种类，1为我加入的组织，2为我管理的组织，根据不同的从数据库中获取不同的数据
     pageKind:0,
+    //将要展示的组织列表
+    groups:[],
   },
 
   /**
@@ -11,9 +22,15 @@ Page({
   onLoad(options) {
     var that=this
     console.log(options)
+    //获取类型
     var pageKind=options.pageKind
+    //获取所有该类型的组织
+    var groups=[]
+
     this.setData({
-      pageKind:pageKind
+      pageKind:pageKind,
+      userInfo:app.globalData.userInfo,
+      groups:groups,
     })
   },
   //show函数

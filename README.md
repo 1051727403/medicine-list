@@ -12,6 +12,7 @@ app_secret:TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09
   
 ### 2022-5-15 对UUID做了优化，清单UUID基于时间数实现，唯一性高，组织UUID基于字符串随机数实现，长度为8，基数为34.  
 ###           实现用户创建组织的功能
+### 2022-5-17 设计优化了组织表，user表中新增joined_groups对象，存放该用户加入的组织的基本简单信息  
 ### -----  
   
    

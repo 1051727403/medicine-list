@@ -488,7 +488,7 @@ Page({
           //检查用户个人信息是否填写完毕
           var userInfo = app.globalData.userInfo
           console.log("userInfo:", userInfo)
-          if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == "") {
+          if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == ""||userInfo.id_number=='') {
             wx.showModal({
               title: '提示',
               content: '请完善您的个人信息后再提交！',
@@ -504,6 +504,7 @@ Page({
                 }
               }
             })
+            return
           } else {
             //若个人信息全部填写完毕则上传数据库，提示提交成功
             wx.showToast({
