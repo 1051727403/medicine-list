@@ -1,62 +1,34 @@
 // pages/myGroups/myGroups.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    //进入页面的种类，1为我加入的组织，2为我管理的组织，根据不同的从数据库中获取不同的数据
+    pageKind:0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    var that=this
+    console.log(options)
+    var pageKind=options.pageKind
+    this.setData({
+      pageKind:pageKind
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  //show函数
+  show:function(){
+    var that=this
+    this.setData({
+      userInfo: app.globalData.userInfo,
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
+  //返回上一页面
+  back(){
+    wx.navigateBack({
+      delta: 1,
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
   //分享按钮
   onShareAppMessage() {
     return {

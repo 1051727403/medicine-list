@@ -1,2 +1,3 @@
-<!--pages/myGroups/myGroups.wxml-->
-<text>pages/myGroups/myGroups.wxml</text>
+<!--顶部导航栏自定义 start-->
+<custom_nav_top pageName="{{pageKind==1?'我加入的组织':'我管理的组织'}}" showBackIcon="true" bindtap="back"></custom_nav_top>
+<!--顶部导航栏自定义 end-->

@@ -188,6 +188,7 @@ Page({
           no: '',
           room: "",
         },
+        joined_groups:[],
       }
       console.log('新增的用户数据：', to_add_data)
       await db.collection('user')
@@ -303,6 +304,7 @@ Page({
     var phone_number = ''
     var health_number = ''
     var address = {}
+    var joined_groups=[]
     await db.collection('user')
       .where({
         _openid: event.openid
@@ -324,6 +326,7 @@ Page({
           phone_number = res.data[0].phone_number
           health_number = res.data[0].health_number
           address = res.data[0].address
+          joined_groups=res.data[0].joined_groups
         }
       })
     //封装
@@ -337,6 +340,7 @@ Page({
     data.id_number = id_number
     data.phone_number = phone_number
     data.address = address
+    data.joined_groups=joined_groups
     //console.log('【data】',data)
     //检测是否登陆过
     if (data.logged == 0) {

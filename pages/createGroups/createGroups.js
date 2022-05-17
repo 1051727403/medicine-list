@@ -4,6 +4,7 @@ wx.cloud.init({
   env: 'medicine-list-0gpcpvk471c437e4',
 })
 const db = wx.cloud.database()
+const command=db.command
 var openid
 //省和相应的市，后来发现picker里有.....
 var provinces = [{
@@ -227,6 +228,12 @@ Page({
       userInfo: app.globalData.userInfo,
     })
   },
+  onShow(){
+    var that = this
+    this.setData({
+      userInfo: app.globalData.userInfo,
+    })
+  },
   //获取组织名称
   group_name(e) {
     //console.log(e)
@@ -404,19 +411,7 @@ Page({
       .add({
         data: new_group,
         success: re => {
-          console.log('【新建组织成功！】', re)
-          wx.showToast({
-            title: '新建组织成功！',
-            icon: 'success',
-            mask: 'true',
-            duration: 1000
-          }).then(res=>{
-            setTimeout(function(){
-              wx.navigateBack({
-                delta: 1,
-              })
-            },1000)
-          })
+         console.log('【上传数据库组织表成功！】',re)
         },
         fail: re => {
           console.log('【新建组织上传数据库时发生错误！】', re)
@@ -425,9 +420,48 @@ Page({
             icon: 'none',
             duration: 1000
           })
+          return
         }
       })
-
+    //将组织的唯一码放入到创始人的已加入组织列表中
+    var group={}
+    group.permission='2'
+    group.unique_code=unique_code
+    console.log('【构造添加入user的组织数据】',group)
+     await db.collection('user')
+     .where({
+       openid:that.data.userInfo.openid
+     })
+     .update({
+        data:{
+          joined_groups:command.push(group)
+        },
+        success:res=>{
+          console.log('【数据库中更新user表成功！】',res)
+        },
+        fail:res=>{
+          console.log('【数据库中更新user表失败！，请检查云数据库】',res)
+        }
+     })
+    //将该组织唯一码更新到全局userInfo中的对应位置处
+     var joined_groups=app.globalData.userInfo.joined_groups
+     joined_groups.push(group)
+     app.globalData.userInfo.joined_groups=joined_groups
+     console.log('【更新全局userInfo成功！】',app.globalData.userInfo.joined_groups)
+     //提示用户并延迟返回
+     console.log('【新建组织成功！】')
+     wx.showToast({
+       title: '新建组织成功！',
+       icon: 'success',
+       mask: 'true',
+       duration: 1000
+     }).then(res=>{
+       setTimeout(function(){
+         wx.navigateBack({
+           delta: 1,
+         })
+       },1000)
+     })
   },
   onShow() {
 

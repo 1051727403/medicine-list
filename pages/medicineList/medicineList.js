@@ -87,6 +87,12 @@ Page({
       })
     }, 1000)
   },
+  show:function(){
+    var that=this
+    this.setData({
+      userInfo: app.globalData.userInfo,
+    })
+  },
   getNowTime() {
     //构造时间标准格式
     var date = new Date
@@ -376,15 +382,15 @@ Page({
                 console.log('【存在图片：】',data.picture_filename)
                 //获取药品图片的网站
                 var web_url = 'https://oss.gds.org.cn'
-                //网站上的加密，在最后一个/后面加了一个m
-                var arr=data.picture_filename.split("")
-                for (let i = arr.length - 1; i >= 0; i--) {
-                  if (arr[i] == '/') {
-                    arr.splice(i+1,0,'m')
-                    break
-                  }
-                }
-                data.picture_filename=arr.join("")
+                // //网站上的加密，在最后一个/后面加了一个m
+                // var arr=data.picture_filename.split("")
+                // for (let i = arr.length - 1; i >= 0; i--) {
+                //   if (arr[i] == '/') {
+                //     arr.splice(i+1,0,'m')
+                //     break
+                //   }
+                // }
+                // data.picture_filename=arr.join("")
                 console.log('【处理后的图片网址:】', data.picture_filename)
                 var picture_url = web_url + data.picture_filename
                 

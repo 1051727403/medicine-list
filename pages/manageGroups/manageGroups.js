@@ -10,6 +10,7 @@ Page({
     //机型参数
     statusBarHeight: app.globalData.statusBarHeight,
     windowHeight:app.globalData.windowHeight,
+    userInfo:app.globalData.userInfo,
     //搜索到的组织列表
     groups:[
       {
@@ -53,7 +54,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    var that=this
+    this.setData({
+      userInfo:app.globalData.userInfo,
+    })
   },
   //跳转到创建组织页面
   createNewGroup(){
@@ -63,6 +67,26 @@ Page({
     })
   }
   },
+  //跳转到加入的组织列表页面
+  jumpTo_joined(){
+    if(this.islogined()){
+      wx.navigateTo({
+        url: '/pages/myGroups/myGroups?pageKind=1',
+      })
+
+
+
+
+    }
+  },
+    //跳转到我管理的组织列表页面
+    jumpTo_manage(){
+      if(this.islogined()){
+        wx.navigateTo({
+          url: '/pages/myGroups/myGroups?pageKind=2',
+        })
+      }
+    },
   //分享按钮
   onShareAppMessage() {
     return {

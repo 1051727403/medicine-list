@@ -15,8 +15,8 @@
 <!--创建组织大图标  end-->
 <!--我加入的小区&管理的小区跳转图标 start-->
 <view class="joinAndManagement">
-  <image class="myGroups"src="https://img-blog.csdnimg.cn/b880f9837e494ba2be75d81b15d0897d.png#pic_center"mode="widthFix" ></image>
-  <image class="myGroups"src="https://img-blog.csdnimg.cn/60e8b4522a974fc4a6943db30126054c.png#pic_center"mode="widthFix"></image>
+  <image class="myGroups"src="https://img-blog.csdnimg.cn/b880f9837e494ba2be75d81b15d0897d.png#pic_center"mode="widthFix" bindtap="jumpTo_joined"></image>
+  <image class="myGroups"src="https://img-blog.csdnimg.cn/60e8b4522a974fc4a6943db30126054c.png#pic_center"mode="widthFix" bindtap="jumpTo_manage"></image>
 </view>
 <!--我加入的小区&管理的小区跳转图标 end-->
 <!--搜索小区，展示搜索结果  start-->
