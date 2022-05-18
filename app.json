@@ -6,7 +6,8 @@
     "pages/manageGroups/manageGroups",
     "pages/createGroups/createGroups",
     "pages/myGroups/myGroups",
-    "pages/personnalInfo/personalInfo"
+    "pages/personnalInfo/personalInfo",
+    "pages/single_group/single_group"
   ],
   "window":{
     "backgroundTextStyle":"light",

@@ -25,7 +25,30 @@ Page({
     //获取类型
     var pageKind=options.pageKind
     //获取所有该类型的组织
+    var joined_groups=app.globalData.userInfo.joined_groups
     var groups=[]
+    if(pageKind==1){
+      //获取我加入的队伍
+      for(let i=0;i<joined_groups.length;i++){
+        if(joined_groups[i].permission==0){
+          groups.push(joined_groups[i])
+        }
+      }
+    }else if(pageKind==2){
+      //获取我管理的所有队伍
+      for(let i=0;i<joined_groups.length;i++){
+        if(joined_groups[i].permission==1){
+          groups.push(joined_groups[i])
+        }
+        else if(joined_groups[i].permission==2){
+          //将我创建的组织放在最前端
+          groups.unshift(joined_groups[i])
+        }
+      }
+    }else{
+      console.log('【载入组织种类时失败！请检查】')
+      return
+    }
 
     this.setData({
       pageKind:pageKind,
@@ -38,6 +61,17 @@ Page({
     var that=this
     this.setData({
       userInfo: app.globalData.userInfo,
+    })
+  },
+  //跳转到组织页面
+  jumoToGroups(e){
+    var that=this
+    console.log(e)
+    var index=e.currentTarget.dataset.index
+    var unique_code=this.data.groups[index].unique_code
+    console.log('【用户点击的组织的唯一识别码】',unique_code)
+    wx.navigateTo({
+      url: '/pages/single_group/single_group?unique_code='+unique_code,
     })
   },
   //返回上一页面

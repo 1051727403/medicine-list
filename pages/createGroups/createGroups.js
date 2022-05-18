@@ -501,5 +501,6 @@ Page({
 
   onShareAppMessage() {
 
-  }
+  },
+  
 })

@@ -13,6 +13,10 @@ Component({
     showBackIcon:{
       type:String,
       value:"false"
+    },
+    linear_gradient:{
+      type:String,
+      value:"linear-gradient(#CAE5FF,30%,white)"
     }
   },
 

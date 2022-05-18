@@ -1,3 +1,18 @@
 <!--顶部导航栏自定义 start-->
-<custom_nav_top pageName="{{pageKind==1?'我加入的组织':'我管理的组织'}}" showBackIcon="true" bindtap="back"></custom_nav_top>
+<custom_nav_top pageName="{{pageKind==1?'我加入的组织':'我管理的组织'}}" showBackIcon="true"linear_gradient="linear-gradient(to right bottom,#cff1fb,70%,#d9f1fc) ;"bindtap="back"></custom_nav_top>
 <!--顶部导航栏自定义 end-->
+<!--渲染我管理的组织  start-->
+<view class="groups_list" wx:for="{{groups}}" wx:for-item="groups" wx:for-index="index">
+  <view class="groups fadeInLeft" data-index="{{index}}" bindtap="jumoToGroups">
+    <view class="content">
+      <view class="groups_name">{{groups.name}}</view>
+      <view class="groups_address"><text decode="true">{{groups.address.province}}&nbsp;&nbsp;{{groups.address.city}}&nbsp;&nbsp;{{groups.address.district}}</text></view>
+      <view class="bottom_part">
+        <view class="groups_members_number">已加入人数：{{groups.members_number}}</view>
+        <view class="permission"wx:if="{{groups.permission==1}}" style="background-color: #dbffec; color:#00b767;">管理员</view>
+        <view class="permission" wx:elif="{{groups.permission==2}}"style="background-color: #ffe7ec; color:#ff4747;">创建者</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--渲染我管理的组织  end-->
