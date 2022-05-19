@@ -8,31 +8,31 @@
 <view class="group">
   <view class="group_name">
     <view class="group_prompt">组织名称：</view>
-    <input class="group_input" type="text" placeholder="请输入组织名称（必填）" bindinput="group_name" value="{{new_group.name}}"/>
+    <input class="group_input" type="text" placeholder="请输入组织名称（必填）" placeholder-class="placeholder" bindinput="group_name" value="{{new_group.name}}"/>
   </view>
   <view class="group_founder_name">
     <view class="group_prompt">创建人姓名：</view>
-    <input class="group_input" type="text" placeholder="请输入您的姓名（必填）" bindinput="group_founder_name"value="{{new_group.founder_name}}"/>
+    <input class="group_input" type="text" placeholder="请输入您的姓名（必填）" bindinput="group_founder_name"placeholder-class="placeholder" value="{{new_group.founder_name}}"/>
   </view>
   <view class="group_founder_phoneNumber">
     <view class="group_prompt">官方联系电话：</view>
-    <input class="group_input" type="number" placeholder="请输入您的手机号码（必填）" bindinput="group_phone_number"value="{{new_group.phone_number}}"/>
+    <input class="group_input" type="number" placeholder="请输入您的手机号码（必填）" bindinput="group_phone_number"placeholder-class="placeholder" value="{{new_group.phone_number}}"/>
   </view>
   <view class="group_address">
     <view class="group_prompt">组织地址：</view>
     <view style="margin-top: 10rpx;">所在省市区:</view>
     <picker mode="region" header-text="省市区选择" bindchange="choose_address">
       <view class="showArea">
-        <view class="choose"style="color:{{new_group.address.province==''?'#868686':'black'}};">{{new_group.address.province==''?'请选择 ▼':new_group.address.province}}</view>
-        <view class="choose"style="color:{{new_group.address.province==''?'#868686':'black'}};">{{new_group.address.city==''?'请选择 ▼':new_group.address.city}}</view>
-        <view class="choose"style="color:{{new_group.address.province==''?'#868686':'black'}};">{{new_group.address.district==''?'请选择 ▼':new_group.address.district}}</view>
+        <view class="choose"style="color:{{new_group.address.province==''?'rgb(210, 210, 210)':'black'}};">{{new_group.address.province==''?'请选择 ▼':new_group.address.province}}</view>
+        <view class="choose"style="color:{{new_group.address.province==''?'rgb(210, 210, 210)':'black'}};">{{new_group.address.city==''?'请选择 ▼':new_group.address.city}}</view>
+        <view class="choose"style="color:{{new_group.address.province==''?'rgb(210, 210, 210)':'black'}};">{{new_group.address.district==''?'请选择 ▼':new_group.address.district}}</view>
       </view>
     </picker>
-    <input class="group_input" type="text" placeholder="请输入组织所在小区" bindinput="group_community"value="{{new_group.address.community}}"/>
+    <input class="group_input" type="text" placeholder="请输入组织所在小区" bindinput="group_community" placeholder-class="placeholder" value="{{new_group.address.community}}"/>
   </view>
   <view class="group_introduction">
     <view class="group_prompt">组织简介(300字以内)：</view>
-    <textarea class="group_input" placeholder="请输入组织简介" maxlength="300" style="height:400rpx;padding-top: 20rpx;"bindinput="group_introduction"value="{{new_group.introduction}}"></textarea>
+    <textarea class="group_input" placeholder="请输入组织简介" maxlength="300" style="height:400rpx;padding-top: 20rpx;width: 95%;"bindinput="group_introduction" placeholder-class="placeholder" value="{{new_group.introduction}}"></textarea>
   </view>
   <!--用户协议-->
   <switch class="userAgreeMent" bindchange="userAgreeMent" type="checkbox"checked="{{is_check_userAgreeMent}}">同意并允许《《用户协议》》</switch>

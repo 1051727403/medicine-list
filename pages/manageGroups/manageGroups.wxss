@@ -76,7 +76,7 @@ page {
 }
 .fadeInLeft {
   animation-name: fadeInLeft;
-  animation-duration: 0.5s;
+  animation-duration: 1s;
 	animation-fill-mode: both;
 }
 @-webkit-keyframes fadeInRight {
@@ -93,7 +93,7 @@ page {
 
 .fadeInRight {
   animation-name: fadeInRight;
-  animation-duration: 0.5s;
+  animation-duration: 1s;
 	animation-fill-mode: both;
 }
 

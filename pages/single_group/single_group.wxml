@@ -1,3 +1,33 @@
 <!--顶部导航栏自定义 start-->
-<custom_nav_top pageName="" showBackIcon="true" bindtap="back"></custom_nav_top>
+<custom_nav_top pageName="" showBackIcon="true" bindtap="back" linear_gradient="linear-gradient(#2880c8,30%,#dff6fe);"></custom_nav_top>
 <!--顶部导航栏自定义 end-->
+<!--顶部图片  start-->
+<image class="top_photo" src="https://img-blog.csdnimg.cn/8fd47a4ddd8e459091c209da5ed63261.png#pic_center" mode="widthFix"></image>
+<!--顶部图片  start-->
+<!--单个组织页面 start-->
+<view class="group">
+  <view class="group_block">
+    <view class="name">{{group.name}}</view>
+    <view class="address">
+      <image class="address_icon" src="https://img-blog.csdnimg.cn/d51e67c53acb44509cc116ae572f92de.png#pic_center"></image><text decode="true">{{group.address.province}}&nbsp;&nbsp;{{group.address.city}}&nbsp;&nbsp;{{group.address.district}}&nbsp;&nbsp;{{group.address.community}}</text>
+    </view>
+    <view class="data_show">
+      <view class="block">
+        <view class="members_number_data" style="color: rgb(255, 168, 61);">{{group.members_number}}</view>
+        <view class="members_number_prompt">已加入人数</view>
+      </view>
+        <view class="block">
+          <view class="deal_number_data"style="color:#88bee4;">{{group.deal_number}}</view>
+          <view class="deal_number_prompt">已完成配药数</view>
+        </view>
+    </view>
+    <view class="founder_name">创建者：{{group.founder_name}}</view>
+    <view class="createTime">组织创建时间：{{group.createTime}}</view>
+    <view class="phone_number">官方联系电话：{{group.phone_number}}</view>
+    <view class="introduction">
+      <view class="introduction_prompt">组织介绍：</view>
+      <view class="introduction_content">{{group.introduction}}</view>
+    </view>
+  </view>
+</view>
+<!--单个组织页面 end-->

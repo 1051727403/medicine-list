@@ -378,7 +378,15 @@ Page({
         duration: 1000
       })
       return
-    } else if (new_group.address.province == '') {
+    } else if(new_group.phone_number.length!=11){
+      console.log('【组织官方联系电话长度错误！】')
+      wx.showToast({
+        title: '官方联系电话长度不足11位！',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }else if (new_group.address.province == '') {
       console.log('【组织所在地址未填写！】')
       wx.showToast({
         title: '请填写组织所在地址！',
@@ -434,6 +442,7 @@ Page({
     }
     new_group.administrator_list.push(person)
     new_group.member_list.push(person)
+    new_group.deal_number=0
     console.log('【新创建的组织信息：】', new_group)
     //上传数据库
     await db.collection('groups_table')

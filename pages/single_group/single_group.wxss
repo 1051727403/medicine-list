@@ -1,1 +1,75 @@
-/* pages/single_group/single_group.wxss */
+page{
+  background: linear-gradient(#f8f8ff,5%,#fafafc);
+}
+.top_photo{
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+.group{
+  z-index: 2;
+  position: relative;
+  width: 100%;
+  border-top-right-radius: 40rpx;
+  border-top-left-radius: 40rpx;
+  background-color:#fafafc;
+  margin-top: 340rpx;
+  padding: 1rpx;
+}
+.group_block{
+  margin: 5%;
+  display: flex;
+  justify-content: space-around;
+  align-items:flex-start;
+  flex-direction: column;
+}
+.name{
+  margin-top:20rpx ;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 46rpx;
+}
+.address_icon{
+  width: 50rpx;
+  height: 50rpx;
+}
+.address,.founder_name,.createTime,.phone_number{
+  margin-top: 40rpx;
+  color: #8f8f8f;
+}
+.data_show{
+  height: 150rpx;
+  width: 100%;
+  border: 4rpx solid #67c817;
+  border-radius: 30rpx;
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.block{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.deal_number_prompt,.members_number_prompt{
+  margin-top: 20rpx;
+  font-size: 28rpx;
+}
+.introduction{
+  margin-top: 40rpx;
+  border-top: 2rpx solid rgb(218, 217, 217);
+}
+.introduction_prompt{
+  margin-top: 30rpx;
+  font-size:34rpx;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.introduction_content{
+  padding: 20rpx;
+  margin-top: 30rpx;
+  border: 4rpx solid rgb(125, 214, 255);
+  background-color: rgb(246, 253, 255);
+  border-radius: 30rpx;
+}

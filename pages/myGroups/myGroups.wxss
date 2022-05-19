@@ -1,5 +1,5 @@
 page{
-  background:linear-gradient(to right bottom,#cff1fb,70%,#f1f1ff) ;
+  background:linear-gradient(to right bottom,#b9e0fc,70%,#d0d0fd) ;
 }
 .groups{
   width: 90%;
