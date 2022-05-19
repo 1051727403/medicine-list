@@ -30,17 +30,17 @@ Page({
     if(pageKind==1){
       //获取我加入的队伍
       for(let i=0;i<joined_groups.length;i++){
-        if(joined_groups[i].permission==0){
+        if(joined_groups[i].permission=='1'){
           groups.push(joined_groups[i])
         }
       }
     }else if(pageKind==2){
       //获取我管理的所有队伍
       for(let i=0;i<joined_groups.length;i++){
-        if(joined_groups[i].permission==1){
+        if(joined_groups[i].permission=='2'){
           groups.push(joined_groups[i])
         }
-        else if(joined_groups[i].permission==2){
+        else if(joined_groups[i].permission=='3'){
           //将我创建的组织放在最前端
           groups.unshift(joined_groups[i])
         }

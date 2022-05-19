@@ -464,7 +464,7 @@ Page({
     //将组织的部分信息放入到创始人的已加入组织列表中
     //构造组织信息
     var group={}
-    group.permission='2'
+    group.permission='3'
     group.unique_code=unique_code
     group.name=new_group.name
     group.address=new_group.address

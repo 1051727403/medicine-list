@@ -1,5 +1,5 @@
 <!--顶部导航栏自定义 start-->
-<custom_nav_top pageName="" showBackIcon="true" bindtap="back" linear_gradient="linear-gradient(#2880c8,30%,#dff6fe);"></custom_nav_top>
+<custom_nav_top pageName="" showBackIcon="true" bindtap="back" linear_gradient="linear-gradient(#c1e3f6,70%,#2885ca);"></custom_nav_top>
 <!--顶部导航栏自定义 end-->
 <!--顶部图片  start-->
 <image class="top_photo" src="https://img-blog.csdnimg.cn/8fd47a4ddd8e459091c209da5ed63261.png#pic_center" mode="widthFix"></image>
@@ -9,7 +9,7 @@
   <view class="group_block">
     <view class="name">{{group.name}}</view>
     <view class="address">
-      <image class="address_icon" src="https://img-blog.csdnimg.cn/d51e67c53acb44509cc116ae572f92de.png#pic_center"></image><text decode="true">{{group.address.province}}&nbsp;&nbsp;{{group.address.city}}&nbsp;&nbsp;{{group.address.district}}&nbsp;&nbsp;{{group.address.community}}</text>
+      <image class="address_icon" src="https://img-blog.csdnimg.cn/b7eb61b6c13b469a80d190f457c79ee3.png#pic_center"></image><text decode="true">{{group.address.province}}&nbsp;&nbsp;{{group.address.city}}&nbsp;&nbsp;{{group.address.district}}&nbsp;&nbsp;{{group.address.community}}</text>
     </view>
     <view class="data_show">
       <view class="block">
@@ -26,8 +26,17 @@
     <view class="phone_number">官方联系电话：{{group.phone_number}}</view>
     <view class="introduction">
       <view class="introduction_prompt">组织介绍：</view>
-      <view class="introduction_content">{{group.introduction}}</view>
+      <view class="introduction_content"style="{{group.introduction==''?'text-align:center;':''}}">{{group.introduction==''?'暂无组织介绍':group.introduction}}</view>
     </view>
   </view>
 </view>
 <!--单个组织页面 end-->
+<!--底部加入以及分享按钮  start-->
+<view class="bottom_bar">
+  <view class="share">
+    <image class="share_icon" src="https://img-blog.csdnimg.cn/ec2e016390f64a9cb992446058aa08f3.png#pic_center"></image>
+    <view class="share_text">分享</view>
+  </view>
+  <view class="join" bindtap="changeJoinState" style="background-color:{{permission==0?'#61cf0d':permission=='1'||permission=='2'?'rgb(195, 195, 195)':'rgb(255, 104, 104)'}};">{{permission=='0'?'加入组织':permission=='1'||permission=='2'?'退出组织':'解散组织'}}</view>
+</view>
+<!--底部加入以及分享按钮  start-->

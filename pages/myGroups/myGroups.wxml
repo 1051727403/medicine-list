@@ -9,8 +9,8 @@
       <view class="groups_address"><text decode="true">{{groups.address.province}}&nbsp;&nbsp;{{groups.address.city}}&nbsp;&nbsp;{{groups.address.district}}</text></view>
       <view class="bottom_part">
         <view class="groups_members_number">已加入人数：{{groups.members_number}}</view>
-        <view class="permission"wx:if="{{groups.permission==1}}" style="background-color: #dbffec; color:#00b767;">管理员</view>
-        <view class="permission" wx:elif="{{groups.permission==2}}"style="background-color: #ffe7ec; color:#ff4747;">创建者</view>
+        <view class="permission"wx:if="{{groups.permission=='2'}}" style="background-color: #dbffec; color:#00b767;">管理员</view>
+        <view class="permission" wx:elif="{{groups.permission=='3'}}"style="background-color: #ffe7ec; color:#ff4747;">创建者</view>
       </view>
     </view>
   </view>
