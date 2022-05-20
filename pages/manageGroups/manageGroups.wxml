@@ -1,13 +1,13 @@
 <!--顶部导航栏自定义 start-->
 <view class="nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;">
   <view class="fadeInLeft" style="display: flex; flex-direction: row; align-items: center;">
-    <text class="nav_top_name"style="margin-left:{{showBackIcon=='true'?'3%':'5%'}};">组织管理</text>
+    <text class="nav_top_name" style="margin-left:{{showBackIcon=='true'?'3%':'5%'}};">组织管理</text>
   </view>
 </view>
 <view class="empty_nav_top" style="padding-top:{{statusBarHeight*2}}rpx ;"></view>
 <!--顶部导航栏自定义 end-->
 <!--底部装饰 start-->
-<view class="behind_decorate"class="behind_decorate"></view>
+<view class="behind_decorate" class="behind_decorate"></view>
 
 <!--底部装饰 end-->
 <!--创建组织大图标  start-->
@@ -15,12 +15,37 @@
 <!--创建组织大图标  end-->
 <!--我加入的小区&管理的小区跳转图标 start-->
 <view class="joinAndManagement">
-  <image class="myGroups fadeInLeft"src="https://img-blog.csdnimg.cn/b880f9837e494ba2be75d81b15d0897d.png#pic_center"mode="widthFix" bindtap="jumpTo_joined"></image>
-  <image class="myGroups fadeInRight"src="https://img-blog.csdnimg.cn/60e8b4522a974fc4a6943db30126054c.png#pic_center"mode="widthFix" bindtap="jumpTo_manage"></image>
+  <image class="myGroups" src="https://img-blog.csdnimg.cn/b880f9837e494ba2be75d81b15d0897d.png#pic_center" mode="widthFix" bindtap="jumpTo_joined"></image>
+  <image class="myGroups" src="https://img-blog.csdnimg.cn/60e8b4522a974fc4a6943db30126054c.png#pic_center" mode="widthFix" bindtap="jumpTo_manage"></image>
 </view>
 <!--我加入的小区&管理的小区跳转图标 end-->
 <!--搜索小区，展示搜索结果  start-->
 <view class="searchGroups">
-搜索结果：
+  <input class="searchInput" placeholder="请输入组织信息" bindinput="getInput" bindblur="searchForGroup"></input>
+  <image class="searchImg" src="/images/manageGroups/搜索_填充.png" bindtap="searchForGroup"></image>
+</view>
+<view wx:if="{{!clicked}}"></view>
+<view class="fadeInUp" wx:else>
+  <scroll-view class="area" scroll-y wx:if="{{groups.length!=0}}">
+    <view class="areaTitle">
+      <text class="title">搜索结果</text>
+    </view>
+    <view class="Groups" wx:for="{{groups}}" wx:for-index="idx" wx:for-item="it" bindtap="ToSingleGroup" data-unique_code="{{it.unique_code}}">
+      <view class="fadeInLeft">
+        <view class="GroupName">{{it.name}}</view>
+        <view class="GroupAddress">{{it.address.province}} {{it.address.city}} {{it.address.district}} {{it.address.community}}</view>
+        <view style="justify-content: space-between;display: flex;;">
+          <view class="FounderName">管理员：{{it.founder_name}}</view>
+          <view class="GroupCreateTime">创建时间：{{it.createTime}}</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="area" wx:else>
+    <view class="areaTitle">
+      <text class="title">搜索结果</text>
+    </view>
+    <view class="NotFound">抱歉，未能找到相关组织</view>
+  </view>
 </view>
 <!--搜索小区，展示搜索结果  end-->

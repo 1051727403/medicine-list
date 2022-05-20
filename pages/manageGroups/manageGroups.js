@@ -11,23 +11,10 @@ Page({
     windowHeight: app.globalData.windowHeight,
     userInfo: app.globalData.userInfo,
     //搜索到的组织列表
-    groups: [{
-        unique_code: '',
-        name: '',
-        introduction: '',
-        create_time: '',
-        members_number: '',
-        address: '',
-      },
-      {
-        unique_code: '',
-        name: '',
-        introduction: '',
-        create_time: '',
-        members_number: '',
-        address: '',
-      }
-    ]
+    groups: [],
+    //搜索信息
+    searchInf : "",
+    clicked : false
   },
   //复用型函数
   //检测是否登录
@@ -45,7 +32,7 @@ Page({
   },
   //Onload函数
   onLoad(options) {
-
+    console.log("hahaha")
   },
 
   /**
@@ -92,5 +79,39 @@ Page({
       path: "pages/index/index",
       imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
     }
+  },
+  //获取搜索框中内容
+  getInput: function (e) {
+    console.log(e.detail)
+    var Inf = e.detail.value
+    this.setData({
+      searchInf : Inf
+    })
+  },
+  //获得搜索结果
+  async searchForGroup(){
+    var that=this
+    that.setData({
+      clicked : true
+    })
+    await db.collection('groups_table')
+    .where({
+      unique_code : that.data.searchInf
+    })
+    .get()
+    .then(res=>{
+      that.setData({
+        groups : res.data
+      })
+    })
+    console.log(that.data.groups)
+  },
+
+  //跳转到详情页
+  ToSingleGroup:function(event){
+    var that=this
+    wx.navigateTo({
+      url: '../single_group/single_group?unique_code='+event.currentTarget.dataset.unique_code,
+    })
   }
 })
