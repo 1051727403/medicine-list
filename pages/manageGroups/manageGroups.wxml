@@ -20,12 +20,12 @@
 </view>
 <!--我加入的小区&管理的小区跳转图标 end-->
 <!--搜索小区，展示搜索结果  start-->
-<view class="searchGroups">
+<view class="searchGroups"style="background-color:rgb(203, 249, 255);">
   <input class="searchInput" placeholder="请输入组织信息" bindinput="getInput" bindblur="searchForGroup"></input>
-  <image class="searchImg" src="/images/manageGroups/搜索_填充.png" bindtap="searchForGroup"></image>
+  <image class="searchImg" src="https://img-blog.csdnimg.cn/4eb17e9c2c2e4fd89d2d327722746c6e.png#pic_center" bindtap="searchForGroup"></image>
 </view>
 <view wx:if="{{!clicked}}"></view>
-<view class="fadeInUp" wx:else>
+<view class="fadeInUp" wx:else >
   <scroll-view class="area" scroll-y wx:if="{{groups.length!=0}}">
     <view class="areaTitle">
       <text class="title">搜索结果</text>
