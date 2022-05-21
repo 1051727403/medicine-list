@@ -26,21 +26,18 @@
 </view>
 <view wx:if="{{!clicked}}"></view>
 <view class="fadeInUp" wx:else >
-  <scroll-view class="area" scroll-y wx:if="{{groups.length!=0}}">
+  <view class="area" scroll-y wx:if="{{groups.length!=0}}">
     <view class="areaTitle">
       <text class="title">搜索结果</text>
     </view>
     <view class="Groups" wx:for="{{groups}}" wx:for-index="idx" wx:for-item="it" bindtap="ToSingleGroup" data-unique_code="{{it.unique_code}}">
-      <view class="fadeInLeft">
+      <view class="single_group fadeInLeft">
         <view class="GroupName">{{it.name}}</view>
         <view class="GroupAddress">{{it.address.province}} {{it.address.city}} {{it.address.district}} {{it.address.community}}</view>
-        <view style="justify-content: space-between;display: flex;;">
-          <view class="FounderName">管理员：{{it.founder_name}}</view>
-          <view class="GroupCreateTime">创建时间：{{it.createTime}}</view>
-        </view>
+        <view class="members_number">已加入人数：{{it.members_number}}</view>
       </view>
     </view>
-  </scroll-view>
+  </view>
   <view class="area" wx:else>
     <view class="areaTitle">
       <text class="title">搜索结果</text>

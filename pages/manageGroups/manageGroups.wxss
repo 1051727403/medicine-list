@@ -61,6 +61,94 @@ page {
   border-radius: 30rpx;
   box-shadow: 4rpx 4rpx 8rpx #a2d2ff;
 }
+
+
+.searchGroups{
+  width: 90%;
+  margin-top: 30rpx;
+  margin-left: 5%;
+  margin-right: 5%;
+  border: 4rpx solid #a2e2ff;
+  border-radius: 10rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchInput{
+  width: 80%;
+  height: 100rpx;
+  margin-left: 30rpx;
+  font-size: 34rpx;
+}
+
+.searchImg{
+  width: 70rpx;
+  height: 70rpx;
+  margin-right: 30rpx;
+}
+
+.area{
+  width: 90%;
+  margin-top: 30rpx;
+  margin-left: 5%;
+  margin-right: 5%;
+  border: 4rpx solid #a2e2ff;
+  border-radius: 10rpx;
+  background-color: white;
+  height: 550rpx;
+}
+
+.areaTitle{
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+}
+
+.title{
+  margin-left: 30rpx;
+  font-size: 34rpx;
+  padding-bottom: 10rpx;
+  border-bottom: 2rpx solid rgb(204, 204, 204);
+}
+
+.Groups{
+  background-color: white;
+  margin-bottom: 20rpx;
+  margin-top: 20rpx;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.single_group{
+  padding: 5%;
+  background-color:#f7fbff;
+  border-radius:30rpx ;
+  box-shadow: 4rpx 4rpx 4rpx rgb(238, 238, 238);
+}
+.GroupName{
+  margin-top: 10rpx;
+  font-size: 40rpx;
+  color: #437dd4;
+}
+
+.members_number,.GroupAddress{
+  margin-top: 10rpx;
+  font-size: 28rpx;
+  color: rgb(197, 197, 197);
+}
+
+.NotFound{
+  font-size: 25rpx;
+  color:grey;
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+
+
 /*动画样式*/
 
 @-webkit-keyframes fadeInLeft {
@@ -147,90 +235,4 @@ page {
   animation-name: fadeOutDown;
   animation-duration: 1s;
 	animation-fill-mode: both;
-}
-
-.searchGroups{
-  width: 90%;
-  margin-top: 30rpx;
-  margin-left: 5%;
-  margin-right: 5%;
-  border: 4rpx solid #437dd4;
-  border-radius: 10rpx;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.searchInput{
-  width: 80%;
-  height: 100rpx;
-  margin-left: 30rpx;
-  font-size: 34rpx;
-}
-
-.searchImg{
-  width: 70rpx;
-  height: 70rpx;
-  margin-right: 30rpx;
-}
-
-.area{
-  width: 90%;
-  margin-top: 30rpx;
-  margin-left: 5%;
-  margin-right: 5%;
-  border: 4rpx solid #437dd4;
-  border-radius: 10rpx;
-  background-color: white;
-  height: 550rpx;
-}
-
-.areaTitle{
-  width: 100%;
-  height: 80rpx;
-  display: flex;
-  align-items: center;
-}
-
-.title{
-  margin-left: 30rpx;
-  font-size: 34rpx;
-}
-
-.Groups{
-  background-color: white;
-  border-top: 4rpx solid grey;
-  margin-bottom: 20rpx;
-}
-
-.GroupName{
-  font-size: 60rpx;
-  text-align: center;
-  color: #437dd4;
-}
-
-.GroupAddress{
-  font-size: 35rpx;
-  text-align: end;
-  margin-right: 20rpx;
-  color: grey;
-}
-
-.FounderName{
-  font-size: 25rpx;
-  margin-left: 230rpx;
-}
-
-.GroupCreateTime{
-  font-size: 25rpx;
-  margin-right: 20rpx;
-}
-
-.NotFound{
-  font-size: 25rpx;
-  color:grey;
-  margin-left: 20rpx;
-  margin-bottom: 20rpx;
 }
