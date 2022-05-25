@@ -7,7 +7,8 @@
     "pages/createGroups/createGroups",
     "pages/myGroups/myGroups",
     "pages/personnalInfo/personalInfo",
-    "pages/single_group/single_group"
+    "pages/single_group/single_group",
+    "pages/shareList/shareList"
   ],
   "window":{
     "backgroundTextStyle":"light",

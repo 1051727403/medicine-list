@@ -528,14 +528,15 @@ Page({
 
   //分享小程序
   onShareAppMessage(res) {
+    var that=this
     //若点击分享按钮进行分享，将该页面数据封装后作为参数传递，好友点击后根据参数渲染
     if (res.from == 'button') {
       console.log('【点击按钮进行分享】')
       //封装该页面所有信息
-
       return {
         title: "药清单",
-        path: "pages/medicineList/medicineList",
+        //先进index以执行登录验证
+        path: "pages/index/index?fromshare="+that.data.list.id,
         imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
       }
     } else {

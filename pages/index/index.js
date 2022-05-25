@@ -387,7 +387,7 @@ Page({
     console.log('全局变量userInfo：', app.globalData.userInfo)
   },
   //用户静默登录
-  onLoad() {
+  onLoad(options) {
     //不调用云函数的方法
     const that = this
 
@@ -433,6 +433,13 @@ Page({
         userInfo: app.globalData.userInfo,
       })
       that.getTotalList(that.data.userInfo.openid)
+    }
+    //如果从清单分享中来的，就跳转到分享的清单
+    if(options.fromshare.length>0)
+    {
+      wx.navigateTo({
+        url: '../shareList/shareList?fromshare=' +options.fromshare,
+      })
     }
   },
   //OnShow函数，监视页面

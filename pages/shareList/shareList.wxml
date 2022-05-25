@@ -1,0 +1,39 @@
+<!--顶部导航栏自定义 start-->
+<custom_nav_top pageName="{{list.name}}" showBackIcon="true" bindtap="back"></custom_nav_top>
+<!--顶部导航栏自定义 end-->
+<!--若当前清单中无药品，则提示  start-->
+<view class="prompt" wx:if="{{list.medicines.length==0}}">当前清单还没有药品哦！</view>
+<!--若当前清单中无药品，则提示  end-->
+<!-- 药品清单列表 start-->
+<movable-area class="medicines" wx:for="{{list.medicines}}" wx:for-item="medicine" wx:for-index="index" wx:key="" data-index="{{index}}" style="height:{{windowWidth*0.9*0.4*2}}rpx;">
+  <movable-view class="movebar" direction="horizontal" inertia="true" animation="true" damping="200" friction="0.001" data-index="{{index}}" bindchange="bindMove" x="{{clickDel==true?'0':''}}">
+    <view class="single_medicine {{(index==0&&is_add_confirm==true)?'fadeInRight':''}} {{is_first_show?'fadeInRight':''}}" style="height:{{windowWidth*0.9*0.4*2}}rpx;">
+      <image class="medicine_photo {{(index==0&&is_add_confirm==true)?'fadeInRight':''}} {{is_first_show?'fadeInRight':''}}" src="{{medicine.url}}" mode="aspectFit"style="height:{{windowWidth*0.9*0.4*2}}rpx;width:{{windowWidth*0.9*0.4*2}}rpx;"></image>
+      <view class="right_part">
+        <view class="detail">
+          <view class="detail_name">{{medicine.name}}</view>
+          <view class="detail_brand">品牌：{{medicine.brand}}</view>
+          <view class="detail_specification">规格：{{medicine.specification}}</view>
+        </view>
+        <view class="number_line">
+          <view class="detail_number" style="margin-top:0rpx;">数量：</view>
+          <view class="change_number">
+            <image class="minus" bindtap="minus" data-index="{{index}}" wx:if="{{medicine.number!=0}}" src="https://img-blog.csdnimg.cn/1e4daaa161f844ee8db4eb9be0463c08.png#pic_center" style="margin-right: 20rpx;"></image>
+            <view class="number">{{medicine.number}}</view>
+            <image class="add" bindtap="add" data-index="{{index}}" src="https://img-blog.csdnimg.cn/de489ff39bb0481db8e9b0dcfed388fc.png#pic_center"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <image class="del_medicine" style=" height:{{windowWidth*0.9*0.4*2}}rpx;opacity: {{index==moveid?'0':opacity}}; " direction="horizontal" bindtap="del_medicine" data-index="{{index}}" mode="aspectFit" src="https://img-blog.csdnimg.cn/7a2c963a32f249e7ab1c998aa41ff29a.png#pic_center"></image>
+  </movable-view>
+</movable-area>
+<!--药品清单列表 end -->
+
+<!--底部栏分享&提交 start-->
+<view class="empty_bottom_bar"></view>
+<view class="bottom_bar">
+  <button class="share"open-type="share" style="background-color: white; font-size: 36rpx;">分享</button>
+  <button class="submit" bindtap="submit"style="background-color: white; font-size: 36rpx;">添加</button>
+</view>
+<!--底部栏预览&提交 end-->
