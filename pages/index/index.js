@@ -32,6 +32,8 @@ Page({
     modifyIndex: -1,
     //判断是否从清单页面返回，若是，则需要加载清单，若不是，则不需要
     is_from_medicineList:false,
+    //判断是否从分享页面返回
+    is_from_shareList:false,
     //清单列表
     medicineList: [{
       //样品
@@ -446,7 +448,7 @@ Page({
   onShow() {
     var that = this
     console.log('检测上一级路径是否为清单列表页，若是，则加载，若不是，则不进行加载')
-    if (app.globalData.logged == true&&this.data.is_from_medicineList==true) {
+    if (app.globalData.logged == true&&(this.data.is_from_medicineList==true||this.data.is_from_shareList==true)) {
       this.setData({
         new_user: false,
         userInfo: app.globalData.userInfo,

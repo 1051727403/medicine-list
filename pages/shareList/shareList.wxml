@@ -18,9 +18,7 @@
         <view class="number_line">
           <view class="detail_number" style="margin-top:0rpx;">数量：</view>
           <view class="change_number">
-            <image class="minus" bindtap="minus" data-index="{{index}}" wx:if="{{medicine.number!=0}}" src="https://img-blog.csdnimg.cn/1e4daaa161f844ee8db4eb9be0463c08.png#pic_center" style="margin-right: 20rpx;"></image>
             <view class="number">{{medicine.number}}</view>
-            <image class="add" bindtap="add" data-index="{{index}}" src="https://img-blog.csdnimg.cn/de489ff39bb0481db8e9b0dcfed388fc.png#pic_center"></image>
           </view>
         </view>
       </view>
@@ -34,6 +32,6 @@
 <view class="empty_bottom_bar"></view>
 <view class="bottom_bar">
   <button class="share"open-type="share" style="background-color: white; font-size: 36rpx;">分享</button>
-  <button class="submit" bindtap="submit"style="background-color: white; font-size: 36rpx;">添加</button>
+  <button class="submit" bindtap="add_confirm"style="background-color: white; font-size: 36rpx;">添加</button>
 </view>
 <!--底部栏预览&提交 end-->

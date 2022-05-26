@@ -6,6 +6,7 @@ wx.cloud.init({
   env: 'medicine-list-0gpcpvk471c437e4',
 })
 const db = wx.cloud.database()
+var openid
 Page({
 
   /**
@@ -81,10 +82,25 @@ Page({
     .then(res=>{
       console.log(res.data)
       that.setData({
-        list : res.data
+        list : res.data[0]
       })
     })
     console.log(that.data.list)
+    wx.cloud.callFunction({
+      name: 'getOpenid',
+      success: (res) => {
+        console.log('初始信息：', res)
+        openid = res.result.openid
+        if (openid == undefined) {
+          console.log('openid为空')
+          return
+        }
+        console.log("openid", openid)
+      },
+      fail: (res) => {
+        console.log(res)
+      }
+    })
   },
 
   /**
@@ -167,6 +183,7 @@ Page({
     //   console.log("【为防止数据库未更新完加载不完全，延迟中】");
     // }, 500)
   },
+  //构造最新更新时间函数
   getNowTime() {
     //构造时间标准格式
     var date = new Date
@@ -186,28 +203,73 @@ Page({
     console.log('【now_time】', now_time)
     return now_time
   },
-  async uploadDatabase() {
+  //创建UUID
+  create_uuid() {
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+    var uuid = s.join("");
+    return uuid;
+  },
+  //新增清单上传数据库
+  async uploadDatabase(new_data) {
     var that = this
-    //给清单列表页面传值，表示从药品列表页面返回，需要重新加载清单
+    var res = {}
+    //检查参数完整性
+    if (new_data.openid == "") {
+      console.log('【openid缺失，新增清单无法上传数据库】')
+      res.errCode = 1
+      res.errMsg = '【openid缺失，新增清单无法上传数据库】'
+      //console.log('[res]:',res)
+      return res
+    }
+    //上传
+    await db.collection('list_table')
+      .add({
+        data: new_data,
+        success: re => {
+          console.log('【上传成功！】', re)
+          res.errCode = 0
+          res.errMsg = '【上传新增清单成功！】'
+        },
+        fail: re => {
+          res.errCode = 2
+          res.errMsg = '【上传清单时发生未知错误】'
+        },
+
+      })
+    //console.log('[res]:',res)
+    return res
+
+  },
+  //新增清单
+  async add_confirm() {
+    var that = this
+    //获取当前时间用于更新
+    var now_time = that.getNowTime()
+    //利用时间戳+随机数与16进制生成uuid
+    var id = that.create_uuid()
+    console.log('【生成uuid】', id)
+    var new_data = {
+      openid: openid,
+      id: id,
+      name: that.data.list.name,
+      lastModifyTime: now_time,
+      status: 0, //0代表什么状态也没有
+      medicines: that.data.list.medicines
+    }
+    console.log('new_data:', new_data)
+    /*该处上传数据库  start*/
+    await this.uploadDatabase(new_data)
     var pages = getCurrentPages()
     var prePages = pages[pages.length - 2]
     prePages.setData({
       is_from_medicineList: true,
     })
-    //添加新的清单（视为更新）
-    var lastModifyTime = that.getNowTime()
-    var new_data = that.data.list
-    new_data.lastModifyTime = lastModifyTime
-    db.collection('list_table')
-      .add({
-        data: new_data
-      }).then(res => {
-        console.log('【更新清单成功！】', res)
-      })
   },
-
-  submit() {
-    console.log(this.data.list)
-    this.uploadDatabase()
-  }
 })
