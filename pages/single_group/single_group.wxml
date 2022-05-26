@@ -24,6 +24,8 @@
     <view class="founder_name">创建者：{{group.founder_name}}</view>
     <view class="createTime">组织创建时间：{{group.createTime}}</view>
     <view class="phone_number">官方联系电话：{{group.phone_number}}</view>
+    <view class="unique_code">唯一识别码：{{group.unique_code}}</view>
+    <view class="unique_code">（分享唯一识别码即可邀请他人加入组织！）</view>
     <view class="introduction">
       <view class="introduction_prompt">组织介绍：</view>
       <view class="introduction_content"style="{{group.introduction==''?'text-align:center;':''}}">{{group.introduction==''?'暂无组织介绍':group.introduction}}</view>

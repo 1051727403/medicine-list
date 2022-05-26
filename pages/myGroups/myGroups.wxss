@@ -25,11 +25,11 @@ page{
   overflow: hidden;
   white-space: nowrap;
 }
-.groups_address,.groups_members_number{
+.groups_address,.members_unique_code{
   width: 80%;
   margin-top: 15rpx;
   font-size: 28rpx;
-  color: #626262;
+  color: #a1a1a1;
   letter-spacing: 2rpx;
   text-overflow: ellipsis;
   overflow: hidden;

@@ -44,6 +44,10 @@ Page({
       userInfo: app.globalData.userInfo,
     })
   },
+    //刷新页面
+    change(){
+      this.onLoad()
+    },
   //跳转到创建组织页面
   createNewGroup() {
     if (this.islogined()) {

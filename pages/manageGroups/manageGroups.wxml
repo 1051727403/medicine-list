@@ -20,7 +20,7 @@
 </view>
 <!--我加入的小区&管理的小区跳转图标 end-->
 <!--搜索小区，展示搜索结果  start-->
-<view class="searchGroups"style="background-color:rgb(203, 249, 255);">
+<view class="searchGroups">
   <input class="searchInput" placeholder="请输入组织信息" bindinput="getInput" bindblur="searchForGroup"></input>
   <image class="searchImg" src="https://img-blog.csdnimg.cn/4eb17e9c2c2e4fd89d2d327722746c6e.png#pic_center" bindtap="searchForGroup"></image>
 </view>
@@ -34,7 +34,7 @@
       <view class="single_group fadeInLeft">
         <view class="GroupName">{{it.name}}</view>
         <view class="GroupAddress">{{it.address.province}} {{it.address.city}} {{it.address.district}} {{it.address.community}}</view>
-        <view class="members_number">已加入人数：{{it.members_number}}</view>
+        <view class="members_unique_code">唯一标识码：{{it.unique_code}}</view>
       </view>
     </view>
   </view>
