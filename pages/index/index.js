@@ -34,6 +34,8 @@ Page({
     is_from_medicineList:false,
     //判断是否从分享页面返回
     is_from_shareList:false,
+    //新用户从分享页面来，分享的清单的id
+    fromshare:'',
     //清单列表
     medicineList: [{
       //样品
@@ -278,6 +280,12 @@ Page({
     app.globalData.userInfo = user
     app.globalData.logged = that.data.logged
     console.log('全局变量userInfo：', app.globalData.userInfo)
+    //若从分享页面来，则跳转到分享页面
+    if(that.data.fromshare!=''){
+      wx.navigateTo({
+        url: '../shareList/shareList?fromshare=' +that.data.fromshare,
+      })
+    }
   },
 
 
@@ -390,9 +398,9 @@ Page({
   },
   //用户静默登录
   onLoad(options) {
+    console.log('options',options)
     //不调用云函数的方法
     const that = this
-
     if (app.globalData.logged == false) {
       //延迟，读取数据库
       wx.showLoading({
@@ -437,14 +445,28 @@ Page({
       that.getTotalList(that.data.userInfo.openid)
     }
     //如果从清单分享中来的，就跳转到分享的清单
-    if(options!=undefined)
-    {
-      if(options.fromshare.length>0)
-      {
-        wx.navigateTo({
-          url: '../shareList/shareList?fromshare=' +options.fromshare,
-        })
+    if(options.fromshare!=null){
+      //若从分享页面而来，将fromshare设为变量，当新用户注册后可进行查看
+      that.setData({
+        fromshare:options.fromshare
+      })
+      if(app.globalData.logged==false){
+        //如果为新用户或用户未登录，并且是从清单分享跳转而来，则先引导其进行登录操作
+        wx.showModal({
+          title: '提示',
+          content: '登录后方可查看他人分享的清单',
+          showCancel:'false',
+          success (res) {
+            if (res.confirm) {
+              console.log('【用户点击确定】')
+            } 
+          }
+        })        
+        return
       }
+      wx.navigateTo({
+        url: '../shareList/shareList?fromshare=' +options.fromshare,
+      })
     }
   },
   //OnShow函数，监视页面
@@ -799,12 +821,30 @@ Page({
 
 
 
-  //分享按钮
-  onShareAppMessage() {
-    return {
-      title: "药清单",
-      path: "pages/index/index",
-      imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
+  //分享按钮分为分享清单以及分享程序两部分
+  onShareAppMessage(res) {
+    console.log(res)
+    var that=this
+    //若点击分享进行分享，将该分享的清单id传入，好友点击后根据参数渲染
+    if (res.from=='button') {
+      that.setData({
+        is_modify: 2,
+      })
+      console.log('【点击分享药品清单】',res)
+      var id = that.data.medicineList[that.data.modifyIndex].id
+      //封装该页面所有信息
+      return {
+        title: "药清单",
+        //先进index以执行登录验证
+        path: "pages/index/index?fromshare="+id,
+        imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
+      }
+    } else {
+      return {
+        title: "药清单",
+        path: "pages/index/index",
+        imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
+      }
     }
   }
 })

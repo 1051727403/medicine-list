@@ -8,7 +8,6 @@ wx.cloud.init({
 const db = wx.cloud.database()
 var openid
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -70,21 +69,21 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-//把传过来的清单的uid和id处理出来并找到该清单
+  //把传过来的清单的uid和id处理出来并找到该清单
   onLoad(options) {
-    var that=this
-    var shareid=options.fromshare
+    var that = this
+    var shareid = options.fromshare
     db.collection('list_table')
-    .where({
-      id : shareid
-    })
-    .get()
-    .then(res=>{
-      console.log(res.data)
-      that.setData({
-        list : res.data[0]
+      .where({
+        id: shareid
       })
-    })
+      .get()
+      .then(res => {
+        console.log(res.data)
+        that.setData({
+          list: res.data[0]
+        })
+      })
     console.log(that.data.list)
     wx.cloud.callFunction({
       name: 'getOpenid',
@@ -149,7 +148,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage(res) {
-    var that=this
+    var that = this
     //若点击分享按钮进行分享，将该页面数据封装后作为参数传递，好友点击后根据参数渲染
     if (res.from == 'button') {
       console.log('【点击按钮进行分享】')
@@ -157,7 +156,7 @@ Page({
       return {
         title: "药清单",
         //先进index以执行登录验证
-        path: "pages/index/index?fromshare="+that.data.list.id,
+        path: "pages/index/index?fromshare=" + that.data.list.id,
         imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
       }
     } else {
@@ -208,10 +207,10 @@ Page({
     var s = [];
     var hexDigits = "0123456789abcdef";
     for (var i = 0; i < 36; i++) {
-        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
     }
-    s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
-    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
     s[8] = s[13] = s[18] = s[23] = "-";
     var uuid = s.join("");
     return uuid;
@@ -250,26 +249,46 @@ Page({
   //新增清单
   async add_confirm() {
     var that = this
-    //获取当前时间用于更新
-    var now_time = that.getNowTime()
-    //利用时间戳+随机数与16进制生成uuid
-    var id = that.create_uuid()
-    console.log('【生成uuid】', id)
-    var new_data = {
-      openid: openid,
-      id: id,
-      name: that.data.list.name,
-      lastModifyTime: now_time,
-      status: 0, //0代表什么状态也没有
-      medicines: that.data.list.medicines
-    }
-    console.log('new_data:', new_data)
-    /*该处上传数据库  start*/
-    await this.uploadDatabase(new_data)
-    var pages = getCurrentPages()
-    var prePages = pages[pages.length - 2]
-    prePages.setData({
-      is_from_medicineList: true,
+    //提示用户是否复制清单
+    wx.showModal({
+      title: '提示',
+      content: '确认将该清单添加到我的清单？',
+
+      success(res) {
+        if (res.confirm) {
+          console.log('【用户确认将该清单添加到我的清单】')
+
+          //获取当前时间用于更新
+          var now_time = that.getNowTime()
+          //利用时间戳+随机数与16进制生成uuid
+          var id = that.create_uuid()
+          console.log('【生成uuid】', id)
+          var new_data = {
+            openid: openid,
+            id: id,
+            name: that.data.list.name,
+            lastModifyTime: now_time,
+            status: 0, //0代表什么状态也没有
+            medicines: that.data.list.medicines
+          }
+          console.log('new_data:', new_data)
+          /*该处上传数据库  start*/
+          that.uploadDatabase(new_data)
+          var pages = getCurrentPages()
+          var prePages = pages[pages.length - 2]
+          prePages.setData({
+            is_from_medicineList: true,
+          })
+          //提示用户添加成功！
+          wx.showToast({
+            title: '添加成功！',
+            icon: 'success',
+            duration: 2000
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
   },
 })

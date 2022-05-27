@@ -55,7 +55,7 @@
   <view class="cover" wx:if="{{is_modify==1}}"style="position:fixed; z-index:998; top:{{statusBarHeight*2}}rpx;width:100%; height:{{windowHeight*2-statusBarHeight*2}}rpx" bindtap="back"></view>
   <!--灰色遮罩 end-->
   <view class="modify_bar {{is_modify==1?'fadeInUp':'fadeOutDown'}} "wx:if="{{is_modify!=0}}"style="position:fixed; z-index:999; bottom:0rpx">
-    <view class="modify_kind " bindtap="share" style="color:#0ed81b;">分享</view>
+    <button class="modify_kind " style="color:#0ed81b;background-color: white;font-weight: 500;"open-type="share">分享</button>
     <view class="modify_kind" bindtap="rename" style="color:#236adb;">重命名</view>
     <view class="modify_kind" bindtap="del" style="color:#ee525f;"> 删除</view>
     <view class="modify_kind" bindtap="back" style=" border-bottom:0rpx solid #ffffff;">取消</view>

@@ -32,6 +32,6 @@
 <view class="empty_bottom_bar"></view>
 <view class="bottom_bar">
   <button class="share"open-type="share" style="background-color: white; font-size: 36rpx;">分享</button>
-  <button class="submit" bindtap="add_confirm"style="background-color: white; font-size: 36rpx;">添加</button>
+  <button class="submit" bindtap="add_confirm"style="background-color: white; font-size: 36rpx;">添加到我的清单</button>
 </view>
 <!--底部栏预览&提交 end-->
