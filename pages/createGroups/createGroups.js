@@ -468,7 +468,6 @@ Page({
     group.unique_code=unique_code
     group.name=new_group.name
     group.address=new_group.address
-    group.members_number=new_group.members_number
     console.log('【构造添加入user的组织数据】',group)
      await db.collection('user')
      .where({
@@ -486,9 +485,7 @@ Page({
         }
      })
     //将该组织唯一码更新到全局userInfo中的对应位置处
-     var joined_groups=app.globalData.userInfo.joined_groups
-     joined_groups.push(group)
-     app.globalData.userInfo.joined_groups=joined_groups
+     app.globalData.userInfo.joined_groups.push(group)
      console.log('【更新全局userInfo成功！】',app.globalData.userInfo.joined_groups)
      //提示用户并延迟返回
      console.log('【新建组织成功！】')

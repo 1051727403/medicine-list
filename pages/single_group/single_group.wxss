@@ -39,7 +39,7 @@ page{
   width: 50rpx;
   height: 50rpx;
 }
-.address,.founder_name,.createTime,.phone_number{
+.address,.founder_name,.createTime,.phone_number,.unique_code{
   margin-top: 40rpx;
   color: #8f8f8f;
 }
