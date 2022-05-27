@@ -515,6 +515,8 @@ Page({
   //分享小程序
   onShareAppMessage(res) {
     var that=this
+    //上传数据库
+    that.uploadDatabase()
     //若点击分享按钮进行分享，将该页面数据封装后作为参数传递，好友点击后根据参数渲染
     if (res.from == 'button') {
       console.log('【点击按钮进行分享】')
