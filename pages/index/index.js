@@ -437,11 +437,14 @@ Page({
       that.getTotalList(that.data.userInfo.openid)
     }
     //如果从清单分享中来的，就跳转到分享的清单
-    if(options.fromshare.length>0)
+    if(options!=undefined)
     {
-      wx.navigateTo({
-        url: '../shareList/shareList?fromshare=' +options.fromshare,
-      })
+      if(options.fromshare.length>0)
+      {
+        wx.navigateTo({
+          url: '../shareList/shareList?fromshare=' +options.fromshare,
+        })
+      }
     }
   },
   //OnShow函数，监视页面
