@@ -31,11 +31,11 @@ Page({
     //点击修改图标时点击的下标
     modifyIndex: -1,
     //判断是否从清单页面返回，若是，则需要加载清单，若不是，则不需要
-    is_from_medicineList:false,
-    //判断是否从分享页面返回
-    is_from_shareList:false,
+    is_from_medicineList: false,
+    //判断是否从分享页面返回(特指用户点击分享来到页面，不是page下的那个页面)
+    is_from_shareList: false,
     //新用户从分享页面来，分享的清单的id
-    fromshare:'',
+    fromshare: '',
     //清单列表
     medicineList: [{
       //样品
@@ -85,14 +85,14 @@ Page({
     var s = [];
     var hexDigits = "0123456789abcdef";
     for (var i = 0; i < 36; i++) {
-        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
     }
-    s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
-    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
     s[8] = s[13] = s[18] = s[23] = "-";
     var uuid = s.join("");
     return uuid;
-},
+  },
   //获取用户的所有清单函数,并更新
   async getTotalList(openid) {
     var that = this
@@ -192,7 +192,7 @@ Page({
           no: '',
           room: "",
         },
-        joined_groups:[],
+        joined_groups: [],
       }
       console.log('新增的用户数据：', to_add_data)
       await db.collection('user')
@@ -281,10 +281,14 @@ Page({
     app.globalData.logged = that.data.logged
     console.log('全局变量userInfo：', app.globalData.userInfo)
     //若从分享页面来，则跳转到分享页面
-    if(that.data.fromshare!=''){
-      wx.navigateTo({
-        url: '../shareList/shareList?fromshare=' +that.data.fromshare,
+    if (that.data.fromshare != '') { 
+      that.setData({
+        is_from_shareList:false
       })
+      wx.navigateTo({
+        url: '../shareList/shareList?fromshare=' + that.data.fromshare,
+      })
+     
     }
   },
 
@@ -314,7 +318,7 @@ Page({
     var phone_number = ''
     var health_number = ''
     var address = {}
-    var joined_groups=[]
+    var joined_groups = []
     await db.collection('user')
       .where({
         _openid: event.openid
@@ -336,7 +340,7 @@ Page({
           phone_number = res.data[0].phone_number
           health_number = res.data[0].health_number
           address = res.data[0].address
-          joined_groups=res.data[0].joined_groups
+          joined_groups = res.data[0].joined_groups
         }
       })
     //封装
@@ -350,7 +354,7 @@ Page({
     data.id_number = id_number
     data.phone_number = phone_number
     data.address = address
-    data.joined_groups=joined_groups
+    data.joined_groups = joined_groups
     //console.log('【data】',data)
     //检测是否登陆过
     if (data.logged == 0) {
@@ -374,7 +378,22 @@ Page({
     //检测曾经是否授权登陆过
     var res = await this.is_logged_before(event)
     console.log(res)
+    //错误码为2说明该用户是新用户
     if (res.errcode == 2) {
+      //若用户是从分享页面来的，则提示用户进行注册
+      if(that.data.fromshare!=''){
+        //如果为新用户或用户未登录，并且是从清单分享跳转而来，则先引导其进行登录操作
+        wx.showModal({
+          title: '提示',
+          content: '登录后方可查看他人分享的清单',
+          showCancel: 'false',
+          success(res) {
+            if (res.confirm) {
+              console.log('【用户点击确定】')
+            }
+          }
+        })
+      }
       //若不能自动登录则出现弹窗提示用户进行登录
       this.setData({
         new_user: true,
@@ -395,10 +414,22 @@ Page({
     app.globalData.userInfo = data
     app.globalData.logged = that.data.logged
     console.log('全局变量userInfo：', app.globalData.userInfo)
+        //如果从清单分享中来的，就跳转到分享的清单
+        console.log('如果从清单分享中来的，就跳转到分享的清单')
+        if (that.data.fromshare != '') {
+          //将is_from_shareList改为falsse，防止show函数时二次显示
+          that.setData({
+            is_from_shareList:false,
+          })
+          console.log('如果从清单分享中来的，就跳转到分享的清单')
+          wx.navigateTo({
+            url: '../shareList/shareList?fromshare=' + that.data.fromshare,
+          })
+        }
   },
   //用户静默登录
-  onLoad(options) {
-    console.log('options',options)
+  async onLoad(options) {
+    console.log('options', options)
     //不调用云函数的方法
     const that = this
     if (app.globalData.logged == false) {
@@ -409,7 +440,7 @@ Page({
       })
       //，根据openid判断是否曾经注册过，实现微信用户静默登录，
       //云函数获取openid
-      wx.cloud.callFunction({
+      await wx.cloud.callFunction({
         name: 'getOpenid',
         success: (res) => {
           console.log('初始信息：', res)
@@ -430,12 +461,8 @@ Page({
               })
             }, 1000)
           })
-
         }
       })
-
-
-
 
     } else {
       that.setData({
@@ -445,27 +472,11 @@ Page({
       that.getTotalList(that.data.userInfo.openid)
     }
     //如果从清单分享中来的，就跳转到分享的清单
-    if(options.fromshare!=null){
-      //若从分享页面而来，将fromshare设为变量，当新用户注册后可进行查看
+    if (options.fromshare != null) {
+      //若从分享页面而来，将fromshare设为变量，当新用户注册后或者老用户加载后自动跳转进行查看
       that.setData({
-        fromshare:options.fromshare
-      })
-      if(app.globalData.logged==false){
-        //如果为新用户或用户未登录，并且是从清单分享跳转而来，则先引导其进行登录操作
-        wx.showModal({
-          title: '提示',
-          content: '登录后方可查看他人分享的清单',
-          showCancel:'false',
-          success (res) {
-            if (res.confirm) {
-              console.log('【用户点击确定】')
-            } 
-          }
-        })        
-        return
-      }
-      wx.navigateTo({
-        url: '../shareList/shareList?fromshare=' +options.fromshare,
+        fromshare: options.fromshare,
+        is_from_shareList:true,
       })
     }
   },
@@ -473,7 +484,7 @@ Page({
   onShow() {
     var that = this
     console.log('检测上一级路径是否为清单列表页，若是，则加载，若不是，则不进行加载')
-    if (app.globalData.logged == true&&(this.data.is_from_medicineList==true||this.data.is_from_shareList==true)) {
+    if (app.globalData.logged == true &&this.data.is_from_medicineList == true) {
       this.setData({
         new_user: false,
         userInfo: app.globalData.userInfo,
@@ -481,7 +492,7 @@ Page({
         clickRenameListButtom: false,
         is_modify: 0,
         modifyIndex: -1,
-        is_from_medicineList:false,
+        is_from_medicineList: false,
       })
       //延迟，读取数据库
       wx.showLoading({
@@ -496,7 +507,22 @@ Page({
         })
       }, 500)
 
-    }else{
+    }else if(app.globalData.logged==true&&this.data.is_from_shareList == true){
+      this.setData({
+        new_user: false,
+        userInfo: app.globalData.userInfo,
+        clickAddListButtom: false,
+        clickRenameListButtom: false,
+        is_modify: 0,
+        modifyIndex: -1,
+        is_from_shareList: false,
+      })
+        console.log('如果从清单分享中来的，就跳转到分享的清单')
+        console.log('app.globalData.logged:', app.globalData.logged)
+        wx.navigateTo({
+          url: '../shareList/shareList?fromshare=' + that.data.fromshare,
+        })
+    }else {
       console.log('不是从药品清单页面返回，不加载页面')
     }
 
@@ -824,19 +850,19 @@ Page({
   //分享按钮分为分享清单以及分享程序两部分
   onShareAppMessage(res) {
     console.log(res)
-    var that=this
+    var that = this
     //若点击分享进行分享，将该分享的清单id传入，好友点击后根据参数渲染
-    if (res.from=='button') {
+    if (res.from == 'button') {
       that.setData({
         is_modify: 2,
       })
-      console.log('【点击分享药品清单】',res)
+      console.log('【点击分享药品清单】', res)
       var id = that.data.medicineList[that.data.modifyIndex].id
       //封装该页面所有信息
       return {
         title: "药清单",
         //先进index以执行登录验证
-        path: "pages/index/index?fromshare="+id,
+        path: "pages/index/index?fromshare=" + id,
         imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
       }
     } else {
