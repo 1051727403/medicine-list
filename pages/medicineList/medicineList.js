@@ -45,21 +45,7 @@ Page({
       name: '',
       openid: '',
       status: '',
-      medicines: [{
-          name: "头孢克圬分散片321654165465441546541",
-          url: noPhoto_url,
-          specification: "无",
-          brand: "无",
-          number: 0,
-        },
-        {
-          name: "头孢克圬分散片",
-          url: noPhoto_url,
-          specification: "无",
-          brand: "无",
-          number: 0,
-        }
-      ],
+      medicines: [],
     },
   },
   //ONLOAD第一次进入该页面

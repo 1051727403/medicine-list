@@ -37,13 +37,7 @@ Page({
     //新用户从分享页面来，分享的清单的id
     fromshare: '',
     //清单列表
-    medicineList: [{
-      //样品
-      name: '药品清单',
-      lastModifyTime: '2022.04.28    24:00',
-      status: 0,
-      _id: '',
-    }],
+    medicineList: [],
 
   },
   //复用型函数
@@ -507,7 +501,7 @@ Page({
         })
       }, 500)
 
-    }else if(app.globalData.logged==true&&this.data.is_from_shareList == true){
+    }else if(app.globalData.logged==true&&this.data.is_from_shareList == true&&this.data.fromshare!=''){
       this.setData({
         new_user: false,
         userInfo: app.globalData.userInfo,

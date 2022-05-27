@@ -48,21 +48,7 @@ Page({
       name: '',
       openid: '',
       status: '',
-      medicines: [{
-          name: "头孢克圬分散片321654165465441546541",
-          url: noPhoto_url,
-          specification: "无",
-          brand: "无",
-          number: 0,
-        },
-        {
-          name: "头孢克圬分散片",
-          url: noPhoto_url,
-          specification: "无",
-          brand: "无",
-          number: 0,
-        }
-      ],
+      medicines: [],
     },
   },
 
@@ -79,6 +65,19 @@ Page({
       })
       .get()
       .then(res => {
+        console.log('【res------------------】', res)
+        if (res.data.length == 0) {
+          wx.showToast({
+            title: '该清单不存在！',
+            icon: 'error',
+            duration: 3000
+          })
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1,
+            })
+          }, 3000)
+        }
         console.log(res.data)
         that.setData({
           list: res.data[0]
