@@ -16,10 +16,10 @@
         <view class="members_number_data" style="color: rgb(255, 168, 61);">{{group.members_number}}</view>
         <view class="members_number_prompt">已加入人数</view>
       </view>
-        <view class="block">
-          <view class="deal_number_data"style="color:#88bee4;">{{group.deal_number}}</view>
-          <view class="deal_number_prompt">已完成配药数</view>
-        </view>
+      <view class="block">
+        <view class="deal_number_data" style="color:#88bee4;">{{group.deal_number}}</view>
+        <view class="deal_number_prompt">已完成配药数</view>
+      </view>
     </view>
     <view class="founder_name">创建者：{{group.founder_name}}</view>
     <view class="createTime">组织创建时间：{{group.createTime}}</view>
@@ -28,11 +28,29 @@
     <view class="unique_code">（分享唯一识别码即可邀请他人加入组织！）</view>
     <view class="introduction">
       <view class="introduction_prompt">组织介绍：</view>
-      <view class="introduction_content"style="{{group.introduction==''?'text-align:center;':''}}">{{group.introduction==''?'暂无组织介绍':group.introduction}}</view>
+      <view class="introduction_content" style="{{group.introduction==''?'text-align:center;':''}}">{{group.introduction==''?'暂无组织介绍':group.introduction}}</view>
     </view>
+    <!--管理组织板块，只有管理员能够看到 start-->
+    <view class="manage_prompt"wx:if="{{permission==2||permission==3}}">组织管理板块：</view>
+    <view class="manage"wx:if="{{permission==2||permission==3}}">
+      <view class="function">
+        <image class="audit" src="https://img-blog.csdnimg.cn/fcd4b270e72140c693fb1fd2c66f7ecb.png#pic_center"></image>
+        <view class="audit_prompt">成员管理</view>
+      </view>
+      <view class="function">
+        <image class="audit" src="https://img-blog.csdnimg.cn/fcd4b270e72140c693fb1fd2c66f7ecb.png#pic_center"bindtap="audit"></image>
+        <view class="audit_prompt">审核清单</view>
+      </view>
+      <view class="function">
+        <image class="audit" src="https://img-blog.csdnimg.cn/fcd4b270e72140c693fb1fd2c66f7ecb.png#pic_center"></image>
+        <view class="audit_prompt">查看清单</view>
+      </view>
+    </view>
+    <!--管理组织板块，只有管理员能够看到 end-->
   </view>
 </view>
 <!--单个组织页面 end-->
+
 <!--底部加入以及分享按钮  start-->
 <view class="bottom_bar">
   <view class="share">

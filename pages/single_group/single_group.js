@@ -58,6 +58,13 @@ Page({
   onShow() {
 
   },
+  //跳转到审核页面，携带该组织的唯一识别码参数
+  audit(){
+    var that=this
+    wx.navigateTo({
+      url: '/pages/audit/audit?unique_code='+that.data.group.unique_code,
+    })
+  },
   //判断个人信息是否填写完毕
   is_fill_userInfo(){
     var userInfo=app.globalData.userInfo

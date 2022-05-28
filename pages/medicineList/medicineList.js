@@ -484,7 +484,15 @@ Page({
           }
         })
         return
-      } else {
+      } else if(that.data.list.medicines.length==0){
+        wx.showToast({
+          title: '空清单不可提交!',
+          icon:'error',
+          duration: 2000,
+          mask:'true',
+        })
+        return
+      }else {
         //若个人信息全部填写完毕则跳转到选择提交组织页面
         // //判断该清单是否已经被提交
         // if (that.data.list.status != 0) {

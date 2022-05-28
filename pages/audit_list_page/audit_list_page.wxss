@@ -1,0 +1,12 @@
+page {
+  background-color: #fafafc;
+}
+.userInfo{
+  margin-top: 30rpx;
+  width: 90%;
+  margin-right: 4%;
+  margin-left: 4%;
+  height: 400rpx;
+  border-radius: 30rpx;
+  border: 10rpx double rgb(116, 176, 255);
+}

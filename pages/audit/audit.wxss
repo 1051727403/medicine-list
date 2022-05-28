@@ -1,55 +1,39 @@
 page{
-  background:linear-gradient(to right bottom,#b9e0fc,70%,#f4f4ff) ;
+  background:linear-gradient(#dbf1ff,60%,#ffffff) ;
 }
-.groups{
+.list{
   width: 90%;
   margin:30rpx 5%;
   background-color: white;
-  height: 220rpx;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  height: 200rpx;
   border-radius: 30rpx;
-  box-shadow:4rpx 4rpx 8rpx #c0c0c0;
+  box-shadow: -4rpx 4rpx 4rpx #f2f3f7,4rpx 0rpx 4rpx #f2f3f7;
 }
 .content{
-  margin:5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top:5%;
   width: 90%;
   height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.groups_name{
-  font-size: 42rpx;
+.list_name{
+  margin-top: 10rpx;
+  font-size: 38rpx;
   font-family:Arial, Helvetica, sans-serif;
   letter-spacing: 2rpx;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-.groups_address,.members_unique_code{
-  width: 80%;
+.user_name,.submit_time{
   margin-top: 15rpx;
-  font-size: 28rpx;
+  font-size: 30rpx;
   color: #a1a1a1;
-  letter-spacing: 2rpx;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.bottom_part{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.permission{
-  font-size: 28rpx;
-  padding: 10rpx;
-  border-radius: 25rpx;
-  box-shadow:2rpx 2rpx 2rpx #ebebeb;
-}
 
-
-
+}
 
 /*动画样式*/
 

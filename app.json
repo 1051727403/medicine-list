@@ -8,7 +8,9 @@
     "pages/myGroups/myGroups",
     "pages/personnalInfo/personalInfo",
     "pages/single_group/single_group",
-    "pages/shareList/shareList"
+    "pages/shareList/shareList",
+    "pages/audit/audit",
+    "pages/audit_list_page/audit_list_page"
   ],
   "window":{
     "backgroundTextStyle":"light",

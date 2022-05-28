@@ -22,6 +22,7 @@ page{
   justify-content: space-around;
   align-items:flex-start;
   flex-direction: column;
+  margin-bottom: 200rpx;
 }
 .name{
   margin-top:20rpx ;
@@ -68,7 +69,7 @@ page{
   width: 100%;
   margin-top: 40rpx;
   border-top: 2rpx solid rgb(218, 217, 217);
-  margin-bottom: 200rpx;
+  margin-bottom: 20rpx;
 }
 .introduction_prompt{
   margin-top: 30rpx;
@@ -82,6 +83,43 @@ page{
   background-color: rgb(246, 253, 255);
   border-radius: 30rpx;
 }
+.manage_prompt{
+ font-size: 34rpx;
+ margin-top: 30rpx;
+ margin-left: 5%;
+ margin-right: 5%;
+ width: 90%;
+}
+.manage{
+  width: 100%;
+  margin-top: 30rpx;
+  margin-bottom: 200rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  background-color:#f0f2ff;
+  box-shadow: 4rpx 4rpx 4rpx rgb(221, 221, 221);
+}
+.function{
+  width: 28%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.audit{
+  margin-top: 10rpx;
+  width: 100rpx;
+  height: 100rpx;
+}
+.audit_prompt{
+  margin-bottom: 10rpx;
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  color: #696969;
+}
+
 .bottom_bar{
   width: 100%;
   height: 120rpx;

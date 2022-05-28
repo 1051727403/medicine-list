@@ -1,0 +1,8 @@
+<!--顶部导航栏自定义 start-->
+<custom_nav_top pageName="{{name}}" showBackIcon="true" bindtap="back"></custom_nav_top>
+<!--顶部导航栏自定义 end-->
+<view class="userInfo">
+  <view class="user_name">{{userInfo.real_name}}</view>
+
+
+</view>
