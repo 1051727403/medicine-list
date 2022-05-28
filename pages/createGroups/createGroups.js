@@ -353,6 +353,7 @@ Page({
     var that = this
     var new_group = that.data.new_group
     console.log(new_group)
+
     //检查各个信息是否填写完整
     if (new_group.name == '') {
       console.log('【组织名称未填写！】')
@@ -394,6 +395,14 @@ Page({
         duration: 1000
       })
       return
+    }else if(new_group.area==''){
+      console.log('【组织所在小区未填写！】')
+      wx.showToast({
+        title: '请填写组织所在小区！',
+        icon: 'none',
+        duration: 1000
+      })
+      return
     } else if (that.data.is_check_userAgreeMent == false) {
       console.log('【未勾选用户协议】')
       wx.showToast({
@@ -403,9 +412,20 @@ Page({
       })
       return
     }
+    //检查组织名称、创建者姓名、所在小区、简介否为空格组成的字符串
+    if (new_group.name.match(/^[ ]+$/) || new_group.founder_name.match(/^[ ]+$/)|| new_group.area.match(/^[ ]+$/)) {
+      console.log('填写内容不能由空格组成！')
+      wx.showModal({
+        title: '提示',
+        content: '填写内容不能由空格组成!',
+        showCancel: false,
+        confirmColor: "#07c160",
+      })
+      return
+    }
     /*检查个人信息是否填写完整，若没有，则引导其进行填写  start*/
     var userInfo=that.data.userInfo
-    if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == ""||userInfo.id_number=='') {
+    if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" ||userInfo.area==""|| userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == ""||userInfo.id_number=='') {
       wx.showModal({
         title: '提示',
         content: '请完善您的个人信息后再提交！',

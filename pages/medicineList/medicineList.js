@@ -73,8 +73,8 @@ Page({
       })
     }, 1000)
   },
-  show:function(){
-    var that=this
+  show: function () {
+    var that = this
     this.setData({
       userInfo: app.globalData.userInfo,
     })
@@ -238,7 +238,7 @@ Page({
     medicine.name = that.data.add_name
     medicine.brand = that.data.add_brand
     medicine.specification = that.data.add_specification
-    medicine.number = 0
+    medicine.number = 1
     medicine.url = noPhoto_url
     var list = that.data.list
     list.medicines.unshift(medicine)
@@ -365,7 +365,7 @@ Page({
               if (data.picture_filename == null) {
                 picture_url = noPhoto_url
               } else {
-                console.log('【存在图片：】',data.picture_filename)
+                console.log('【存在图片：】', data.picture_filename)
                 //获取药品图片的网站
                 var web_url = 'https://oss.gds.org.cn'
                 // //网站上的加密，在最后一个/后面加了一个m
@@ -379,7 +379,7 @@ Page({
                 // data.picture_filename=arr.join("")
                 console.log('【处理后的图片网址:】', data.picture_filename)
                 var picture_url = web_url + data.picture_filename
-                
+
                 //图片过大,压缩图片
 
 
@@ -392,7 +392,7 @@ Page({
               new_medicine.brand = data.brandcn
               new_medicine.specification = data.specification
               new_medicine.url = picture_url
-              new_medicine.number = 0
+              new_medicine.number = 1
               console.log('【新构造的药品信息】:', new_medicine)
               //更新清单列表&渲染页面
               //原本的药品清单
@@ -438,74 +438,72 @@ Page({
   },
   //删除药品
   del_medicine(e) {
-    var that = this
-    console.log(e)
-    wx.showModal({
-      title: '删除',
-      content: '是否确认删除？',
-      confirmColor: '#0ed81b',
-      success(res) {
-        if (res.confirm) {
-          console.log('【del_medicine删除功能】用户点击确定')
-          //页面渲染删除
-          var index = e.currentTarget.dataset.index
-          var new_medicineList = that.data.list.medicines
-          new_medicineList.splice(index, 1)
-          that.setData({
-            ['list.medicines']: new_medicineList,
-            clickDel: true,
-          })
-        } else if (res.cancel) {
-          console.log('【del删除功能】用户点击取消')
-        }
-      }
-    })
-  },
-  //提交清单到组织
-  submit() {
-    wx.showModal({
-      title: '提示',
-      content: '请问您真的要将该清单提交到组织吗？',
-      confirmColor: '#0ed81b',
-      cancelText: '我再想想',
-      success(res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          //检查用户个人信息是否填写完毕
-          var userInfo = app.globalData.userInfo
-          console.log("userInfo:", userInfo)
-          if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == ""||userInfo.id_number=='') {
-            wx.showModal({
-              title: '提示',
-              content: '请完善您的个人信息后再提交！',
-              success(res) {
-                if (res.confirm) {
-                  console.log('用户点击确定')
-                  //跳转到个人信息页面
-                  wx.navigateTo({
-                    url: '../personnalInfo/personalInfo',
-                  })
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }
+      var that = this
+      console.log(e)
+      wx.showModal({
+        title: '删除',
+        content: '是否确认删除？',
+        confirmColor: '#0ed81b',
+        success(res) {
+          if (res.confirm) {
+            console.log('【del_medicine删除功能】用户点击确定')
+            //页面渲染删除
+            var index = e.currentTarget.dataset.index
+            var new_medicineList = that.data.list.medicines
+            new_medicineList.splice(index, 1)
+            that.setData({
+              ['list.medicines']: new_medicineList,
+              clickDel: true,
             })
-            return
-          } else {
-            //若个人信息全部填写完毕则上传数据库，提示提交成功
-            wx.showToast({
-              title: '提交成功',
-              icon: 'success',
-              duration: 1000
-            })
-
+          } else if (res.cancel) {
+            console.log('【del删除功能】用户点击取消')
           }
-        } else if (res.cancel) {
-          console.log('用户点击取消')
         }
+      })
+    },
+    //提交清单到组织
+    submit() {
+      var that=this
+      //检查用户个人信息是否填写完毕
+      var userInfo = app.globalData.userInfo
+      console.log("userInfo:", userInfo)
+      if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == "" || userInfo.id_number == '' || userInfo.address.area == '') {
+        wx.showModal({
+          title: '提示',
+          content: '请完善您的个人信息后再提交！',
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+              //跳转到个人信息页面
+              wx.navigateTo({
+                url: '../personnalInfo/personalInfo',
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        return
+      } else {
+        //若个人信息全部填写完毕则跳转到选择提交组织页面
+        // //判断该清单是否已经被提交
+        // if (that.data.list.status != 0) {
+        //   //已提交，请勿重复提交
+        //   wx.showModal({
+        //     title: '提示',
+        //     content: '该清单已提交，请勿重复提交！（可在个人空间->我的清单中撤回）',
+        //     showCancel:'false',
+        //     confirmColor: '#0ed81b',
+        //     success(res) {
+        //       return
+        //     }
+        //   })
+        // }
+          //未曾提交过，提交
+          wx.navigateTo({
+            url: '/pages/myGroups/myGroups?pageKind=3&'+'id='+that.data.list.id+"&list_name="+that.data.list.name,
+          })
       }
-    })
-
   },
 
 
@@ -514,7 +512,7 @@ Page({
 
   //分享小程序
   onShareAppMessage(res) {
-    var that=this
+    var that = this
     //上传数据库
     that.uploadDatabase()
     //若点击分享按钮进行分享，将该页面数据封装后作为参数传递，好友点击后根据参数渲染
@@ -524,7 +522,7 @@ Page({
       return {
         title: "药清单",
         //先进index以执行登录验证
-        path: "pages/index/index?fromshare="+that.data.list.id,
+        path: "pages/index/index?fromshare=" + that.data.list.id,
         imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
       }
     } else {

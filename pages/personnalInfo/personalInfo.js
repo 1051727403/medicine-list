@@ -136,8 +136,19 @@ Page({
     //console.log(gender)
 
     /*判断个人信息是否填写完整&规范  start*/
-    //检查每个信息是否完整,除了医保卡号和居住地址area不为必填外其余均需填写
-    if(that.data.real_name==''||gender==""||that.data.id_number==""||that.data.phone_number==""||that.data.building==""||that.data.no==""||that.data.room==""){
+    //检查姓名和居住地址是否为空串
+    if(that.data.real_name.match(/^[ ]+$/)||that.data.area.match(/^[ ]+$/)){
+      console.log('姓名和居住地址不能由空格组成！')
+      wx.showModal({
+        title: '提示',
+        content: '姓名和居住地址不能由空格组成!',
+        showCancel:false,
+        confirmColor:"#07c160",
+      })    
+      return
+    }
+    //检查每个信息是否完整,除了医保卡号不为必填外其余均需填写
+    if(that.data.real_name==''||gender==""||that.data.id_number==""||that.data.phone_number==""||that.data.area==""||that.data.building==""||that.data.no==""||that.data.room==""){
       wx.showModal({
         title: '提示',
         content: '请完善所有信息后再保存!',
@@ -191,16 +202,24 @@ Page({
     .update({
       data:userInfo
     })
-    .then(res=>{
-      console.log('【更新数据库中的个人信息成功！】',res)
+    .then(res => {
+      console.log('【更新数据库中的个人信息成功！】', res)
+      wx.showModal({
+        title: '提示',
+        content: '保存成功！',
+        showCancel: false,
+        confirmColor: "#07c160",
+        success:res=>{
+          if(res.confirm){
+            wx.navigateBack({
+              delta: 1,
+            })
+          }
+        }
+      })
     })
-    wx.showModal({
-      title: '提示',
-      content: '保存成功！', 
-      showCancel:false,
-      confirmColor:"#07c160",
-    })    
-    /*提示用户保存成功并将个人信息上传数据库 start*/
+    
+    /*提示用户保存成功并将个人信息上传数据库 end*/
   },
   //分享按钮
   onShareAppMessage() {

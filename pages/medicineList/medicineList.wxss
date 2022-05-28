@@ -92,6 +92,7 @@ Page{
 .number{
   font-size: 36rpx;
   margin-right: 20rpx;
+  color: #00327e;
 }
 .addMedicine{
   background-color: #fafafc;

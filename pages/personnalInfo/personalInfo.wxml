@@ -43,7 +43,7 @@
   <view class="line">
     <view class="info">居住地址</view>
     <view >
-      <input type="text" placeholder="xx市xx小区（选填）"value="{{area}}"bindinput="getArea"/>
+      <input type="text" placeholder="xx市xx小区（必填）"value="{{area}}"bindinput="getArea"/>
     </view>
   </view>
   <view class="line">

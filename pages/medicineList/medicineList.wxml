@@ -23,9 +23,9 @@
         <view class="number_line">
           <view class="detail_number" style="margin-top:0rpx;">数量：</view>
           <view class="change_number">
-            <image class="minus" bindtap="minus" data-index="{{index}}" wx:if="{{medicine.number!=0}}" src="https://img-blog.csdnimg.cn/1e4daaa161f844ee8db4eb9be0463c08.png#pic_center" style="margin-right: 20rpx;"></image>
+            <image class="minus" bindtap="minus" data-index="{{index}}" wx:if="{{medicine.number!=1&&list.status==0}}" src="https://img-blog.csdnimg.cn/1e4daaa161f844ee8db4eb9be0463c08.png#pic_center" style="margin-right: 20rpx;"></image>
             <view class="number">{{medicine.number}}</view>
-            <image class="add" bindtap="add" data-index="{{index}}" src="https://img-blog.csdnimg.cn/de489ff39bb0481db8e9b0dcfed388fc.png#pic_center"></image>
+            <image class="add" bindtap="add" data-index="{{index}}" src="https://img-blog.csdnimg.cn/de489ff39bb0481db8e9b0dcfed388fc.png#pic_center"wx:if="{{list.status==0}}"></image>
           </view>
         </view>
       </view>
@@ -35,7 +35,7 @@
 </movable-area>
 <!--药品清单列表 end -->
 <!--两种添加药品方式 start-->
-<image class="addMedicine" src="{{clickAddMedicineButtom==false?'https://img-blog.csdnimg.cn/be2574459f88457ba2e43d812c4af234.png#pic_center':'https://img-blog.csdnimg.cn/122dfef2fd624dddb2d0f3fd4b8b58b5.png#pic_center'}}" bindtap="addMedicine"></image>
+<image class="addMedicine" src="{{clickAddMedicineButtom==false?'https://img-blog.csdnimg.cn/be2574459f88457ba2e43d812c4af234.png#pic_center':'https://img-blog.csdnimg.cn/122dfef2fd624dddb2d0f3fd4b8b58b5.png#pic_center'}}" bindtap="addMedicine"wx:if="{{list.status==0}}"></image>
 <image class="add_custom fadeInUp " wx:if="{{clickAddMedicineButtom==true}}" src='https://img-blog.csdnimg.cn/822074b1ea044e03b1a1829ac20fed4a.png#pic_center' bindtap="add_custom"></image>
 <image class="add_scan fadeInUp " wx:if="{{clickAddMedicineButtom==true}}" src='https://img-blog.csdnimg.cn/8496172c20974de9927d107757a6e539.png#pic_center' bindtap="add_scan"></image>
 <!--两种添加药品方式 end-->
@@ -59,7 +59,7 @@
 <!--底部栏分享&提交 start-->
 <view class="empty_bottom_bar"></view>
 <view class="bottom_bar">
-  <button class="share"open-type="share" style="background-color: white; font-size: 36rpx;">分享</button>
-  <button class="submit" bindtap="submit"style="background-color: white; font-size: 36rpx;">提交</button>
+  <button class="share"open-type="share" style="background-color: white; font-size: 36rpx;width:{{list.status!=0?'100%':''}};">分享</button>
+  <button class="submit" bindtap="submit"style="background-color: white; font-size: 36rpx;" wx:if="{{list.status==0}}">提交</button>
 </view>
 <!--底部栏预览&提交 end-->

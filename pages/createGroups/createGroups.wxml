@@ -28,7 +28,7 @@
         <view class="choose"style="color:{{new_group.address.province==''?'rgb(210, 210, 210)':'black'}};">{{new_group.address.district==''?'请选择 ▼':new_group.address.district}}</view>
       </view>
     </picker>
-    <input class="group_input" type="text" placeholder="请输入组织所在小区" bindinput="group_community" placeholder-class="placeholder" value="{{new_group.address.community}}"/>
+    <input class="group_input" type="text" placeholder="请输入组织所在小区(必填)" bindinput="group_community" placeholder-class="placeholder" value="{{new_group.address.community}}"/>
   </view>
   <view class="group_introduction">
     <view class="group_prompt">组织简介(300字以内)：</view>

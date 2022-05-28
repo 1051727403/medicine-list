@@ -91,7 +91,7 @@ page {
 .status{
   color: #2F81FF;
   font-size: 28rpx;
-  margin-top: 45rpx;      
+  margin-top: 58rpx;      
   font-weight: bold;
 }
 .addList{
