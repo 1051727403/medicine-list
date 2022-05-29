@@ -116,6 +116,7 @@ Page({
             item.lastModifyTime = res.data[j].lastModifyTime
             item.medicines = res.data[j].medicines
             item.status = res.data[j].status
+            item.note=res.data[j].note
             medicineList.push(item)
           }
         })
@@ -659,7 +660,8 @@ Page({
       name: this.data.ListName,
       lastModifyTime: now_time,
       status: 0, //0代表什么状态也没有
-      medicines: []
+      medicines: [],
+      note:''
     }
     console.log('new_data:', new_data)
     /*该处上传数据库  start*/
@@ -750,6 +752,7 @@ Page({
     var id = new_medicineList[modifyIndex].id
     var status = new_medicineList[modifyIndex].status
     var medicines = new_medicineList[modifyIndex].medicines
+    var note=new_medicineList[modifyIndex].note
 
     //构造时间标准格式
     var now_time = that.getNowTime()
@@ -763,6 +766,7 @@ Page({
     newone.status = status
     newone.medicines = medicines
     newone.openid = openid
+    newone.note=note
     console.log('【newone】', newone)
     new_medicineList.unshift(newone)
     this.setData({
@@ -775,6 +779,20 @@ Page({
   },
   //重命名
   rename() {
+    var that=this
+    var index=that.data.modifyIndex
+    if(that.data.medicineList[index].status!=0){
+      wx.showToast({
+        title: '该清单已提交，不能进行修改！',
+        icon: 'none',
+        mask:"true",
+        duration: 2000
+      })    
+      that.setData({
+        is_modify:2
+      })
+      return
+    }
     this.setData({
       clickRenameListButtom: true,
       is_modify: 2,
@@ -793,6 +811,20 @@ Page({
   },
   //删除
   del() {
+    var that=this
+    var index=that.data.modifyIndex
+    if(that.data.medicineList[index].status!=0){
+      wx.showToast({
+        title: '该清单已提交，不能进行修改！',
+        icon: 'none',
+        mask:"true",
+        duration: 2000
+      })    
+      that.setData({
+        is_modify:2
+      })
+      return
+    }
     this.setData({
       is_modify: 2,
     })

@@ -91,7 +91,7 @@ page {
 .status{
   color: #2F81FF;
   font-size: 28rpx;
-  margin-top: 58rpx;      
+  margin-top: 48rpx;      
   font-weight: bold;
 }
 .addList{
@@ -108,9 +108,7 @@ page {
   margin-left: 8%;
   margin-right: 8%;
   background-color: white;
-  border-radius: 50rpx;
-}
-.creatList{
+  border-radius: 50rpx;  
   display: flex;
   justify-content: space-between;
   align-items:center;

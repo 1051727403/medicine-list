@@ -29,6 +29,13 @@
           "query": "unique_code=ZDYMRTM2",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/audit_list_page/audit_list_page",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

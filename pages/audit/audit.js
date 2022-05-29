@@ -7,6 +7,9 @@ const db = wx.cloud.database()
 const command = db.command
 Page({
   data: {
+    //组织唯一码
+    unique_code:'',
+    //待审核药品清单
     submitted_medicine_list:[]
   },
   onLoad(options) {
@@ -18,7 +21,8 @@ Page({
       console.log('【获取所有待审核的清单】',res.data)
       var submitted_medicine_list=res.data
       that.setData({
-        submitted_medicine_list:submitted_medicine_list
+        submitted_medicine_list:submitted_medicine_list,
+        unique_code:unique_code
       })
     })
 
@@ -31,8 +35,9 @@ Page({
     var index=res.currentTarget.dataset.index
     var id=that.data.submitted_medicine_list[index].id
     var list_name=that.data.submitted_medicine_list[index].list_name
+    var unique_code=that.data.unique_code
     wx.navigateTo({
-      url: '/pages/audit_list_page/audit_list_page?id='+id+'&list_name='+list_name,
+      url: '/pages/audit_list_page/audit_list_page?id='+id+'&list_name='+list_name+"&index="+index+"&unique_code="+unique_code,
     })
   },
   //返回上一页面
@@ -41,7 +46,8 @@ Page({
       delta: 1,
     })
   },
-
+  onShow(){
+  },
 
 
 

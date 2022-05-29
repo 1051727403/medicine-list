@@ -72,6 +72,35 @@ Page({
         is_first_show: false
       })
     }, 1000)
+    //未通过审核的备注提示框
+    if(that.data.list.status==4){
+      wx.showModal({
+        title: '审核未通过原因',
+        content: that.data.list.note,
+        showCancel:'false',
+        success (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            //用户查看后将状态调回0，可正常使用
+            //页面渲染
+            that.setData({
+              ['list.status']:0
+            })
+            //数据库更新
+            db.collection('list_table').where({
+              id:that.data.list.id
+            }).update({
+              data:{
+                status:0,
+                note:'',
+              }
+            }).then(res=>{
+              console.log('【用户阅读完备注，根性数据库成功！】',res)
+            })
+          }
+        }
+      })      
+    }
   },
   show: function () {
     var that = this
@@ -79,6 +108,7 @@ Page({
       userInfo: app.globalData.userInfo,
     })
   },
+  //获取时间，返回格式化的时间
   getNowTime() {
     //构造时间标准格式
     var date = new Date
@@ -439,6 +469,15 @@ Page({
   //删除药品
   del_medicine(e) {
       var that = this
+      if(that.data.list.status!=0){
+        wx.showToast({
+          title: '该清单已提交，不能进行修改！',
+          icon: 'none',
+          mask:"true",
+          duration: 2000
+        })    
+        return
+      }
       console.log(e)
       wx.showModal({
         title: '删除',

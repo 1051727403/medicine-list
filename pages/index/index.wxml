@@ -27,7 +27,8 @@
         </view>
         <view class="rightPart">
           <image class="modify" src="https://img-blog.csdnimg.cn/7398f716fee04bfba4747839a03ec7a6.png#pic_center" style="width: 50rpx;height: 50rpx;" bindtap="modify" data-index="{{index}}" ></image>
-          <view class="status">{{single_list.status==0?'':single_list.status==1?'待审核':single_list.status==2?'已审核':'已完成'}}</view>
+          <view class="status"wx:if="{{single_list.status!=4}}">{{single_list.status==0?'':single_list.status==1?'待审核':(single_list.status==2?'已审核':'已完成')}}</view>
+          <view class="status"style="color:#ff6431;"wx:else>审核未通过！</view>
         </view>
       </view>
     </view>

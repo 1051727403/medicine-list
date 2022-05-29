@@ -3,7 +3,7 @@
 <!--顶部导航栏自定义 end-->
 <!--渲染我管理的组织  start-->
 <view class="groups_list" wx:for="{{groups}}" wx:for-item="groups" wx:for-index="index">
-  <view class="groups" data-index="{{index}}" bindtap="jumoToGroups">
+  <view class="groups fadeInRight" data-index="{{index}}" bindtap="jumoToGroups">
     <view class="content">
       <view class="groups_name">{{groups.name}}</view>
       <view class="groups_address"><text decode="true">{{groups.address.province}}&nbsp;&nbsp;{{groups.address.city}}&nbsp;&nbsp;{{groups.address.district}}</text></view>

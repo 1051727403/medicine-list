@@ -483,7 +483,7 @@ Page({
     if (!this.islogined()) return
     else {
       wx.navigateTo({
-        url: '',
+        url: '/pages/myGroups/myGroups?pageKind=1',
       })
     }
   },
@@ -492,7 +492,7 @@ Page({
     if (!this.islogined()) return
     else {
       wx.navigateTo({
-        url: '../recipeCollection/recipeCollection',
+        url: '/pages/myGroups/myGroups?pageKind=2',
       })
     }
   },

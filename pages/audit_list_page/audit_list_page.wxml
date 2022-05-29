@@ -1,8 +1,61 @@
 <!--顶部导航栏自定义 start-->
 <custom_nav_top pageName="{{name}}" showBackIcon="true" bindtap="back"></custom_nav_top>
 <!--顶部导航栏自定义 end-->
-<view class="userInfo">
-  <view class="user_name">{{userInfo.real_name}}</view>
-
-
+<!--个人信息 start-->
+<view class="prompt">用户信息：</view>
+<view class="userInfo fadeInRight">
+  <view class="content">
+    <view class="user_name">姓名：{{userInfo.real_name}}</view>
+    <view class="address_area">居住地址：{{userInfo.address.area}}</view>
+    <view class="address">
+      -------->
+      <view class="address_building"><text decode="true">&nbsp;&nbsp;&nbsp;{{userInfo.address.building}}&nbsp;幢/栋</text></view>
+      <view class="address_no"><text decode="true">{{userInfo.address.no}}&nbsp;号</text></view>
+      <view class="address_room"><text decode="true">{{userInfo.address.room}}&nbsp;室</text></view>
+    </view>
+    <view class="phone_number">联系电话：{{userInfo.phone_number}}</view>
+    <view class="id_number">身份证号：{{userInfo.id_number}}</view>
+    <view class="health_number">医保卡号：{{userInfo.health_number.length==0?'暂无':userInfo.health_number}}</view>
+  </view>
 </view>
+<!--个人信息 end-->
+<view class="prompt">配药清单：</view>
+<!--药品信息 start-->
+<view class="medicines" wx:for="{{list.medicines}}" wx:for-item="medicine" wx:for-index="index" wx:key="" data-index="{{index}}" style="height:{{windowWidth*0.9*0.4*2}}rpx;">
+  <view class="single_medicine fadeInRight" style="height:{{windowWidth*0.9*0.4*2}}rpx;">
+    <image class="medicine_photo fadeInRight" src="{{medicine.url}}" mode="aspectFit" style="height:{{windowWidth*0.9*0.4*2}}rpx;width:{{windowWidth*0.9*0.4*2}}rpx;"></image>
+    <view class="right_part">
+      <view class="detail">
+        <view class="detail_name">{{medicine.name}}</view>
+        <view class="detail_brand">品牌：{{medicine.brand}}</view>
+        <view class="detail_specification">规格：{{medicine.specification}}</view>
+      </view>
+      <view class="number_line">
+      <view class="detail_number" style="margin-top:0rpx;">数量:</view>
+      <view class="number">{{medicine.number}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--药品信息 end-->
+<!--驳回清单填写原因 start-->
+<!--灰色遮罩 start-->
+<view class="cover" wx:if="{{clickRejectButtom==true}}"style="position:fixed; z-index:998; top:{{statusBarHeight*2}}rpx;width:100%; height:{{screenHeight*2}}rpx"></view>
+<!--灰色遮罩 end-->
+<view class="note" wx:if="{{clickRejectButtom==true}}"style="position:fixed; z-index:999; top:30%;">
+    <view class="promot">审核未通过原因</view>
+    <textarea class="note_content"placeholder="请输入审核未通过原因(100字以内)"placeholder-class="placeholder"maxlength="200" style="height:60%;width: 80%;"bindinput="note_content"></textarea>
+    <view class="check">
+      <view class="reject_cancel" bindtap="reject_cancle" style="color:#fb6969;  border-right: 1rpx solid #f5f5f5;">取消</view>
+      <view class="reject_confirm"bindtap="reject_confirm" style="color: #1ACB26;">确认</view>
+    </view>
+</view>
+<!--驳回清单填写原因 end-->
+
+<!--底部栏分享&提交 start-->
+<view class="empty_bottom_bar"></view>
+<view class="bottom_bar">
+  <button class="reject"bindtap="reject" style="background-color: white; font-size: 36rpx;">驳回</button>
+  <button class="pass" bindtap="pass"style="background-color: white; font-size: 36rpx;">通过</button>
+</view>
+<!--底部栏预览&提交 end-->

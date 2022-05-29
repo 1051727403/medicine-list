@@ -62,10 +62,6 @@ Page({
       wx.navigateTo({
         url: '/pages/myGroups/myGroups?pageKind=1',
       })
-
-
-
-
     }
   },
   //跳转到我管理的组织列表页面

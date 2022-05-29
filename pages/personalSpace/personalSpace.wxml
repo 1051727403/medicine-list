@@ -25,10 +25,10 @@
     </view>
     <view class="func_line fadeInRight" bindtap="jumpToIndex">
       <image src="https://img-blog.csdnimg.cn/dc66c856fcfd44b48dad6793aaba54d8.png#pic_center" class="icon" mode="aspectFit"></image>
-      <text>已提交的清单</text>
+      <text>我的清单</text>
       <image src="https://img-blog.csdnimg.cn/dd3a28836503445198ed24eecbf70a5b.png#pic_center" class="jump" mode="aspectFit"></image>
     </view>
-    <view class="func_line fadeInRight" bindtap="jumpToMydGroup">
+    <view class="func_line fadeInRight" bindtap="jumpToMyGroup">
       <image src="https://img-blog.csdnimg.cn/0968bfc195824a92869bc05bc700b1a6.png#pic_center" class="icon" mode="aspectFit"></image>
       <text>我的加入的组织</text>
       <image src="https://img-blog.csdnimg.cn/dd3a28836503445198ed24eecbf70a5b.png#pic_center" class="jump" mode="aspectFit"></image>

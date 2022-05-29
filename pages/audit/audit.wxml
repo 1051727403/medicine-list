@@ -1,8 +1,8 @@
 <!--顶部导航栏自定义 start-->
-<custom_nav_top pageName="审核药品清单" showBackIcon="true"linear_gradient="linear-gradient(#afe0ff,30%,#dbf1ff) ;"bindtap="back"></custom_nav_top>
+<custom_nav_top pageName="待审核药品清单" showBackIcon="true"linear_gradient="linear-gradient(#afe0ff,30%,#dbf1ff) ;"bindtap="back"></custom_nav_top>
 <!--顶部导航栏自定义 end-->
 <!--展示所有待审核的清单  start-->
-<view class="submitted_medicine_list" wx:for="{{submitted_medicine_list}}" wx:for-item="list" wx:for-index="index">
+<view class="submitted_medicine_list fadeInRight" wx:for="{{submitted_medicine_list}}" wx:for-item="list" wx:for-index="index">
   <view class="list" data-index="{{index}}" bindtap="jumoToAuditListPage">
     <view class="content">
       <view class="list_name">{{list.list_name}}</view>
