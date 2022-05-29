@@ -58,6 +58,18 @@ Page({
   onShow() {
 
   },
+  //跳转到成员管理页面
+  JumpToManageMembers(){
+    var that = this
+    wx.navigateTo({
+      url: '/pages/manageMembers/manageMembers?unique_code=' + that.data.group.unique_code,
+      success(res) {
+        res.eventChannel.emit('translate', {
+          data: that.data.group.member_list
+        })
+      }
+    })
+  },
   //跳转到审核页面，携带该组织的唯一识别码参数
   audit() {
     var that = this
@@ -125,6 +137,7 @@ Page({
               person.name = userInfo.real_name
               person.openid = userInfo.openid
               person.permission = 1
+              person.phone_number=userInfo.phone_number
               console.log('【unique_code】', unique_code)
 
               db.collection('groups_table').where({

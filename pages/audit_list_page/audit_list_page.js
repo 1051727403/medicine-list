@@ -4,7 +4,7 @@ wx.cloud.init({
   env: 'medicine-list-0gpcpvk471c437e4',
 })
 const db = wx.cloud.database()
-const command = db.command
+const _ = db.command
 Page({
   data: {
     //屏幕宽度

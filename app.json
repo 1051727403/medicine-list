@@ -10,7 +10,8 @@
     "pages/single_group/single_group",
     "pages/shareList/shareList",
     "pages/audit/audit",
-    "pages/audit_list_page/audit_list_page"
+    "pages/audit_list_page/audit_list_page",
+    "pages/manageMembers/manageMembers"
   ],
   "window":{
     "backgroundTextStyle":"light",

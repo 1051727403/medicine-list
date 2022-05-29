@@ -33,12 +33,12 @@
     <!--管理组织板块，只有管理员能够看到 start-->
     <view class="manage_prompt"wx:if="{{permission==2||permission==3}}">组织管理板块：</view>
     <view class="manage"wx:if="{{permission==2||permission==3}}">
-      <view class="function"wx:if="{{permission==3}}">
-        <image class="audit" src="https://img-blog.csdnimg.cn/fcd4b270e72140c693fb1fd2c66f7ecb.png#pic_center"></image>
+      <view class="function"wx:if="{{permission==3}}" bindtap="JumpToManageMembers">
+        <image class="manageMembers" src="https://img-blog.csdnimg.cn/3ba96c92bb2f4dfdb7c58abff6eea534.png#pic_center"></image>
         <view class="audit_prompt">成员管理</view>
       </view>
-      <view class="function">
-        <image class="audit" src="https://img-blog.csdnimg.cn/fcd4b270e72140c693fb1fd2c66f7ecb.png#pic_center"bindtap="audit"></image>
+      <view class="function"bindtap="audit">
+        <image class="audit" src="https://img-blog.csdnimg.cn/fcd4b270e72140c693fb1fd2c66f7ecb.png#pic_center"></image>
         <view class="audit_prompt">审核清单</view>
       </view>
       <view class="function">

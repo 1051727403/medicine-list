@@ -4,7 +4,7 @@ wx.cloud.init({
   env: 'medicine-list-0gpcpvk471c437e4',
 })
 const db = wx.cloud.database()
-const command=db.command
+const _ = db.command
 var openid
 //省和相应的市，后来发现picker里有.....
 var provinces = [{
@@ -177,8 +177,6 @@ Page({
       phone_number: '',
       //组织内所有非管理员和成员列表,内部存放成员openid
       member_list: [],
-      //存放所有管理员的openid
-      administrator_list: [],
       //已提交，待审核清单，内含清单id、用户提交时间
       submitted_medicine_list: [],
       //已审核订单，内含订单id、审核时间
@@ -329,8 +327,6 @@ Page({
       phone_number: '',
       //组织内所有非管理员和成员列表,内部存放成员openid
       member_list: [],
-      //存放所有管理员的openid
-      administrator_list: [],
       //已提交，待审核清单，内含清单id、用户提交时间
       submitted_medicine_list: [],
       //已审核订单，内含订单id、审核时间
@@ -460,6 +456,7 @@ Page({
       name:userInfo.real_name,
       openid:userInfo.openid,
       permission:3,
+      phone_number:userInfo.phone_number
     }
     new_group.member_list.push(person)
     new_group.deal_number=0

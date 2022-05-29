@@ -82,6 +82,7 @@ page{
   border: 4rpx solid rgb(125, 214, 255);
   background-color: rgb(246, 253, 255);
   border-radius: 30rpx;
+  word-wrap: break-word;
 }
 .manage_prompt{
  font-size: 34rpx;
@@ -108,7 +109,7 @@ page{
   justify-content: space-between;
   align-items: center;
 }
-.audit{
+.audit,.manageMembers{
   margin-top: 10rpx;
   width: 100rpx;
   height: 100rpx;
