@@ -59,16 +59,16 @@ Page({
 
   },
   //跳转到审核页面，携带该组织的唯一识别码参数
-  audit(){
-    var that=this
+  audit() {
+    var that = this
     wx.navigateTo({
-      url: '/pages/audit/audit?unique_code='+that.data.group.unique_code,
+      url: '/pages/audit/audit?unique_code=' + that.data.group.unique_code,
     })
   },
   //判断个人信息是否填写完毕
-  is_fill_userInfo(){
-    var userInfo=app.globalData.userInfo
-    if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == ""||userInfo.id_number=='') {
+  is_fill_userInfo() {
+    var userInfo = app.globalData.userInfo
+    if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == "" || userInfo.id_number == '') {
       wx.showModal({
         title: '提示',
         content: '请完善您的个人信息后再加入组织！',
@@ -94,111 +94,98 @@ Page({
     //保存原有权限
     var permission = that.data.permission
     wx.showModal({
-      title: '提示',
-      content: '您真的要这样做吗？',
-      success(res) {
-        if (res.confirm) {
-          //用户选择进行加入或退出或解散操作
-          console.log('用户点击确定')
-          that.setData({
-            permission: permission == '0' ? '1' : '0',
-          })
-          //提前准备好openid、unique_code等参数，方便后续再数据库中查找
-          var userInfo = that.data.userInfo
-          var unique_code = that.data.group.unique_code
-          var openid = userInfo.openid
-          //后端实现加入、退出、解散
+        title: '提示',
+        content: '您真的要这样做吗？',
+        success(res) {
+          if (res.confirm) {
+            //用户选择进行加入或退出或解散操作
+            console.log('用户点击确定')
+            that.setData({
+              permission: permission == '0' ? '1' : '0',
+            })
+            //提前准备好openid、unique_code等参数，方便后续再数据库中查找
+            var userInfo = that.data.userInfo
+            var unique_code = that.data.group.unique_code
+            var openid = userInfo.openid
+            //后端实现加入、退出、解散
 
-          //若为未加入的人，则加入组织
-          if (permission == 0) {
-            //首先判断其个人信息是否填写完毕，因为后续需要用到真实姓名等信息
-            //若个人信息未填写完整，则引导其完善个人信息
-            if(!that.is_fill_userInfo())return
-            wx.showToast({
-              title: '加入组织成功!',
-              icon: 'success',
-              duration: 1000
-            })
-            //上传数据库
-            //数据库中加入该组织的成员列表,同时更新加入成员数量
-            var person = {}
-            person.name = userInfo.real_name
-            person.openid = userInfo.openid
-            console.log('【unique_code】',unique_code)
+            //若为未加入的人，则加入组织
+            if (permission == 0) {
+              //首先判断其个人信息是否填写完毕，因为后续需要用到真实姓名等信息
+              //若个人信息未填写完整，则引导其完善个人信息
+              if (!that.is_fill_userInfo()) return
+              wx.showToast({
+                title: '加入组织成功!',
+                icon: 'success',
+                duration: 1000
+              })
+              //上传数据库
+              //数据库中加入该组织的成员列表,同时更新加入成员数量
+              var person = {}
+              person.name = userInfo.real_name
+              person.openid = userInfo.openid
+              person.permission = 1
+              console.log('【unique_code】', unique_code)
 
-            db.collection('groups_table').where({
-              unique_code: unique_code
-             }).update({
-              data:{
-                member_list:_.push(person),
-                members_number: _.inc(1) 
-              }
-            }).then(res=>{
-              console.log('【更新组织的成员列表】',res)
-            })
-            //user表中增加组织以及权限，权限默认为1，代表普通加入者
-            //构造加入的组织简略数据
-            var group = that.data.group
-            var new_group = {}
-            new_group.address = group.address
-            new_group.name = group.name
-            new_group.permission = '1'
-            new_group.unique_code = group.unique_code
-            //上传user数据库
-            db.collection('user').where({
-              openid: openid
-            }).update({
-              data: {
-                joined_groups: _.push(new_group)
-              }
-            }).then(res=>{
-              console.log('【user表更新】',res)
-            })
-            //更新全局userInfo中的joined_groups
-            app.globalData.userInfo.joined_groups.push(new_group)
-
-          } else if (permission == 1 || permission == 2) {
-            //若为已加入或为管理员，则退出组织
-            wx.showToast({
-              title: '成功退出组织！',
-              icon: 'success',
-              duration: 1000
-            })
-            //数据库user中删除
-            db.collection('user').where({
-              openid: openid
-            }).update({
-              data: {
-                joined_groups: _.pull({
-                  unique_code: _.eq(unique_code),
-                }),
-              }
-            })
-            //数据库中的组织成员列表中删除
-            db.collection('groups_table').where({
-              unique_code: unique_code
-            }).update({
-              data: {
-                member_list: _.pull({
-                  openid: _.eq(openid),
-                }),
-                members_number: _.inc(-1) //人数减少
-              }
-            })
-            //若为管理员，还需从管理员列表中删除
-            if (permission == 2) {
               db.collection('groups_table').where({
                 unique_code: unique_code
               }).update({
                 data: {
-                  administrator_list: _.pull({
-                    openid: _.eq(openid),
-                  })
+                  member_list: _.push(person),
+                  members_number: _.inc(1)
+                }
+              }).then(res => {
+                console.log('【更新组织的成员列表】', res)
+              })
+              //user表中增加组织以及权限，权限默认为1，代表普通加入者
+              //构造加入的组织简略数据
+              var group = that.data.group
+              var new_group = {}
+              new_group.address = group.address
+              new_group.name = group.name
+              new_group.permission = '1'
+              new_group.unique_code = group.unique_code
+              //上传user数据库
+              db.collection('user').where({
+                openid: openid
+              }).update({
+                data: {
+                  joined_groups: _.push(new_group)
+                }
+              }).then(res => {
+                console.log('【user表更新】', res)
+              })
+              //更新全局userInfo中的joined_groups
+              app.globalData.userInfo.joined_groups.push(new_group)
+
+            } else if (permission == 1 || permission == 2) {
+              //若为已加入或为管理员，则退出组织
+              wx.showToast({
+                title: '成功退出组织！',
+                icon: 'success',
+                duration: 1000
+              })
+              //数据库user中删除
+              db.collection('user').where({
+                openid: openid
+              }).update({
+                data: {
+                  joined_groups: _.pull({
+                    unique_code: _.eq(unique_code),
+                  }),
                 }
               })
-
-
-            }
+              //数据库中的组织成员列表中删除
+              db.collection('groups_table').where({
+                unique_code: unique_code
+              }).update({
+                data: {
+                  member_list: _.pull({
+                    openid: _.eq(openid),
+                  }),
+                  members_number: _.inc(-1) //人数减少
+                }
+              })
             //更新全局userInfo
             for (let i = 0; i < userInfo.joined_groups.length; i++) {
               if (userInfo.joined_groups[i].unique_code == unique_code) {
@@ -207,7 +194,6 @@ Page({
               }
             }
             app.globalData.userInfo = userInfo
-
           } else {
             //若为创建人,则删除小区，对于所有加入的人来说，不用删除，在列举加入的组织时只要不显示null的就行，显著降低读写次数
             //从数据库中删除数据
@@ -252,29 +238,28 @@ Page({
               })
             }, 500)
           }
-
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
       }
     })
-  },
-  //back函数
-  back() {
-    wx.navigateBack({
-      delta: 1,
-    })
-  },
-  //页面销毁时触发函数
-  onUnload(){
-    //重新渲染上一个页面
-    var pages = getCurrentPages()
-    var prepage = pages[pages.length - 2]
-    prepage.change()
-  },
+},
+//back函数
+back() {
+  wx.navigateBack({
+    delta: 1,
+  })
+},
+//页面销毁时触发函数
+onUnload() {
+  //重新渲染上一个页面
+  var pages = getCurrentPages()
+  var prepage = pages[pages.length - 2]
+  prepage.change()
+},
 
-  //分享
-  onShareAppMessage() {
+//分享
+onShareAppMessage() {
 
-  }
+}
 })

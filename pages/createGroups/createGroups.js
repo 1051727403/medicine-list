@@ -413,7 +413,7 @@ Page({
       return
     }
     //检查组织名称、创建者姓名、所在小区、简介否为空格组成的字符串
-    if (new_group.name.match(/^[ ]+$/) || new_group.founder_name.match(/^[ ]+$/)|| new_group.area.match(/^[ ]+$/)) {
+    if (new_group.name.match(/^[ ]+$/) || new_group.founder_name.match(/^[ ]+$/)|| new_group.address.community.match(/^[ ]+$/)) {
       console.log('填写内容不能由空格组成！')
       wx.showModal({
         title: '提示',
@@ -455,12 +455,12 @@ Page({
     new_group.unique_code = unique_code
     //将创建者的openid赋给创始人
     new_group.founder_openid=userInfo.openid
-    //将创始人的openid和姓名放入成员列表以及管理员列表
+    //将创始人的openid和姓名放入成员列表
     var person={
       name:userInfo.real_name,
       openid:userInfo.openid,
+      permission:3,
     }
-    new_group.administrator_list.push(person)
     new_group.member_list.push(person)
     new_group.deal_number=0
     console.log('【新创建的组织信息：】', new_group)
