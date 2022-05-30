@@ -19,8 +19,9 @@
 <view class="cover" wx:if="{{changePermission==true}}"style="position:fixed; z-index:998; top:{{statusBarHeight*2}}rpx;width:100%; height:{{screenHeight*2}}rpx"></view>
 <!--灰色遮罩 end-->
 <!--选择改变权限 start-->
-<view class="choosePermission" wx:if="{{changePermission==true}}"style="position:fixed; z-index:999; top:33%;">
-  <view class="set_administrator"bindtap="set_administrator" style="color: #1ACB26;">设为管理员</view>
+<view class="choosePermission fadeInRight" wx:if="{{changePermission==true}}"style="position:fixed; z-index:999; top:33%;">
+  <view class="cancel_administrator"bindtap="cancel_administrator" style="color: #a81acb;"wx:if="{{member_list[index].permission==2}}">取消管理员</view>
+  <view class="set_administrator"bindtap="set_administrator" style="color: #1ACB26;"wx:if="{{member_list[index].permission==1}}">设为管理员</view>
   <view class="kickOut"bindtap="kickOut" style="color: #d33223;">踢出组织</view>
   <view class="cancel"bindtap="cancel" style="color: rgb(75, 75, 75)">取消</view>
 </view>

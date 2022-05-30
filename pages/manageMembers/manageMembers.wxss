@@ -63,7 +63,7 @@ page {
   flex-direction:column;
   letter-spacing: 2rpx;
 }
-.set_administrator,.kickOut,.cancel{
+.cancel_administrator,.set_administrator,.kickOut,.cancel{
   font-size: 38rpx;
   font-weight: bold;
   letter-spacing: 2rpx;

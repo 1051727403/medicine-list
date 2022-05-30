@@ -175,12 +175,8 @@ Page({
       founder_name: '',
       //组织官方联系电话
       phone_number: '',
-      //组织内所有非管理员和成员列表,内部存放成员openid
+      //组织内所有成员列表,内部存放成员openid和
       member_list: [],
-      //已提交，待审核清单，内含清单id、用户提交时间
-      submitted_medicine_list: [],
-      //已审核订单，内含订单id、审核时间
-      checked_medicine_list: [],
     }
   },
   //构造最新时间函数(已格式化)
@@ -327,10 +323,6 @@ Page({
       phone_number: '',
       //组织内所有非管理员和成员列表,内部存放成员openid
       member_list: [],
-      //已提交，待审核清单，内含清单id、用户提交时间
-      submitted_medicine_list: [],
-      //已审核订单，内含订单id、审核时间
-      checked_medicine_list: [],
     }
     //console.log(empty_new_group)
     var that = this
