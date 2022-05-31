@@ -77,6 +77,13 @@ Page({
       url: '/pages/audit/audit?unique_code=' + that.data.group.unique_code,
     })
   },
+  //跳转到查看页面，携带该组织的唯一识别码参数
+  ToViewList() {
+    var that = this
+    wx.navigateTo({
+      url: '/pages/viewListsType/viewListsType?unique_code=' + that.data.group.unique_code,
+    })
+  },
   //判断个人信息是否填写完毕
   is_fill_userInfo() {
     var userInfo = app.globalData.userInfo

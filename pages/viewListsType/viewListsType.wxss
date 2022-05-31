@@ -1,0 +1,19 @@
+.area{
+  margin-top: 200rpx;
+}
+.choices{
+  width: 90%;
+  margin:30rpx 5%;
+  margin-bottom: 100rpx;
+  background-color:skyblue;
+  height: 220rpx;
+  text-align: center;
+  border-radius: 30rpx;
+  box-shadow:4rpx 4rpx 8rpx #c0c0c0;
+  display: flex;
+  justify-content: center;
+}
+.Font{
+  margin-top: 80rpx;
+  font-size: 50rpx;
+}

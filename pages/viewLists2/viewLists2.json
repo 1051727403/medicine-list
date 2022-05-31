@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#ff0000",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "查看待完成清单页面",
+  "usingComponents": {
+    "custom_nav_top":"../../components/custom_nav_top/custom_nav_top"
+  }
+}

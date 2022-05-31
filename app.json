@@ -11,7 +11,12 @@
     "pages/shareList/shareList",
     "pages/audit/audit",
     "pages/audit_list_page/audit_list_page",
-    "pages/manageMembers/manageMembers"
+    "pages/manageMembers/manageMembers",
+    "pages/viewLists2/viewLists2",
+    "pages/viewMedicines2/viewMedicines2",
+    "pages/viewLists3/viewLists3",
+    "pages/viewMedicines3/viewMedicines3",
+    "pages/viewListsType/viewListsType"
   ],
   "window":{
     "backgroundTextStyle":"light",

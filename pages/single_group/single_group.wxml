@@ -41,9 +41,9 @@
         <image class="audit" src="https://img-blog.csdnimg.cn/fcd4b270e72140c693fb1fd2c66f7ecb.png#pic_center"></image>
         <view class="audit_prompt">审核清单</view>
       </view>
-      <view class="function">
+      <view class="function" bindtap="ToViewList">
         <image class="audit" src="https://img-blog.csdnimg.cn/fcd4b270e72140c693fb1fd2c66f7ecb.png#pic_center"></image>
-        <view class="audit_prompt">查看清单</view>
+        <view class="audit_prompt" bindtap="ToViewList">查看清单</view>
       </view>
     </view>
     <!--管理组织板块，只有管理员能够看到 end-->

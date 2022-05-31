@@ -1,0 +1,274 @@
+page {
+  background-color: #fafafc;
+}
+.prompt{
+  margin-left: 5%;
+  margin-top: 30rpx;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 38rpx;
+  color:#5596ff;
+  letter-spacing: 2rpx;
+}
+.userInfo{
+  margin-top: 30rpx;
+  width: 90%;
+  margin-right: 4%;
+  margin-left: 4%;
+  height: 440rpx;
+  border-radius: 30rpx;
+  border:10rpx double rgb(207, 188, 102);
+  box-shadow: 4rpx 4rpx 16rpx rgb(213, 233, 255),-4rpx -4rpx 16rpx rgb(213, 233, 255);
+  background-color:#fffef8 ;
+  opacity: 0.8;
+}
+.content{
+  width: 90%;
+  height: 88%;
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+}
+.address{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.address_no,.address_room{
+  margin-left: 25rpx;
+}
+.medicines{
+  width: 100%;
+  padding-top: 30rpx;
+}
+.single_medicine{
+  background-color: white;
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-top: 30rpx;
+  width:90%;
+  border-radius: 30rpx;
+  box-shadow: -2rpx 8rpx 26rpx #f2f3f7,2rpx -4rpx 16rpx #f2f3f7;
+  display: flex;
+  flex-direction: row;
+}
+.medicine_photo{
+  margin:0 5% 3% 4%;
+  border-radius: 30rpx;
+}
+.right_part{
+  width:336rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.detail_name{
+  font-size: 36rpx;
+  margin-top: 10rpx;
+  letter-spacing: 2rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.detail_brand,.detail_specification,.detail_number{
+  margin-top: 15rpx;
+  font-size: 26rpx;
+  letter-spacing: 1rpx;
+  color:#C3C3C3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.number_line{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60rpx;
+}
+.number{
+  font-size: 36rpx;
+  margin-right: 20rpx;
+  color: #00327e;
+}
+.cover{
+  background-color: #bdc0c4;
+  opacity: 0.5;
+}
+.note{
+  width: 86%;
+  height:40%;
+  margin-left: 8%;
+  margin-right: 8%;
+  background-color: white;
+  border-radius: 50rpx;  
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  flex-direction:column;
+  letter-spacing: 2rpx;
+}
+.promot{
+  font-size: 38rpx;
+  margin-top: 10%;
+  font-weight: bold;
+}
+.note_content{
+  background-color: rgb(255, 254, 247);
+  border-radius: 20rpx;
+  height: 80rpx;
+  border: 1rpx solid rgb(214, 203, 172);
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 20rpx;
+  margin: 5%;
+}
+.placeholder{
+  font-size: 34rpx;
+  color: #cfcfcf;
+}
+.check{
+  width: 100%;
+  height:28%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.reject_cancel,.reject_confirm{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 50%;
+  height: 100%;
+  font-size: 38rpx;
+  border-top:  1rpx solid #f5f5f5;
+}
+.empty_bottom_bar{
+  width:100%;
+  height: 110rpx;
+  bottom: 0rpx;
+  margin-top: 80rpx;
+}
+.bottom_bar{
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0rpx -2rpx 8rpx rgb(241, 241, 241);
+  width:100%;
+  height: 110rpx;
+  font-size: 42rpx;
+  position:fixed;
+  bottom: 0rpx;
+  display: flex;
+  justify-content: space-around;
+  flex-direction:row ;
+  align-items: center;
+}
+.reject{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color:#ff5a23;
+  border-right:2rpx solid rgb(218, 217, 217) ;
+  width: inherit;
+}
+.pass{
+  color:#1ACB26;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: inherit;
+}
+
+
+
+
+/*动画样式*/
+
+@-webkit-keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadeInLeft {
+  animation-name: fadeInLeft;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInRight {
+  animation-name: fadeInRight;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInDown {
+  animation-name: fadeInDown;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.fadeOutDown {
+  animation-name: fadeOutDown;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}

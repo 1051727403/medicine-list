@@ -1,0 +1,8 @@
+<!--顶部导航栏自定义 start-->
+<custom_nav_top pageName="查看药品清单" showBackIcon="true"linear_gradient="linear-gradient(#afe0ff,30%,#dbf1ff) ;"bindtap="back"></custom_nav_top>
+<!--顶部导航栏自定义 end-->
+<view class="area">
+  <view class="choices"><view class="Font" bindtap="ToAudit">待审核清单</view></view>
+  <view class="choices"><view class="Font" bindtap="ToAudited">待完成清单</view></view>
+  <view class="choices"><view class="Font">已完成清单</view></view>
+</view>
