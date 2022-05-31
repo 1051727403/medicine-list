@@ -9,7 +9,7 @@ Page({
   data: {
     //组织唯一码
     unique_code:'',
-    //待审核药品清单
+    //待完成药品清单
     checked_medicine_list:[]
   },
   onLoad(options) {

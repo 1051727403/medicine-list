@@ -20,12 +20,10 @@ Page({
    */
   onLoad(options) {
     var that=this
-    console.log("hahaha")
     var uni=options.unique_code
     that.setData({
       unique_code : uni
     })
-    console.log("hohoho")
   },
   //跳转到查看待审核的清单页面
   ToAudit(){
@@ -34,13 +32,20 @@ Page({
       url: '/pages/audit/audit?unique_code=' + that.data.unique_code,
     })
   },
-    //跳转到查看待完成的清单页面
-    ToAudited(){
-      var that = this
-      wx.navigateTo({
-        url: '/pages/viewLists2/viewLists2?unique_code=' + that.data.unique_code,
-      })
-    },
+  //跳转到查看待完成的清单页面
+  ToAudited(){
+    var that = this
+    wx.navigateTo({
+      url: '/pages/viewLists2/viewLists2?unique_code=' + that.data.unique_code,
+    })
+  },
+  //跳转到查看已完成的清单页面
+  ToComplete(){
+    var that = this
+    wx.navigateTo({
+      url: '/pages/viewLists3/viewLists3?unique_code=' + that.data.unique_code,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

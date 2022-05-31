@@ -1,1 +1,124 @@
-/* pages/viewLists3/viewLists3.wxss */
+page{
+  background:linear-gradient(#dbf1ff,60%,#ffffff) ;
+}
+.list{
+  width: 90%;
+  margin:30rpx 5%;
+  background-color: white;
+  height: 200rpx;
+  border-radius: 30rpx;
+  box-shadow: -4rpx 4rpx 4rpx #f2f3f7,4rpx 0rpx 4rpx #f2f3f7;
+}
+.content{
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top:5%;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.list_name{
+  margin-top: 10rpx;
+  font-size: 38rpx;
+  font-family:Arial, Helvetica, sans-serif;
+  letter-spacing: 2rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.user_name,.submit_time{
+  margin-top: 15rpx;
+  font-size: 30rpx;
+  color: #a1a1a1;
+
+}
+
+/*动画样式*/
+
+@-webkit-keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadeInLeft {
+  animation-name: fadeInLeft;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInRight {
+  animation-name: fadeInRight;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInDown {
+  animation-name: fadeInDown;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.fadeOutDown {
+  animation-name: fadeOutDown;
+  animation-duration: 1s;
+	animation-fill-mode: both;
+}

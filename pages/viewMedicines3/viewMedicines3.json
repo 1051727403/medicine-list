@@ -1,3 +1,8 @@
 {
-  "usingComponents": {}
+  "navigationBarBackgroundColor": "#ff0000",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "审核时的清单页面",
+  "usingComponents": {
+    "custom_nav_top":"../../components/custom_nav_top/custom_nav_top"
+  }
 }

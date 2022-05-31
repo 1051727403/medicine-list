@@ -4,5 +4,5 @@
 <view class="area">
   <view class="choices"><view class="Font" bindtap="ToAudit">待审核清单</view></view>
   <view class="choices"><view class="Font" bindtap="ToAudited">待完成清单</view></view>
-  <view class="choices"><view class="Font">已完成清单</view></view>
+  <view class="choices"><view class="Font" bindtap="ToComplete">已完成清单</view></view>
 </view>
