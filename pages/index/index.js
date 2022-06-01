@@ -479,7 +479,7 @@ Page({
   onShow() {
     var that = this
     console.log('检测上一级路径是否为清单列表页，若是，则加载，若不是，则不进行加载')
-    if (app.globalData.logged == true &&this.data.is_from_medicineList == true) {
+    if (app.globalData.logged == true&&this.data.is_from_medicineList == true) {
       this.setData({
         new_user: false,
         userInfo: app.globalData.userInfo,
@@ -858,6 +858,7 @@ Page({
   jumpToList(e) {
     //未登录不会显示
     if (!this.islogined()) return
+
     //console.log(e)
     var transport_list = e.currentTarget.dataset.list
     console.log(transport_list)

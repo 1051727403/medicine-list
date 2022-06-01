@@ -167,6 +167,8 @@ Page({
     prePages.setData({
       is_from_medicineList: true,
     })
+    //若已提交，则不改变最后一次修改日期和其他数据
+    if(that.data.list.status!=0)return
     //删除原有清单
     await db.collection('list_table')
       .where({
