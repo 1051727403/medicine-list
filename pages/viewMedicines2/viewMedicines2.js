@@ -165,16 +165,9 @@ Page({
           var deal_number=0
           db.collection('groups_table').where({
             unique_code : unique_code
-          }).get().then(res => {
-            deal_number = res.data[0].deal_number
-          })
-          deal_number++
-          console.log(deal_number)
-          db.collection('groups_table').where({
-            unique_code : unique_code
           }).update({
             data: {
-              deal_number : deal_number+1
+              deal_number : _.inc(1)
             }
           }).then(res=>{
             console.log('【成功改变数据库中完成清单数量】',res)

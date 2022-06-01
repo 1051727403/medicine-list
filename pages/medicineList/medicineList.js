@@ -101,7 +101,37 @@ Page({
         }
       })      
     }
+    //已完成的备注提示框
+    if(that.data.list.status==3){
+      wx.showModal({
+        title: '提示',
+        content: '该清单已被完成！',
+        showCancel:'false',
+        success (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            //用户查看后将状态调回0，可正常使用
+            //页面渲染
+            that.setData({
+              ['list.status']:0
+            })
+            //数据库更新
+            db.collection('list_table').where({
+              id:that.data.list.id
+            }).update({
+              data:{
+                status:0,
+                note:'',
+              }
+            }).then(res=>{
+              console.log('【确认已完成的清单，更新数据库成功！】',res)
+            })
+          }
+        }
+      })      
+    }
   },
+  
   show: function () {
     var that = this
     this.setData({
