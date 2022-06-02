@@ -38,6 +38,8 @@ Page({
     moveid: -1,
     //监控x移动程度
     movex: 0,
+    //是否为第一次提交返回
+    first_submit:false,
     //该清单中所包含的所有药品
     list: {
       id: '',
@@ -168,7 +170,7 @@ Page({
       is_from_medicineList: true,
     })
     //若已提交，则不改变最后一次修改日期和其他数据
-    if(that.data.list.status!=0)return
+    if(that.data.list.status!=0&&that.data.first_submit==false)return
     //删除原有清单
     await db.collection('list_table')
       .where({

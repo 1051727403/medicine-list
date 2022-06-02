@@ -179,7 +179,8 @@ Page({
             var pages = getCurrentPages()
             var prePage = pages[pages.length - 2]
             prePage.setData({
-              ['list.status']: 1
+              ['list.status']: 1,
+              first_submit:true
             })
             //上传组织以及user数据库后返回清单页面
             //传入提交的组织unique_code以及清单id
