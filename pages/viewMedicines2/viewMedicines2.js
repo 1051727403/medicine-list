@@ -85,12 +85,12 @@ Page({
         })
         //改变上一页面中的清单
         that.del_prePage()
-        setTimeout(function () { 
+        setTimeout(function () {
           wx.navigateBack({
-          delta: 1,
-        })
-      }, 3000)
-       
+            delta: 1,
+          })
+        }, 3000)
+
         return
       }
       list = res.data[0]
@@ -135,15 +135,15 @@ Page({
             id: id
           }).update({
             data: {
-              status:3
+              status: 3
             }
-          }).then(res=>{
-            console.log('【成功改变数据库中清单状态状态】',res)
+          }).then(res => {
+            console.log('【成功改变数据库中清单状态状态】', res)
           })
           //删除数据库中的已审核列表中对应的数据项
           var unique_code = that.data.unique_code
           db.collection('checked_medicine_list_table').where({
-            unique_code:unique_code,
+            unique_code: unique_code,
             id: id
           }).remove().then(res => {
             console.log('【从待审核表中删除！】', res)
@@ -162,15 +162,15 @@ Page({
             console.log('【添加到已完成列表成功！】', res)
           })
           //组织完成清单数+1
-          var deal_number=0
+          var deal_number = 0
           db.collection('groups_table').where({
-            unique_code : unique_code
+            unique_code: unique_code
           }).update({
             data: {
-              deal_number : _.inc(1)
+              deal_number: _.inc(1)
             }
-          }).then(res=>{
-            console.log('【成功改变数据库中完成清单数量】',res)
+          }).then(res => {
+            console.log('【成功改变数据库中完成清单数量】', res)
           })
           //提示反馈用户并返回上一页
           wx.showToast({
@@ -178,17 +178,65 @@ Page({
             icon: 'success',
             duration: 1000
           })
-          setTimeout(function(){
+          setTimeout(function () {
             wx.navigateBack({
               delta: 1,
             })
-          },1000)
-          
-          
+          }, 1000)
+
+
         } else if (res.cancel) {
           console.log('【审核通过按钮，用户点击取消】')
           return
         }
+      }
+    })
+  },
+  async Output() {
+    var that = this
+    wx.cloud.callFunction({
+      name: 'ExportToExcel',
+      data: {
+        id: that.data.list.id
+      },
+      success(res) {
+        console.log(res)
+        var fileID = res.result.fileID
+        console.log(fileID)
+        wx.cloud.downloadFile({
+          fileID: fileID,
+          success: res => {
+            console.log("文件下载成功", res);
+            //提示框
+            wx.showToast({
+              title: '文件下载成功',
+              icon: "success",
+              duration: 2000
+            })
+
+            //打开文件
+            const filePath = res.tempFilePath
+            wx.openDocument({
+              filePath: filePath,
+              success: function (res) {
+                console.log('打开文档成功', res)
+                //删除文件
+                wx.cloud.deleteFile({
+                  fileList: [fileID],
+                  success: (res => {
+                    console.log('删除成功', res)
+                  }),
+                  fail: (err => {
+                    console.log(err)
+                  })
+                })
+              }
+            })
+          },
+          fail: err => {
+            console.log("文件下载失败", err);
+          }
+        })
       }
     })
   },
