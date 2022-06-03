@@ -58,27 +58,18 @@ Page({
    */
   async onLoad(options) {
     var that = this
-    var id = options.id
-    var name = options.list_name
-    var index = options.index
-    var unique_code = options.unique_code
+    var unique_code
     var openid
     var list = []
     var userInfo = {}
-    this.setData({
-      name: name,
-      index: index,
-      unique_code: unique_code,
+    //获取信息
+    const eventChannel=this.getOpenerEventChannel()
+    eventChannel.on('transform',data=>{
+      console.log('【上个页面获取的完成清单信息】',data)
+      list=data.data.list.list
+      unique_code=data.data.unique_code
     })
-
-    //获取清单信息
-    await db.collection('list_table').where({
-      id: id
-    }).get().then(res => {
-      list = res.data[0]
-      openid = res.data[0].openid
-    })
-    console.log(openid)
+    openid=list.openid
     //获取清单所属的个人信息
     await db.collection('user').where({
       openid: openid

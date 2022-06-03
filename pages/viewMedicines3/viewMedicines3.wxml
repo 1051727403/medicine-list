@@ -1,5 +1,5 @@
 <!--顶部导航栏自定义 start-->
-<custom_nav_top pageName="{{name}}" showBackIcon="true" bindtap="back"></custom_nav_top>
+<custom_nav_top pageName="{{list.name}}" showBackIcon="true" bindtap="back"></custom_nav_top>
 <!--顶部导航栏自定义 end-->
 <!--个人信息 start-->
 <view class="prompt">用户信息：</view>

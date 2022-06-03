@@ -484,7 +484,7 @@ Page({
      })
      .update({
         data:{
-          joined_groups:command.push(group)
+          joined_groups:_.push(group)
         },
         success:res=>{
           console.log('【数据库中更新user表成功！】',res)

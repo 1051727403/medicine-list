@@ -118,6 +118,19 @@ Page({
       delta: 1,
     })
   },
+    //创建UUID
+    create_uuid() {
+      var s = [];
+      var hexDigits = "0123456789abcdef";
+      for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+      }
+      s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+      s[8] = s[13] = s[18] = s[23] = "-";
+      var uuid = s.join("");
+      return uuid;
+    },
   //清单完成
   async pass() {
     var that = this
@@ -148,10 +161,15 @@ Page({
           }).remove().then(res => {
             console.log('【从待审核表中删除！】', res)
           })
-          //加入到已完成列表中
+          //加入到已完成列表中(已完成列表中重新创建uuid存放清单全部内容，和用户的list无关，防止用户删除出现BUG)
+          var uuid=that.create_uuid()
+          var new_list=that.data.list
+          new_list.status=3
+          delete new_list.id
+          delete new_list.lastModifyTime
           var completed_medicine_list = {
-            id: id,
-            list_name: that.data.name,
+            id: uuid,
+            list: new_list,
             complete_time: that.getNowTime(),
             user_name: that.data.userInfo.real_name,
             unique_code: unique_code

@@ -5,7 +5,7 @@
 <view class="submitted_medicine_list fadeInRight" wx:for="{{completed_medicine_list}}" wx:for-item="list" wx:for-index="index">
   <view class="list" data-index="{{index}}" bindtap="jumoToAuditListPage">
     <view class="content">
-      <view class="list_name">{{list.list_name}}</view>
+      <view class="list_name">{{list.list.name}}</view>
       <view class="user_name">提交用户：{{list.user_name}}</view>
       <view class="submit_time">完成时间：{{list.complete_time}}</view>
     </view>

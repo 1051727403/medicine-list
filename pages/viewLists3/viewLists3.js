@@ -28,16 +28,23 @@ Page({
 
 
   },
-  //跳转到审核清单页面
+  //跳转到已完成详细清单页面
   jumoToAuditListPage(res){
     var that=this
     console.log('选择进行查看的清单',res)
     var index=res.currentTarget.dataset.index
-    var id=that.data.completed_medicine_list[index].id
-    var list_name=that.data.completed_medicine_list[index].list_name
+    var list=that.data.completed_medicine_list[index]
     var unique_code=that.data.unique_code
+    var data={}
+    data.unique_code=unique_code
+    data.list=list
     wx.navigateTo({
-      url: '/pages/viewMedicines3/viewMedicines3?id='+id+'&list_name='+list_name+"&index="+index+"&unique_code="+unique_code,
+      url: '/pages/viewMedicines3/viewMedicines3',
+      success:res=>{
+        res.eventChannel.emit('transform',{
+          data:data
+        })
+      }
     })
   },
   //返回上一页面
