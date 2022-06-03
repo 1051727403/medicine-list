@@ -214,11 +214,16 @@ Page({
     var that = this
     wx.showModal({
       title: '提示',
-      content: '确认导出？导出后点击右上角菜单保存',
+      content: '确认导出为excel吗？导出后可点击右上角选项栏进行保存',
       confirmColor: "#33d13e",
       success(res) {
         if (res.confirm) {
           console.log('【用户点击确定】')
+          wx.showLoading({
+            title: '文件下载中',
+            mask:true,
+          })
+          
           wx.cloud.callFunction({
             name: 'ExportToExcel',
             data: {
@@ -232,6 +237,7 @@ Page({
                 fileID: fileID,
                 success: res => {
                   console.log("文件下载成功", res);
+                    wx.hideLoading()       
                   //提示框
                   wx.showToast({
                     title: '文件下载成功',

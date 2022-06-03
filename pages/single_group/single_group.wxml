@@ -53,10 +53,10 @@
 
 <!--底部加入以及分享按钮  start-->
 <view class="bottom_bar">
-  <view class="share">
+  <button class="share" style="margin: 0rpx;padding: 0rpx;width: 80rpx; background-color: white;"open-type="share">
     <image class="share_icon" src="https://img-blog.csdnimg.cn/ec2e016390f64a9cb992446058aa08f3.png#pic_center"></image>
     <view class="share_text">分享</view>
-  </view>
+  </button>
   <view class="join" bindtap="changeJoinState" style="background-color:{{permission==0?'#61cf0d':permission=='1'||permission=='2'?'rgb(195, 195, 195)':'rgb(255, 104, 104)'}};">{{permission=='0'?'加入组织':permission=='1'||permission=='2'?'退出组织':'解散组织'}}</view>
 </view>
 <!--底部加入以及分享按钮  start-->

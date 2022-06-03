@@ -36,8 +36,18 @@ Page({
     is_from_shareList: false,
     //新用户从分享页面来，分享的清单的id
     fromshare: '',
+    //判断是否从分享组织页面返回
+    is_from_shareGroup: false,
+    //新用户从分享组织页面来,分享组织的unique_code
+    shareGroup: '',
     //清单列表
-    medicineList: [],
+    medicineList: [
+      {
+        name:'药品清单',
+        lastModifyTime:'2022.06.03   13.06',
+        status:0,
+      }
+    ],
 
   },
   //复用型函数
@@ -116,7 +126,7 @@ Page({
             item.lastModifyTime = res.data[j].lastModifyTime
             item.medicines = res.data[j].medicines
             item.status = res.data[j].status
-            item.note=res.data[j].note
+            item.note = res.data[j].note
             medicineList.push(item)
           }
         })
@@ -276,18 +286,25 @@ Page({
     app.globalData.logged = that.data.logged
     console.log('全局变量userInfo：', app.globalData.userInfo)
     //若从分享页面来，则跳转到分享页面
-    if (that.data.fromshare != '') { 
+    if (that.data.fromshare != '') {
       that.setData({
-        is_from_shareList:false
+        is_from_shareList: false
       })
       wx.navigateTo({
         url: '../shareList/shareList?fromshare=' + that.data.fromshare,
       })
-     
+    } else if (that.data.shareGroup != '') {
+      console.log('如果从组织分享中来的，就跳转到分享的组织')
+      console.log('跳转到分享的组织')
+      that.setData({
+        is_from_shareGroup: false,
+      })
+      wx.navigateTo({
+        url: '../single_group/single_group?unique_code=' + that.data.shareGroup,
+      })
+
     }
   },
-
-
   //判断是否曾经登陆过,若登陆过则返回该人信息，若无则返回错误代码
   async is_logged_before(event) {
     /**监测参数是否完整 */
@@ -376,11 +393,23 @@ Page({
     //错误码为2说明该用户是新用户
     if (res.errcode == 2) {
       //若用户是从分享页面来的，则提示用户进行注册
-      if(that.data.fromshare!=''){
+      if (that.data.fromshare != '') {
         //如果为新用户或用户未登录，并且是从清单分享跳转而来，则先引导其进行登录操作
         wx.showModal({
           title: '提示',
           content: '登录后方可查看他人分享的清单',
+          showCancel: 'false',
+          success(res) {
+            if (res.confirm) {
+              console.log('【用户点击确定】')
+            }
+          }
+        })
+      } else if (that.data.shareGroup != '') {
+        //如果为新用户或用户未登录，并且是从清单分享跳转而来，则先引导其进行登录操作
+        wx.showModal({
+          title: '提示',
+          content: '登录后方可查看他人分享的组织',
           showCancel: 'false',
           success(res) {
             if (res.confirm) {
@@ -409,24 +438,47 @@ Page({
     app.globalData.userInfo = data
     app.globalData.logged = that.data.logged
     console.log('全局变量userInfo：', app.globalData.userInfo)
-        //如果从清单分享中来的，就跳转到分享的清单
-        console.log('如果从清单分享中来的，就跳转到分享的清单')
-        if (that.data.fromshare != '') {
-          //将is_from_shareList改为falsse，防止show函数时二次显示
-          that.setData({
-            is_from_shareList:false,
-          })
-          console.log('如果从清单分享中来的，就跳转到分享的清单')
-          wx.navigateTo({
-            url: '../shareList/shareList?fromshare=' + that.data.fromshare,
-          })
-        }
+    //如果从清单分享中来的，就跳转到分享的清单
+    console.log('如果从清单分享中来的，就跳转到分享的清单')
+    if (that.data.fromshare != '') {
+      //将is_from_shareList改为falsse，防止show函数时二次显示
+      that.setData({
+        is_from_shareList: false,
+      })
+      console.log('如果从清单分享中来的，就跳转到分享的清单')
+      wx.navigateTo({
+        url: '../shareList/shareList?fromshare=' + that.data.fromshare,
+      })
+    } else if (that.data.shareGroup != '') {
+      console.log('如果从组织分享中来的，就跳转到分享的组织',that.data.shareGroup)
+      that.setData({
+        is_from_shareGroup: false,
+      })
+      wx.navigateTo({
+        url: '../single_group/single_group?unique_code=' + that.data.shareGroup,
+      })
+
+    }
   },
   //用户静默登录
   async onLoad(options) {
     console.log('options', options)
     //不调用云函数的方法
     const that = this
+    //如果从清单分享中来的，就跳转到分享的清单
+    if (options.fromshare != null) {
+      //若从分享页面而来，将fromshare设为变量，当新用户注册后或者老用户加载后自动跳转进行查看
+      that.setData({
+        fromshare: options.fromshare,
+        is_from_shareList: true,
+      })
+    } else if (options.shareGroup != null) {
+      //若从分享页面而来，当新用户注册后或者老用户加载后自动跳转进行查看
+      that.setData({
+        shareGroup: options.shareGroup,
+        is_from_shareGroup: true
+      })
+    }
     if (app.globalData.logged == false) {
       //延迟，读取数据库
       wx.showLoading({
@@ -466,20 +518,12 @@ Page({
       })
       that.getTotalList(that.data.userInfo.openid)
     }
-    //如果从清单分享中来的，就跳转到分享的清单
-    if (options.fromshare != null) {
-      //若从分享页面而来，将fromshare设为变量，当新用户注册后或者老用户加载后自动跳转进行查看
-      that.setData({
-        fromshare: options.fromshare,
-        is_from_shareList:true,
-      })
-    }
   },
   //OnShow函数，监视页面
   onShow() {
     var that = this
     console.log('检测上一级路径是否为清单列表页，若是，则加载，若不是，则不进行加载')
-    if (app.globalData.logged == true&&this.data.is_from_medicineList == true) {
+    if (app.globalData.logged == true && this.data.is_from_medicineList == true) {
       this.setData({
         new_user: false,
         userInfo: app.globalData.userInfo,
@@ -502,7 +546,7 @@ Page({
         })
       }, 500)
 
-    }else if(app.globalData.logged==true&&this.data.is_from_shareList == true&&this.data.fromshare!=''){
+    } else if (app.globalData.logged == true && this.data.is_from_shareList == true && this.data.fromshare != '') {
       this.setData({
         new_user: false,
         userInfo: app.globalData.userInfo,
@@ -512,12 +556,27 @@ Page({
         modifyIndex: -1,
         is_from_shareList: false,
       })
-        console.log('如果从清单分享中来的，就跳转到分享的清单')
-        console.log('app.globalData.logged:', app.globalData.logged)
-        wx.navigateTo({
-          url: '../shareList/shareList?fromshare=' + that.data.fromshare,
-        })
-    }else {
+      console.log('如果从清单分享中来的，就跳转到分享的清单')
+      console.log('app.globalData.logged:', app.globalData.logged)
+      wx.navigateTo({
+        url: '../shareList/shareList?fromshare=' + that.data.fromshare,
+      })
+    } else if (app.globalData.logged == true && this.data.is_from_shareGroup == true && this.data.shareGroup != '') {
+      this.setData({
+        new_user: false,
+        userInfo: app.globalData.userInfo,
+        clickAddListButtom: false,
+        clickRenameListButtom: false,
+        is_modify: 0,
+        modifyIndex: -1,
+        is_from_shareGroup: false,
+      })
+      console.log('如果从组织分享中来的，就跳转到分享的组织')
+      console.log('app.globalData.logged:', app.globalData.logged)
+      wx.navigateTo({
+        url: '../single_group/single_group?unique_code=' + that.data.shareGroup,
+      })
+    } else {
       console.log('不是从药品清单页面返回，不加载页面')
     }
 
@@ -661,7 +720,7 @@ Page({
       lastModifyTime: now_time,
       status: 0, //0代表什么状态也没有
       medicines: [],
-      note:''
+      note: ''
     }
     console.log('new_data:', new_data)
     /*该处上传数据库  start*/
@@ -688,6 +747,7 @@ Page({
 
   //右上角修改按钮动画
   modify(res) {
+    if(!this.islogined())return
     var index = res.currentTarget.dataset.index
     console.log('点击下标为', index, '的清单的修改图标')
     this.setData({
@@ -752,7 +812,7 @@ Page({
     var id = new_medicineList[modifyIndex].id
     var status = new_medicineList[modifyIndex].status
     var medicines = new_medicineList[modifyIndex].medicines
-    var note=new_medicineList[modifyIndex].note
+    var note = new_medicineList[modifyIndex].note
 
     //构造时间标准格式
     var now_time = that.getNowTime()
@@ -766,7 +826,7 @@ Page({
     newone.status = status
     newone.medicines = medicines
     newone.openid = openid
-    newone.note=note
+    newone.note = note
     console.log('【newone】', newone)
     new_medicineList.unshift(newone)
     this.setData({
@@ -779,17 +839,17 @@ Page({
   },
   //重命名
   rename() {
-    var that=this
-    var index=that.data.modifyIndex
-    if(that.data.medicineList[index].status!=0){
+    var that = this
+    var index = that.data.modifyIndex
+    if (that.data.medicineList[index].status != 0) {
       wx.showToast({
         title: '该清单已提交，不能进行修改！',
         icon: 'none',
-        mask:"true",
+        mask: "true",
         duration: 2000
-      })    
+      })
       that.setData({
-        is_modify:2
+        is_modify: 2
       })
       return
     }
@@ -811,17 +871,17 @@ Page({
   },
   //删除
   del() {
-    var that=this
-    var index=that.data.modifyIndex
-    if(that.data.medicineList[index].status!=0){
+    var that = this
+    var index = that.data.modifyIndex
+    if (that.data.medicineList[index].status != 0) {
       wx.showToast({
         title: '该清单已提交，不能进行修改！',
         icon: 'none',
-        mask:"true",
+        mask: "true",
         duration: 2000
-      })    
+      })
       that.setData({
-        is_modify:2
+        is_modify: 2
       })
       return
     }

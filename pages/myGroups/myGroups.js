@@ -209,7 +209,7 @@ Page({
     } else {
       //如果不是则跳转到对应的组织页面
       wx.navigateTo({
-        url: '/pages/single_group/single_group?unique_code=' + unique_code + '&index=' + index,
+        url: '/pages/single_group/single_group?unique_code=' + unique_code,
       })
     }
 

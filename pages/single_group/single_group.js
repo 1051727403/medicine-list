@@ -22,7 +22,6 @@ Page({
   async onLoad(options) {
     var that = this
     var unique_code = options.unique_code
-    var index = options.index
     console.log('【获取到的唯一识别码】', unique_code)
     //用唯一识别码从数据库中获取信息
     await db.collection('groups_table')
@@ -45,7 +44,6 @@ Page({
           userInfo: app.globalData.userInfo,
           group: group,
           permission: permission,
-          index: index,
         })
       })
 
@@ -87,6 +85,7 @@ Page({
   //判断个人信息是否填写完毕
   is_fill_userInfo() {
     var userInfo = app.globalData.userInfo
+    console.log('判断个人信息是否完整?',userInfo)
     if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == "" || userInfo.id_number == '') {
       wx.showModal({
         title: '提示',
@@ -100,15 +99,17 @@ Page({
             })
           } else if (res.cancel) {
             console.log('用户点击取消')
-            return false
           }
         }
       })
+      console.log('【个人信息不完整】')
+      return false
     }
+    console.log('【个人信息完整】')
     return true
   },
   //加入、退出、解散组织
-  async changeJoinState() {
+  changeJoinState() {
     var that = this
     //保存原有权限
     var permission = that.data.permission
@@ -119,9 +120,6 @@ Page({
           if (res.confirm) {
             //用户选择进行加入或退出或解散操作
             console.log('用户点击确定')
-            that.setData({
-              permission: permission == '0' ? '1' : '0',
-            })
             //提前准备好openid、unique_code等参数，方便后续再数据库中查找
             var userInfo = that.data.userInfo
             var unique_code = that.data.group.unique_code
@@ -132,7 +130,7 @@ Page({
             if (permission == 0) {
               //首先判断其个人信息是否填写完毕，因为后续需要用到真实姓名等信息
               //若个人信息未填写完整，则引导其完善个人信息
-              if (!that.is_fill_userInfo()) return
+              if (that.is_fill_userInfo()==false) return
               wx.showToast({
                 title: '加入组织成功!',
                 icon: 'success',
@@ -258,6 +256,9 @@ Page({
               })
             }, 500)
           }
+          that.setData({
+            permission: permission == '0' ? '1' : '0',
+          })
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
@@ -275,11 +276,33 @@ onUnload() {
   //重新渲染上一个页面
   var pages = getCurrentPages()
   var prepage = pages[pages.length - 2]
-  prepage.change()
+  console.log('【prepage】',prepage)
+  //如果是通过分享进入，上一页是index页面，则不需要渲染
+  if(prepage.route!='pages/index/index'){
+    console.log('【上一页面不是首页，说明不是通过分享进入，不需要渲染】')
+    prepage.change()
+  }
 },
 
-//分享
-onShareAppMessage() {
-
-}
+  //分享小程序
+  onShareAppMessage(res) {
+    var that = this
+    //若点击分享按钮进行分享，将该页面数据封装后作为参数传递，好友点击后根据参数渲染
+    if (res.from == 'button') {
+      console.log('【点击按钮进行分享】')
+      //封装该页面所有信息
+      return {
+        title: "药清单·分享组织",
+        //先进index以执行登录验证
+        path: "pages/index/index?shareGroup=" + that.data.group.unique_code,
+        imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
+      }
+    } else {
+      return {
+        title: "药清单",
+        path: "pages/index/index",
+        imageUrl: "https://img-blog.csdnimg.cn/812e2d8f0da047089ee24abaf831ae2e.png#pic_center"
+      }
+    }
+  }
 })
