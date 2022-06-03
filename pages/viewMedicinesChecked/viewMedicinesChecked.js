@@ -118,19 +118,19 @@ Page({
       delta: 1,
     })
   },
-    //创建UUID
-    create_uuid() {
-      var s = [];
-      var hexDigits = "0123456789abcdef";
-      for (var i = 0; i < 36; i++) {
-        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-      }
-      s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
-      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-      s[8] = s[13] = s[18] = s[23] = "-";
-      var uuid = s.join("");
-      return uuid;
-    },
+  //创建UUID
+  create_uuid() {
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+    var uuid = s.join("");
+    return uuid;
+  },
   //清单完成
   async pass() {
     var that = this
@@ -162,9 +162,9 @@ Page({
             console.log('【从待审核表中删除！】', res)
           })
           //加入到已完成列表中(已完成列表中重新创建uuid存放清单全部内容，和用户的list无关，防止用户删除出现BUG)
-          var uuid=that.create_uuid()
-          var new_list=that.data.list
-          new_list.status=3
+          var uuid = that.create_uuid()
+          var new_list = that.data.list
+          new_list.status = 3
           delete new_list.id
           delete new_list.lastModifyTime
           var completed_medicine_list = {
@@ -212,49 +212,60 @@ Page({
   },
   async Output() {
     var that = this
-    wx.cloud.callFunction({
-      name: 'ExportToExcel',
-      data: {
-        id: that.data.list.id
-      },
+    wx.showModal({
+      title: '提示',
+      content: '确认导出？导出后点击右上角菜单保存',
+      confirmColor: "#33d13e",
       success(res) {
-        console.log(res)
-        var fileID = res.result.fileID
-        console.log(fileID)
-        wx.cloud.downloadFile({
-          fileID: fileID,
-          success: res => {
-            console.log("文件下载成功", res);
-            //提示框
-            wx.showToast({
-              title: '文件下载成功',
-              icon: "success",
-              duration: 2000
-            })
-
-            //打开文件
-            const filePath = res.tempFilePath
-            wx.openDocument({
-              filePath: filePath,
-              success: function (res) {
-                console.log('打开文档成功', res)
-                //删除文件
-                wx.cloud.deleteFile({
-                  fileList: [fileID],
-                  success: (res => {
-                    console.log('删除成功', res)
-                  }),
-                  fail: (err => {
-                    console.log(err)
+        if (res.confirm) {
+          console.log('【用户点击确定】')
+          wx.cloud.callFunction({
+            name: 'ExportToExcel',
+            data: {
+              id: that.data.list.id
+            },
+            success(res) {
+              console.log(res)
+              var fileID = res.result.fileID
+              console.log(fileID)
+              wx.cloud.downloadFile({
+                fileID: fileID,
+                success: res => {
+                  console.log("文件下载成功", res);
+                  //提示框
+                  wx.showToast({
+                    title: '文件下载成功',
+                    icon: "success",
+                    duration: 2000
                   })
-                })
-              }
-            })
-          },
-          fail: err => {
-            console.log("文件下载失败", err);
-          }
-        })
+
+                  //打开文件
+                  const filePath = res.tempFilePath
+                  wx.openDocument({
+                    filePath: filePath,
+                    showMenu: true,
+                    success: function (res) {
+                      console.log('打开文档成功', res)
+                      //删除云端存档
+                      wx.cloud.deleteFile({
+                        fileList:[fileID],
+                        success:res=>{
+                          console.log("删除成功",res)
+                        },
+                        fail:err=>{
+                          console.log("删除失败",err)
+                        }
+                      })
+                    }
+                  })
+                },
+                fail: err => {
+                  console.log("文件下载失败", err);
+                }
+              })
+            }
+          })
+        }
       }
     })
   },

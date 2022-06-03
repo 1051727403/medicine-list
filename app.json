@@ -12,10 +12,10 @@
     "pages/audit/audit",
     "pages/audit_list_page/audit_list_page",
     "pages/manageMembers/manageMembers",
-    "pages/viewLists2/viewLists2",
-    "pages/viewMedicines2/viewMedicines2",
-    "pages/viewLists3/viewLists3",
-    "pages/viewMedicines3/viewMedicines3",
+    "pages/viewListsChecked/viewListsChecked",
+    "pages/viewListsCompleted/viewListsCompleted",
+    "pages/viewMedicinesChecked/viewMedicinesChecked",
+    "pages/viewMedicinesCompleted/viewMedicinesCompleted",
     "pages/viewListsType/viewListsType"
   ],
   "window":{

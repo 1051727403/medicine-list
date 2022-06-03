@@ -36,14 +36,14 @@ Page({
   ToAudited(){
     var that = this
     wx.navigateTo({
-      url: '/pages/viewLists2/viewLists2?unique_code=' + that.data.unique_code,
+      url: '/pages/viewListsChecked/viewListsChecked?unique_code=' + that.data.unique_code,
     })
   },
   //跳转到查看已完成的清单页面
   ToComplete(){
     var that = this
     wx.navigateTo({
-      url: '/pages/viewLists3/viewLists3?unique_code=' + that.data.unique_code,
+      url: '/pages/viewListsCompleted/viewListsCompleted?unique_code=' + that.data.unique_code,
     })
   },
   /**
