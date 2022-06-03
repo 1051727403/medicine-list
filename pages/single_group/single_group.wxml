@@ -38,7 +38,7 @@
         <view class="audit_prompt">成员管理</view>
       </view>
       <view class="function"bindtap="audit">
-        <image class="audit" src="https://img-blog.csdnimg.cn/fcd4b270e72140c693fb1fd2c66f7ecb.png#pic_center"></image>
+        <image class="audit" src="https://img-blog.csdnimg.cn/ab0d3daa63c843d48dc361b2cc59170b.png#pic_center"></image>
         <view class="audit_prompt">审核清单</view>
       </view>
       <view class="function" bindtap="ToViewList">

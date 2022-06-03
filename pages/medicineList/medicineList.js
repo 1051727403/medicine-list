@@ -333,6 +333,10 @@ Page({
         console.log('【扫描条形码的结果】', res)
         code = res.result
         console.log('code:', code)
+        wx.showLoading({
+          title: '加载中',
+          mask:true,
+        })
         /*调用接口api获取药品详细信息 start*/
         /*您的秘钥信息如下：
         app_id:hvhmohepuqlrinmo
@@ -412,6 +416,8 @@ Page({
             console.log('【国家商品信息服务平台获取的信息】', res)
             console.log('【获取商品信息】', res.data.Data.Items[0])
             //data中存放着商品信息
+            //关闭加载
+            wx.hideLoading()
             var data = res.data.Data.Items[0]
             if (data == null) {
               console.log('【未能查询到该药品】')
@@ -479,11 +485,18 @@ Page({
             }
           },
           fail: res => {
+            wx.hideLoading()
             console.log('【扫码录入失败！】')
+            wx.showToast({
+              title: '服务器忙，请稍后重试',
+              icon: 'none',
+              duration: 2000
+            })
           }
         })
       },
       fail: res => {
+        wx.hideLoading()
         console.log('【用户点击取消扫码】', res)
       }
     })

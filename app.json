@@ -16,7 +16,8 @@
     "pages/viewListsCompleted/viewListsCompleted",
     "pages/viewMedicinesChecked/viewMedicinesChecked",
     "pages/viewMedicinesCompleted/viewMedicinesCompleted",
-    "pages/viewListsType/viewListsType"
+    "pages/viewListsType/viewListsType",
+    "pages/terms/terms"
   ],
   "window":{
     "backgroundTextStyle":"light",

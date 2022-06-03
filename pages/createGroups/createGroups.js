@@ -512,7 +512,11 @@ Page({
      })
   },
 
-
+  jumpToTerms(){
+    wx.navigateTo({
+      url: '/pages/terms/terms',
+    })
+  },
 
   onShareAppMessage() {
 

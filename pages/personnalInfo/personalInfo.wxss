@@ -80,6 +80,9 @@ Page{
   width:100rpx;
   margin-right: 20rpx;
 }
+.userAgreeMent{
+  margin:40rpx 0rpx 40rpx ;
+}
 .submit{
   margin-top: 60rpx;
   margin-bottom: 60rpx;

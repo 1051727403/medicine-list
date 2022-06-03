@@ -56,7 +56,6 @@ page {
 }
 .userAgreeMent{
   margin:40rpx 5% 40rpx 5%;
-  color:rgb(29, 106, 230) ;
 }
 .bottom_bar{
   margin:0rpx 5%;

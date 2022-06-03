@@ -21,6 +21,8 @@ Page({
     building:'',
     no:'',
     room:'',
+    //用户协议及隐私条款勾选状况
+    is_check_userAgreeMent:false,
   },
   //onload函数
   onLoad() {
@@ -38,6 +40,7 @@ Page({
       building:app.globalData.userInfo.address.building,
       no:app.globalData.userInfo.address.no,
       room:app.globalData.userInfo.address.room,
+      is_check_userAgreeMent:app.globalData.userInfo.real_name==''?false:true,
     })
   },
   //OnShow函数
@@ -56,6 +59,7 @@ Page({
       building:app.globalData.userInfo.address.building,
       no:app.globalData.userInfo.address.no,
       room:app.globalData.userInfo.address.room,
+      is_check_userAgreeMent:app.globalData.userInfo.real_name==''?false:true,
     })
   },
   //获取姓名
@@ -177,6 +181,16 @@ Page({
       })    
       return
     }
+    //是否勾选隐私协议
+    if(that.data.is_check_userAgreeMent!=true){
+      wx.showModal({
+        title: '提示',
+        content: '未勾选同意《用户协议及隐私政策》！', 
+        showCancel:false,
+        confirmColor:"#07c160",
+      })    
+      return
+    }
     /*判断个人信息是否填写完整&规范  end*/
 
     //console.log('【居住地址】',address)
@@ -221,6 +235,20 @@ Page({
     
     /*提示用户保存成功并将个人信息上传数据库 end*/
   },
+    //用户点击用户协议
+    userAgreeMent(e) {
+      console.log(e)
+      var is_check_userAgreeMent = e.detail.value
+      this.setData({
+        is_check_userAgreeMent: is_check_userAgreeMent
+      })
+    },
+    //跳转到用户协议与隐私页面
+    jumpToTerms(){
+      wx.navigateTo({
+        url: '/pages/terms/terms',
+      })
+    },
   //分享按钮
   onShareAppMessage() {
     return {

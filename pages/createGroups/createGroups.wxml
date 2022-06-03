@@ -35,7 +35,7 @@
     <textarea class="group_input" placeholder="请输入组织简介" maxlength="300" style="height:400rpx;padding-top: 20rpx;width: 95%;"bindinput="group_introduction" placeholder-class="placeholder" value="{{new_group.introduction}}"></textarea>
   </view>
   <!--用户协议-->
-  <switch class="userAgreeMent" bindchange="userAgreeMent" type="checkbox"checked="{{is_check_userAgreeMent}}">同意并允许《《用户协议》》</switch>
+  <switch class="userAgreeMent" bindchange="userAgreeMent" type="checkbox"checked="{{is_check_userAgreeMent}}"></switch><text bindtap="jumpToTerms"style="  color:rgb(29, 106, 230) ;">同意《《用户协议及隐私条款》》</text>
 </view>
 <!--填写想要创建的组织的详细信息  end-->
 <!--底部栏重置&提交 start-->

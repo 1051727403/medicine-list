@@ -54,6 +54,7 @@
       <input type="number" placeholder="(必填)"value="{{room}}"class="address_detail"bindinput="getRoom"/><view>室</view>
     </view>
   </view>
+  <switch class="userAgreeMent" bindchange="userAgreeMent" type="checkbox"checked="{{is_check_userAgreeMent}}"></switch><text bindtap="jumpToTerms" style="  color:rgb(29, 106, 230) ;">同意《《用户协议及隐私条款》》</text>
   <button class="submit" type="primary" form-type="submit" style="background: linear-gradient(to left top,#16c2ee,45%,#b0f3e5);letter-spacing: 4rpx; ">保存</button>
 </form>
 <!--个人信息填写  end-->

@@ -57,7 +57,7 @@ Page({
 
   },
   //跳转到成员管理页面
-  JumpToManageMembers(){
+  JumpToManageMembers() {
     var that = this
     wx.navigateTo({
       url: '/pages/manageMembers/manageMembers?unique_code=' + that.data.group.unique_code,
@@ -85,7 +85,7 @@ Page({
   //判断个人信息是否填写完毕
   is_fill_userInfo() {
     var userInfo = app.globalData.userInfo
-    console.log('判断个人信息是否完整?',userInfo)
+    console.log('判断个人信息是否完整?', userInfo)
     if (userInfo.address.building == "" || userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == "" || userInfo.id_number == '') {
       wx.showModal({
         title: '提示',
@@ -114,175 +114,230 @@ Page({
     //保存原有权限
     var permission = that.data.permission
     wx.showModal({
-        title: '提示',
-        content: '您真的要这样做吗？',
-        success(res) {
-          if (res.confirm) {
-            //用户选择进行加入或退出或解散操作
-            console.log('用户点击确定')
-            //提前准备好openid、unique_code等参数，方便后续再数据库中查找
-            var userInfo = that.data.userInfo
-            var unique_code = that.data.group.unique_code
-            var openid = userInfo.openid
-            //后端实现加入、退出、解散
+      title: '提示',
+      content: '您真的要这样做吗？',
+      success(res) {
+        if (res.confirm) {
+          //用户选择进行加入或退出或解散操作
+          console.log('用户点击确定')
+          //提前准备好openid、unique_code等参数，方便后续再数据库中查找
+          var userInfo = that.data.userInfo
+          var unique_code = that.data.group.unique_code
+          var openid = userInfo.openid
+          //后端实现加入、退出、解散
 
-            //若为未加入的人，则加入组织
-            if (permission == 0) {
-              //首先判断其个人信息是否填写完毕，因为后续需要用到真实姓名等信息
-              //若个人信息未填写完整，则引导其完善个人信息
-              if (that.is_fill_userInfo()==false) return
-              wx.showToast({
-                title: '加入组织成功!',
-                icon: 'success',
-                duration: 1000
-              })
-              //上传数据库
-              //数据库中加入该组织的成员列表,同时更新加入成员数量
-              var person = {}
-              person.name = userInfo.real_name
-              person.openid = userInfo.openid
-              person.permission = 1
-              person.phone_number=userInfo.phone_number
-              console.log('【unique_code】', unique_code)
-
-              db.collection('groups_table').where({
-                unique_code: unique_code
-              }).update({
-                data: {
-                  member_list: _.push(person),
-                  members_number: _.inc(1)
-                }
-              }).then(res => {
-                console.log('【更新组织的成员列表】', res)
-              })
-              //user表中增加组织以及权限，权限默认为1，代表普通加入者
-              //构造加入的组织简略数据
-              var group = that.data.group
-              var new_group = {}
-              new_group.address = group.address
-              new_group.name = group.name
-              new_group.permission = '1'
-              new_group.unique_code = group.unique_code
-              //上传user数据库
-              db.collection('user').where({
-                openid: openid
-              }).update({
-                data: {
-                  joined_groups: _.push(new_group)
-                }
-              }).then(res => {
-                console.log('【user表更新】', res)
-              })
-              //更新全局userInfo中的joined_groups
-              app.globalData.userInfo.joined_groups.push(new_group)
-
-            } else if (permission == 1 || permission == 2) {
-              //若为已加入或为管理员，则退出组织
-              wx.showToast({
-                title: '成功退出组织！',
-                icon: 'success',
-                duration: 1000
-              })
-              //数据库user中删除
-              db.collection('user').where({
-                openid: openid
-              }).update({
-                data: {
-                  joined_groups: _.pull({
-                    unique_code: _.eq(unique_code),
-                  }),
-                }
-              })
-              //数据库中的组织成员列表中删除
-              db.collection('groups_table').where({
-                unique_code: unique_code
-              }).update({
-                data: {
-                  member_list: _.pull({
-                    openid: _.eq(openid),
-                  }),
-                  members_number: _.inc(-1) //人数减少
-                }
-              })
-            //更新全局userInfo
-            for (let i = 0; i < userInfo.joined_groups.length; i++) {
-              if (userInfo.joined_groups[i].unique_code == unique_code) {
-                userInfo.joined_groups.splice(i, 1)
-                break;
-              }
-            }
-            app.globalData.userInfo = userInfo
-          } else {
-            //若为创建人,则删除小区，对于所有加入的人来说，不用删除，在列举加入的组织时只要不显示null的就行，显著降低读写次数
-            //从数据库中删除数据
-            //首先删除所有加入的用户的joined_group数组中的相关元素
-            var member_list = that.data.group.member_list
-            console.log(member_list)
-            for (let i = 0; i < member_list.length; i++) {
-              db.collection('user').where({
-                openid: member_list[i].openid
-              }).update({
-                data: {
-                  joined_groups: _.pull({
-                    unique_code: _.eq(unique_code),
-                  })
-                }
-              })
-            }
-            //随后删除该组织
-            db.collection('groups_table').where({
-              unique_code: unique_code
-            }).remove().then(res => {
-              console.log('【删除组织成功！】', res)
-            })
-            //更新全局userInfo
-            var userInfo = app.globalData.userInfo
-            for (let i = 0; i < userInfo.joined_groups.length; i++) {
-              if (userInfo.joined_groups[i].unique_code == unique_code) {
-                userInfo.joined_groups.splice(i, 1)
-                break;
-              }
-            }
-            app.globalData.userInfo = userInfo
+          //若为未加入的人，则加入组织
+          if (permission == 0) {
+            //首先判断其个人信息是否填写完毕，因为后续需要用到真实姓名等信息
+            //若个人信息未填写完整，则引导其完善个人信息
+            if (that.is_fill_userInfo() == false) return
             wx.showToast({
-              title: '成功解散组织！',
+              title: '加入组织成功!',
               icon: 'success',
               duration: 1000
             })
-            //延迟返回
-            setTimeout(function () {
-              wx.navigateBack({
-                delta: 1,
+            //上传数据库
+            //数据库中加入该组织的成员列表,同时更新加入成员数量
+            var person = {}
+            person.name = userInfo.real_name
+            person.openid = userInfo.openid
+            person.permission = 1
+            person.phone_number = userInfo.phone_number
+            console.log('【unique_code】', unique_code)
+
+            db.collection('groups_table').where({
+              unique_code: unique_code
+            }).update({
+              data: {
+                member_list: _.push(person),
+                members_number: _.inc(1)
+              }
+            }).then(res => {
+              console.log('【更新组织的成员列表】', res)
+            })
+            //user表中增加组织以及权限，权限默认为1，代表普通加入者
+            //构造加入的组织简略数据
+            var group = that.data.group
+            var new_group = {}
+            new_group.address = group.address
+            new_group.name = group.name
+            new_group.permission = '1'
+            new_group.unique_code = group.unique_code
+            //上传user数据库
+            db.collection('user').where({
+              openid: openid
+            }).update({
+              data: {
+                joined_groups: _.push(new_group)
+              }
+            }).then(res => {
+              console.log('【user表更新】', res)
+            })
+            //更新全局userInfo中的joined_groups
+            app.globalData.userInfo.joined_groups.push(new_group)
+            that.setData({
+              permission:'1',
+            })
+          } else if (permission == 1 || permission == 2) {
+            //若为已加入或为管理员，则退出组织
+            wx.showToast({
+              title: '成功退出组织！',
+              icon: 'success',
+              duration: 1000
+            })
+            //数据库user中删除
+            db.collection('user').where({
+              openid: openid
+            }).update({
+              data: {
+                joined_groups: _.pull({
+                  unique_code: _.eq(unique_code),
+                }),
+              }
+            })
+            //数据库中的组织成员列表中删除
+            db.collection('groups_table').where({
+              unique_code: unique_code
+            }).update({
+              data: {
+                member_list: _.pull({
+                  openid: _.eq(openid),
+                }),
+                members_number: _.inc(-1) //人数减少
+              }
+            })
+            //更新全局userInfo
+            for (let i = 0; i < userInfo.joined_groups.length; i++) {
+              if (userInfo.joined_groups[i].unique_code == unique_code) {
+                userInfo.joined_groups.splice(i, 1)
+                break;
+              }
+            }
+            app.globalData.userInfo = userInfo
+            that.setData({
+              permission: '0',
+            })
+          } else {
+            console.log('用户为创建者')
+            //若为创建人,则删除小区，对于所有加入的人来说，不用删除，在列举加入的组织时只要不显示null的就行，显著降低读写次数
+            //若组织中存在需要审核以及需要完成的清单，则不能解散组织
+            //检查是否存在提交的清单
+            var submit_num = 0
+            db.collection('submitted_medicine_list_table').where({
+              unique_code: unique_code
+            }).get().then(res => {
+              console.log('【组织内待审核的清单数量】', res)
+              submit_num = res.data.length
+              console.log(submit_num)
+              if (submit_num != 0) {
+                wx.showToast({
+                  title: '存在待审核的清单，不可解散！',
+                  icon: 'none',
+                  mask: true,
+                  duration: 2000
+                })
+                that.setData({
+                  permission: '3',
+                })
+                return
+              }
+              //待完成的清单
+              var to_complete_num = 0
+              db.collection('checked_medicine_list_table').where({
+                unique_code: unique_code
+              }).get().then(res => {
+                console.log('【组织内待完成的清单数量】', res)
+                to_complete_num = res.data.length
+                if (to_complete_num != 0) {
+                  wx.showToast({
+                    title: '存在未完成的清单，不可解散！',
+                    icon: 'none',
+                    mask: true,
+                    duration: 2000
+                  })
+                  that.setData({
+                    permission: '3',
+                  })
+                  return
+                } else {
+                  //从数据库中删除数据
+                  //首先删除所有加入的用户的joined_group数组中的相关元素
+                  var member_list = that.data.group.member_list
+                  console.log(member_list)
+                  for (let i = 0; i < member_list.length; i++) {
+                    db.collection('user').where({
+                      openid: member_list[i].openid
+                    }).update({
+                      data: {
+                        joined_groups: _.pull({
+                          unique_code: _.eq(unique_code),
+                        })
+                      }
+                    })
+                  }
+                  //删除完成列表中该组织的内容
+                  db.collection('completed_medicine_list_table').where({
+                    unique_code:unique_code
+                  }).remove().then(res=>{
+                    console.log('【解散组织删除所有已完成的清单信息,节省数据库空间】',res)
+                  })
+                  //随后删除该组织
+                  db.collection('groups_table').where({
+                    unique_code: unique_code
+                  }).remove().then(res => {
+                    console.log('【删除组织成功！】', res)
+                  })
+                  //更新全局userInfo
+                  var userInfo = app.globalData.userInfo
+                  for (let i = 0; i < userInfo.joined_groups.length; i++) {
+                    if (userInfo.joined_groups[i].unique_code == unique_code) {
+                      userInfo.joined_groups.splice(i, 1)
+                      break;
+                    }
+                  }
+                  app.globalData.userInfo = userInfo
+                  wx.showToast({
+                    title: '成功解散组织！',
+                    icon: 'success',
+                    duration: 1000
+                  })
+                  that.setData({
+                    permission: '0',
+                  })
+                  //延迟返回
+                  setTimeout(function () {
+                    wx.navigateBack({
+                      delta: 1,
+                    })
+                  }, 500)
+                }
               })
-            }, 500)
+            })
           }
-          that.setData({
-            permission: permission == '0' ? '1' : '0',
-          })
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
       }
     })
-},
-//back函数
-back() {
-  wx.navigateBack({
-    delta: 1,
-  })
-},
-//页面销毁时触发函数
-onUnload() {
-  //重新渲染上一个页面
-  var pages = getCurrentPages()
-  var prepage = pages[pages.length - 2]
-  console.log('【prepage】',prepage)
-  //如果是通过分享进入，上一页是index页面，则不需要渲染
-  if(prepage.route!='pages/index/index'){
-    console.log('【上一页面不是首页，说明不是通过分享进入，不需要渲染】')
-    prepage.change()
-  }
-},
+  },
+  //back函数
+  back() {
+    wx.navigateBack({
+      delta: 1,
+    })
+  },
+  //页面销毁时触发函数
+  onUnload() {
+    //重新渲染上一个页面
+    var pages = getCurrentPages()
+    var prepage = pages[pages.length - 2]
+    console.log('【prepage】', prepage)
+    //如果是通过分享进入，上一页是index页面，则不需要渲染
+    if (prepage.route != 'pages/index/index') {
+      console.log('【上一页面不是首页，说明不是通过分享进入，不需要渲染】')
+      prepage.change()
+    }
+  },
 
   //分享小程序
   onShareAppMessage(res) {
