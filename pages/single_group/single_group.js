@@ -8,12 +8,27 @@ const _ = db.command
 
 Page({
   data: {
+     //屏幕宽度
+     windowWidth: app.globalData.windowWidth,
+     statusBarHeight: app.globalData.statusBarHeight,
+     windowHeight: app.globalData.windowHeight,
+     screenHeight: app.globalData.screenHeight,
     //用户身份信息
     userInfo: app.globalData.userInfo,
+    //用户点击修改组织信息
+    clickModifyInfo:false,
+    //在上一页中的下标
+    index:-1,
     //组织信息
     group: [],
     //用户身份和权限
     permission: '0',
+    //新的组织名称
+    new_name:'',
+    //新的组织联系电话
+    new_phone:'',
+    //新的组织介绍
+    new_introduction:'',
   },
 
   /**
@@ -22,6 +37,7 @@ Page({
   async onLoad(options) {
     var that = this
     var unique_code = options.unique_code
+    var index=options.index
     console.log('【获取到的唯一识别码】', unique_code)
     //用唯一识别码从数据库中获取信息
     await db.collection('groups_table')
@@ -41,9 +57,13 @@ Page({
         }
 
         that.setData({
+          index:index,
           userInfo: app.globalData.userInfo,
           group: group,
           permission: permission,
+          new_name:group.name,
+          new_phone:group.phone_number,
+          new_introduction:group.introduction
         })
       })
 
@@ -319,6 +339,111 @@ Page({
         }
       }
     })
+  },
+  //修改组织信息
+  modify_group_info(){
+    var that=this
+    this.setData({
+      clickModifyInfo:true
+    })
+  },
+  //获取新的组织名称
+  modifyGroupInfo_name(res){
+    this.setData({
+      new_name:res.detail.value,
+    })
+  },
+  //获取新的组织联系电话
+  modifyGroupInfo_phone(res){
+    this.setData({
+      new_phone:res.detail.value,
+    })
+  },
+  //获取新的组织介绍
+  modifyGroupInfo_introduction(res){
+    this.setData({
+      new_introduction:res.detail.value,
+    })
+  },
+  //取消修改
+  modify_cancle(){
+    var that=this
+    this.setData({
+      clickModifyInfo:false,
+      new_name:that.data.group.name,
+      new_phone:that.data.group.phone_number,
+      new_introduction:that.data.group.introduction,
+    })
+  },
+  //确认修改
+  modify_confirm(){
+    var that=this
+    var new_name=that.data.new_name
+    var new_phone=that.data.new_phone
+    var new_introduction=that.data.new_introduction
+    if(new_name.match(/^[ ]+$/)||new_name==''){
+      wx.showToast({
+        title: '名称不能为空！',
+        icon: 'error',
+        duration: 2000
+      })
+      return
+    }else if(new_phone.length!=11){
+      wx.showToast({
+        title: '电话号码不足11位！',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }else{
+      //渲染页面
+      that.setData({
+        clickModifyInfo:false,
+        ['group.name']:new_name,
+        ['group.phone_number']:new_phone,
+        ['group.introduction']:new_introduction
+      })
+      //渲染上一个页面
+      var index=that.data.index
+      var pages=getCurrentPages()
+      var prePage=pages[pages.length-2]
+      var name='groups['+index+'].name'
+      prePage.setData({
+        [name]:new_name,
+      })
+      //上传服务器
+      var unique_code=that.data.group.unique_code
+      db.collection('groups_table').where({
+        unique_code:unique_code
+      }).update({
+        data:{
+          name:new_name,
+          phone_number:new_phone,
+          introduction:new_introduction,
+        }
+      }).then(res=>{
+        console.log('【更新组织信息成功！】')
+        wx.showToast({
+          title: '修改成功！',
+          icon: 'success',
+          duration: 2000
+        })
+      })
+      //更新组织中所有人的组织表中的组织名称
+      var member=that.data.group.member_list
+      for(let i=0;i<member.length;i++){
+        db.collection('user').where({
+          openid:member[i].openid,
+          'joined_groups.unique_code':unique_code,
+        }).update({
+          data:{
+            'joined_groups.$.name':new_name,
+          }
+        }).then(res=>{
+          console.log('【更新用户表中组织名称！】')
+        })
+      }
+    }
   },
   //back函数
   back() {

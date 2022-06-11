@@ -46,12 +46,34 @@
         <view class="audit_prompt" bindtap="ToViewList">查看清单</view>
       </view>
     </view>
+    <view class="manage"wx:if="{{permission==2||permission==3}}">
+      <view class="function"wx:if="{{permission==3}}" bindtap="modify_group_info">
+        <image class="manageMembers" src="https://img-blog.csdnimg.cn/e00e0158cb9e47cfa8ddec01c95e6fca.png#pic_center"></image>
+        <view class="audit_prompt">修改信息</view>
+      </view>
+    </view>
     <!--管理组织板块，只有管理员能够看到 end-->
   </view>
 </view>
 <!--单个组织页面 end-->
-
+<!--灰色遮罩 start-->
+<view class="cover" wx:if="{{clickModifyInfo==true}}" style="position:fixed; z-index:998; top:{{statusBarHeight*2}}rpx;width:100%; height:{{screenHeight*2}}rpx"></view>
+<!--灰色遮罩 end-->
+<view class="modifyGroupInfo" wx:if="{{clickModifyInfo==true}}" style="position:fixed; z-index:999; top:16%;">
+  <view class="modifyGroupInfo_title">修改组织信息</view>
+  <view class="modifyGroupInfo_name">组织名称：<input type="text" placeholder="请输入新的组织名称" placeholder-class="placeholder" bindinput="modifyGroupInfo_name" value="{{group.name}}" /></view>
+  <view class="modifyGroupInfo_phone">联系电话：<input type="text" placeholder="请输入新的官方联系电话" placeholder-class="placeholder" bindinput="modifyGroupInfo_phone"value="{{group.phone_number}}" /></view>
+  <view class="modify_block">
+    <view class="modifyGroupInfo_introduction_prompt">组织介绍：</view>
+    <textarea type="text"class="modifyGroupInfo_introduction"maxlength="300" placeholder="请输入新的组织介绍" placeholder-class="placeholder" bindinput="modifyGroupInfo_introduction"value="{{group.introduction}}"></textarea>
+  </view>
+  <view class="check">
+    <view class="modify_cancle" bindtap="modify_cancle" style="color:#fb6969;  border-right: 1rpx solid #f5f5f5;">取消</view>
+    <view class="modify_confirm" bindtap="modify_confirm" style="color: #1ACB26;">确认</view>
+  </view>
+</view>
 <!--底部加入以及分享按钮  start-->
+<view class="empty_bottom_bar"></view>
 <view class="bottom_bar">
   <button class="share" style="margin: 0rpx;padding: 0rpx;width: 80rpx; background-color: white;"open-type="share">
     <image class="share_icon" src="https://img-blog.csdnimg.cn/ec2e016390f64a9cb992446058aa08f3.png#pic_center"></image>
