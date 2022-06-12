@@ -1,5 +1,5 @@
 <!--顶部导航栏自定义 start-->
-<custom_nav_top pageName="{{pageKind==1?'我加入的组织':'我管理的组织'}}" showBackIcon="true"linear_gradient="linear-gradient(#4db5ff,30%,#bee1fa) ;"bindtap="back"></custom_nav_top>
+<custom_nav_top pageName="{{pageKind==1||pageKind==3?'我加入的组织':'我管理的组织'}}" showBackIcon="true"linear_gradient="linear-gradient(#4db5ff,30%,#bee1fa) ;"bindtap="back"></custom_nav_top>
 <!--顶部导航栏自定义 end-->
 <!--渲染我管理的组织  start-->
 <view class="groups_list" wx:for="{{groups}}" wx:for-item="groups" wx:for-index="index">
