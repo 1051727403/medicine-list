@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "got": "^12.1.0",
-    "wx-server-sdk": "^2.6.1"
-  }
-}

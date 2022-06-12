@@ -11,4 +11,10 @@
     </view>
   </view>
 </view>
-<!--渲染我管理的组织  end-->
+<!--展示所有待审核的清单  end-->
+<!--底部栏导出 start-->
+<view class="empty_bottom_bar"></view>
+<view class="bottom_bar">
+  <button class="pass" bindtap="Output"style="background-color: white; font-size: 36rpx;">导出成excel</button>
+</view>
+<!--底部栏导出 end-->
