@@ -23,7 +23,7 @@ exports.main = async (event, context) => { //主函数入口
     for (let i in checked_medicine_list) {
       let namerow = ['姓名', '身份证号', '居住地址', '联系电话']
       alldata.push(namerow)
-      var adress
+      var address
       var id_number
       var phone_number
       await db.collection('user').where({
