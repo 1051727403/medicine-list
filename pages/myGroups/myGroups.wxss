@@ -1,6 +1,14 @@
 page{
   background:linear-gradient(to right bottom,#b9e0fc,70%,#f4f4ff) ;
 }
+.noGroup{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30rpx;
+  color:rgb(172, 172, 172);
+  font-size: 36rpx;
+}
 .groups{
   width: 90%;
   margin:30rpx 5%;

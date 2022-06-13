@@ -152,7 +152,7 @@ Page({
       return
     }
     //检查每个信息是否完整,除了医保卡号不为必填外其余均需填写
-    if(that.data.real_name==''||gender==""||that.data.id_number==""||that.data.phone_number==""||that.data.area==""||that.data.building==""||that.data.no==""||that.data.room==""){
+    if(that.data.real_name==''||gender==""||that.data.id_number==""||that.data.phone_number==""||that.data.area==""||that.data.no==""||that.data.room==""){
       wx.showModal({
         title: '提示',
         content: '请完善所有信息后再保存!',

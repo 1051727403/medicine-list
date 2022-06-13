@@ -49,7 +49,7 @@
   <view class="line">
     <view class="info"style="margin-right:40rpx;">----></view>
     <view class="address">
-      <input type="number" placeholder="(必填)"value="{{building}}"class="address_detail"bindinput="getBuilding"/><view style="margin-right: 10rpx;">幢/栋</view>
+      <input type="number" placeholder="(选填)"value="{{building}}"class="address_detail"bindinput="getBuilding"/><view style="margin-right: 10rpx;">幢</view>
       <input type="number" placeholder="(必填)"value="{{no}}"class="address_detail"bindinput="getNo"/><view style="margin-right:20rpx;">号</view>
       <input type="number" placeholder="(必填)"value="{{room}}"class="address_detail"bindinput="getRoom"/><view>室</view>
     </view>
