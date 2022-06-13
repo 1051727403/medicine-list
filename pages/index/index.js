@@ -100,8 +100,8 @@ Page({
   //获取用户的所有清单函数,并更新
   async getTotalList(openid) {
     var that = this
-    //一次查询上限为100，因此需要分批次取出
-    const MAX_LIMIT = 100
+    //一次查询上限为20，因此需要分批次取出
+    const MAX_LIMIT = 20
     const countResult = await db.collection('list_table').count()
     const total = countResult.total
     const times = Math.ceil(total / MAX_LIMIT)

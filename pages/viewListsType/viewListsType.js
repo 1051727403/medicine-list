@@ -43,7 +43,7 @@ Page({
   ToComplete(){
     var that = this
     wx.navigateTo({
-      url: '/pages/viewListsCompleted/viewListsCompleted?unique_code=' + that.data.unique_code,
+      url: `/pages/viewListsCompleted/viewListsCompleted?unique_code=${that.data.unique_code}`,
     })
   },
   /**

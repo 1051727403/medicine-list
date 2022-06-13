@@ -192,7 +192,7 @@ Page({
           })
           //提示反馈用户并返回上一页
           wx.showToast({
-            title: '审核通过！',
+            title: '清单完成！',
             icon: 'success',
             duration: 1000
           })
