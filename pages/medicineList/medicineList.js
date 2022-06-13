@@ -66,8 +66,7 @@ Page({
         screenHeight: app.globalData.screenHeight,
         is_first_show: true,
       })
-    })
-    console.log('windowWidth:', that.data.windowWidth)
+      console.log('windowWidth:', that.data.windowWidth)
     //动画结束后将is_first_show关闭，这样在后续增加清单时便可以将第一个进行动画渲染
     setTimeout(function () {
       that.setData({
@@ -132,6 +131,8 @@ Page({
         }
       })      
     }
+    })
+    
   },
   
   show: function () {
