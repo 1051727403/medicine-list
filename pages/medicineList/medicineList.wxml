@@ -8,6 +8,7 @@
 <view class="prompt" wx:if="{{list.medicines.length==0}}">1、扫描药品包装盒上的条形码进行录入</view>
 <view class="prompt" wx:if="{{list.medicines.length==0}}">2、自定义手动输入药品名称、品牌、规格</view>
 <view class="prompt" wx:if="{{list.medicines.length==0}}">可左移滑动删除不想要的药品！</view>
+<view class="prompt" wx:if="{{list.medicines.length==0}}">最多可添加20件药品！</view>
 <!--若当前清单中无药品，则提示  end-->
 <!-- 药品清单列表 start-->
 <movable-area class="medicines" wx:for="{{list.medicines}}" wx:for-item="medicine" wx:for-index="index" wx:key="" data-index="{{index}}" style="height:{{windowWidth*0.9*0.4*2}}rpx;">

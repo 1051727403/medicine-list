@@ -55,6 +55,12 @@
     </view>
   </view>
   <switch class="userAgreeMent" bindchange="userAgreeMent" type="checkbox"checked="{{is_check_userAgreeMent}}"></switch><text bindtap="jumpToTerms" style="  color:rgb(29, 106, 230) ;">同意《《用户协议及隐私条款》》</text>
-  <button class="submit" type="primary" form-type="submit" style="background: linear-gradient(to left top,#16c2ee,45%,#b0f3e5);letter-spacing: 4rpx; ">保存</button>
+  <button class="submit" type="primary" form-type="submit" style="background: linear-gradient(to left top,#16c2ee,45%,#b0f3e5);letter-spacing: 4rpx; ">授权保存</button>
+  <view class="line">
+    <view class="info" style="color: grey;">1、以上信息仅在代配药过程中使用，不做其他用途</view>
+  </view>
+  <view class="line">
+    <view class="info" style="color: grey;">2、请在仔细阅读，同意并勾选《用户协议及隐私条款》后再进行个人信息填写，若不同意可以不予填写。一切遵循用户意愿。</view>
+  </view>
 </form>
 <!--个人信息填写  end-->
