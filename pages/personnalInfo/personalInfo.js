@@ -161,15 +161,20 @@ Page({
       })    
       return
     }
-    //检查身份证号长度是否符合规范
-    if(that.data.id_number.length!=18){
+    //身份证验证,封装成公共函数
+    var common = require('../../utils/common.js');
+    console.log("身份证号码是否正确",common.identityCodeValid(that.data.id_number) == true)
+    //检查身份证号是否符合规范
+    if(common.identityCodeValid(that.data.id_number) == false){
       wx.showModal({
         title: '提示',
-        content: '身份证号长度不符合规范！',
+        content: '身份证号不符合规范！',
         showCancel:false,
         confirmColor:"#07c160",
       })    
       return
+      
+
     }
     //检查联系电话长度是否满足规范11位。
     if(that.data.phone_number.length!=11){
