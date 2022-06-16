@@ -64,11 +64,12 @@ Page({
     var unique_code = options.unique_code
     var openid
     var list = []
-    var userInfo = {}
-    this.setData({
-      name: name,
-      index: index,
-      unique_code: unique_code,
+    var userInfo={}
+    //获取传输数据
+    const eventchannel = this.getOpenerEventChannel()
+    eventchannel.on('translate', data => {
+      console.log('【onload传输进该页面的数据】', data)
+      userInfo=data.data
     })
 
     //获取清单信息
@@ -94,22 +95,15 @@ Page({
         return
       }
       list = res.data[0]
-      openid = res.data[0].openid
     })
     console.log(openid)
-    //获取清单所属的个人信息
-    await db.collection('user').where({
-      openid: openid
-    }).get().then(res => {
-      console.log('【获取到的清单所属的用户信息】', res.data[0])
-      userInfo = res.data[0]
-      that.setData({
-        list: list,
-        userInfo: userInfo
-      })
+    this.setData({
+      name: name,
+      index: index,
+      unique_code: unique_code,
+      userInfo:userInfo,
+      list:list,
     })
-
-
   },
 
   //返回上一页面
@@ -140,7 +134,7 @@ Page({
       confirmColor: "#33d13e",
       success(res) {
         if (res.confirm) {
-          console.log('【审核通过，用户点击确定】')
+          console.log('【清单完成，用户点击确定】')
           that.del_prePage()
           //改变数据库中的清单表该清单的状态
           var id = that.data.list.id
@@ -171,7 +165,7 @@ Page({
             id: uuid,
             list: new_list,
             complete_time: that.getNowTime(),
-            user_name: that.data.userInfo.real_name,
+            submit_userInfo: that.data.userInfo,
             unique_code: unique_code
           }
           db.collection('completed_medicine_list_table').add({

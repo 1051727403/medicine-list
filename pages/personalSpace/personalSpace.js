@@ -151,7 +151,6 @@ Page({
           is_admin: 0, //1为管理员，0为普通用户
           signTime: new Date(),
           real_name:'',
-          gender: 0,  //默认为0，非男非女，男为1，女为2
           id_number:'',
           phone_number:'',
           health_number:'',
@@ -270,7 +269,6 @@ Page({
       var nickname = ''
       var signTime = ''
       var real_name=''
-      var gender = ''
       var id_number=''
       var phone_number=''
       var health_number=''
@@ -292,7 +290,6 @@ Page({
             nickname = res.data[0].nickname
             signTime = res.data[0].signTime
             real_name = res.data[0].real_name
-            gender = res.data[0].gender
             id_number = res.data[0].id_number
             phone_number = res.data[0].phone_number
             health_number = res.data[0].health_number
@@ -307,7 +304,6 @@ Page({
         data.nickname=nickname
         data.signTime=signTime
         data.real_name=real_name
-        data.gender=gender
         data.id_number=id_number
         data.phone_number=phone_number
         data.address=address

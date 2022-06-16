@@ -413,7 +413,7 @@ Page({
     }
     /*检查个人信息是否填写完整，若没有，则引导其进行填写  start*/
     var userInfo=that.data.userInfo
-    if (userInfo.address.no == "" || userInfo.address.room == "" ||userInfo.area==""|| userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == ""||userInfo.id_number=='') {
+    if (userInfo.address.no == "" || userInfo.address.room == "" ||userInfo.area=="" || userInfo.real_name == "" || userInfo.phone_number == ""||userInfo.id_number=='') {
       wx.showModal({
         title: '提示',
         content: '请完善您的个人信息后再提交！',

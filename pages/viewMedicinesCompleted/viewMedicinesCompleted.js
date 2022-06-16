@@ -58,31 +58,19 @@ Page({
    */
   async onLoad(options) {
     var that = this
-    var unique_code
-    var openid
     var list = []
-    var userInfo = {}
+    var userInfo={}
     //获取信息
     const eventChannel=this.getOpenerEventChannel()
     eventChannel.on('transform',data=>{
       console.log('【上个页面获取的完成清单信息】',data)
       list=data.data.list.list
-      unique_code=data.data.unique_code
+      userInfo=data.data.list.submit_userInfo
     })
-    openid=list.openid
-    //获取清单所属的个人信息
-    await db.collection('user').where({
-      openid: openid
-    }).get().then(res => {
-      console.log('【获取到的清单所属的用户信息】', res.data[0])
-      userInfo = res.data[0]
-      that.setData({
-        list: list,
-        userInfo: userInfo
-      })
+    that.setData({
+      list:list,
+      userInfo:userInfo,
     })
-
-
   },
 
   //返回上一页面

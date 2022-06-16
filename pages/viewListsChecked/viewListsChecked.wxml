@@ -1,17 +1,17 @@
 <!--顶部导航栏自定义 start-->
 <custom_nav_top pageName="待完成药品清单" showBackIcon="true"linear_gradient="linear-gradient(#afe0ff,30%,#dbf1ff) ;"bindtap="back"></custom_nav_top>
 <!--顶部导航栏自定义 end-->
-<!--展示所有待审核的清单  start-->
+<!--展示所有已审核的清单  start-->
 <view class="submitted_medicine_list fadeInRight" wx:for="{{checked_medicine_list}}" wx:for-item="list" wx:for-index="index">
   <view class="list" data-index="{{index}}" bindtap="jumoToAuditListPage">
     <view class="content">
       <view class="list_name">{{list.list_name}}</view>
-      <view class="user_name">提交用户：{{list.user_name}}</view>
+      <view class="user_name">提交用户：{{list.submit_userInfo.real_name}}</view>
       <view class="submit_time">审核时间：{{list.check_time}}</view>
     </view>
   </view>
 </view>
-<!--展示所有待审核的清单  end-->
+<!--展示所有已审核的清单  end-->
 <!--底部栏导出 start-->
 <view class="empty_bottom_bar"></view>
 <view class="bottom_bar">

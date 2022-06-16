@@ -63,8 +63,14 @@ Page({
     var id = that.data.checked_medicine_list[index].id
     var list_name = that.data.checked_medicine_list[index].list_name
     var unique_code = that.data.unique_code
+    var submit_userInfo=that.data.checked_medicine_list[index].submit_userInfo
     wx.navigateTo({
-      url: '/pages/viewMedicinesChecked/viewMedicinesChecked?id=' + id + '&list_name=' + list_name + "&index=" + index + "&unique_code=" + unique_code,
+      url: '/pages/viewMedicinesChecked/viewMedicinesChecked?id='+id+'&list_name='+list_name+"&index="+index+"&unique_code="+unique_code,
+      success(res) {
+        res.eventChannel.emit('translate', {
+          data: submit_userInfo
+        })
+      }
     })
   },
   //返回上一页面

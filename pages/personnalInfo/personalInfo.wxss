@@ -88,3 +88,9 @@ Page{
   margin-bottom: 60rpx;
   box-shadow: 4rpx 4rpx 6rpx #d3d3d3;
 }
+.explain{
+  width: 90%;
+  margin-right: 5%;
+  margin-left: 5%;
+  color: grey;
+}

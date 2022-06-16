@@ -68,12 +68,14 @@ Page({
     var unique_code = options.unique_code
     var openid
     var list = []
-    var userInfo = {}
-    this.setData({
-      name: name,
-      index: index,
-      unique_code: unique_code,
+    var userInfo={}
+    //获取传输数据
+    const eventchannel = this.getOpenerEventChannel()
+    eventchannel.on('translate', data => {
+      console.log('【onload传输进该页面的数据】', data)
+      userInfo=data.data
     })
+
 
     //获取清单信息
     await db.collection('list_table').where({
@@ -98,22 +100,14 @@ Page({
         return
       }
       list = res.data[0]
-      openid = res.data[0].openid
     })
-    console.log(openid)
-    //获取清单所属的个人信息
-    await db.collection('user').where({
-      openid: openid
-    }).get().then(res => {
-      console.log('【获取到的清单所属的用户信息】', res.data[0])
-      userInfo = res.data[0]
-      that.setData({
-        list: list,
-        userInfo: userInfo
-      })
+    this.setData({
+      name: name,
+      index: index,
+      unique_code: unique_code,
+      userInfo:userInfo,
+      list:list,
     })
-
-
   },
 
   //返回上一页面
@@ -238,7 +232,7 @@ Page({
             id: id,
             list_name: that.data.name,
             check_time: that.getNowTime(),
-            user_name: that.data.userInfo.real_name,
+            submit_userInfo:that.data.userInfo,
             unique_code: unique_code
           }
           db.collection('checked_medicine_list_table').add({

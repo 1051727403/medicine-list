@@ -554,7 +554,7 @@ Page({
       //检查用户个人信息是否填写完毕
       var userInfo = app.globalData.userInfo
       console.log("userInfo:", userInfo)
-      if (userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == "" || userInfo.id_number == '' || userInfo.address.area == '') {
+      if (userInfo.address.no == "" || userInfo.address.room == ""|| userInfo.real_name == "" || userInfo.phone_number == "" || userInfo.id_number == '' || userInfo.address.area == '') {
         wx.showModal({
           title: '提示',
           content: '请完善您的个人信息后再提交！',

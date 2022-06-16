@@ -106,7 +106,7 @@ Page({
   is_fill_userInfo() {
     var userInfo = app.globalData.userInfo
     console.log('判断个人信息是否完整?', userInfo)
-    if ( userInfo.address.no == "" || userInfo.address.room == "" || userInfo.gender == "" || userInfo.real_name == "" || userInfo.phone_number == "" || userInfo.id_number == '') {
+    if ( userInfo.address.no == "" || userInfo.address.room == "" || userInfo.real_name == "" || userInfo.phone_number == "" || userInfo.id_number == '') {
       wx.showModal({
         title: '提示',
         content: '请完善您的个人信息后再加入组织！',
