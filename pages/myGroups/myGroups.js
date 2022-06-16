@@ -34,6 +34,7 @@ Page({
       real_name:'',
       id_number:'',
       phone_number:'',
+      health_number:'',
       address:{
         area:'',
         building:'',
@@ -149,6 +150,44 @@ Page({
   },
   //上传组织以及list数据库后返回清单页面
   async submitUpload(unique_code, id) {
+    var that=this
+    //构造要加入组织的信息
+    //若代配药，则为他人的信息
+    var userInfo=that.data.submit_userInfo
+    //若为为自己配药，则为自己的个人信息
+    if(that.data.for_myself==true){
+      userInfo.real_name=that.data.userInfo.real_name
+      userInfo.id_number=that.data.userInfo.id_number
+      userInfo.phone_number=that.data.userInfo.phone_number
+      userInfo.health_number=that.data.userInfo.health_number
+      userInfo.address=that.data.userInfo.address
+    }
+    //判断个人信息是否填写完整
+    if(userInfo.real_name==''||userInfo.id_number==''||userInfo.phone_number==''){
+      wx.showModal({
+        title: '提示',
+        content: '请完善个人信息后提交!',
+        showCancel: 'false',
+        success(res) {
+          if (res.confirm) {
+            return
+          }
+        }
+      })
+      return
+    }
+    console.log('【提交清单时附带的清单所属的个人信息】',userInfo)
+    //改变上一页的清单状态
+    var pages = getCurrentPages()
+    var prePage = pages[pages.length - 2]
+    prePage.setData({
+      ['list.status']: 1,
+      first_submit: true
+    })
+    //改变当前页面渲染
+    that.setData({
+      chooseInfo:false,
+    })
     var that = this
     //改变list表中对应的清单的状态
     await db.collection('list_table').where({
@@ -161,18 +200,6 @@ Page({
       console.log('【list清单中清单状态改变】', res)
     })
     //将该清单加入到待审核表中
-    //构造要加入组织的信息
-    //若代配药，则为他人的信息
-    var userInfo=that.data.submit_userInfo
-    //若为为自己配药，则为自己的个人信息
-    if(that.data.for_myself==true){
-      userInfo.real_name=that.data.userInfo.real_name
-      userInfo.id_number=that.data.userInfo.id_number
-      userInfo.phone_number=that.data.userInfo.phone_number
-      userInfo.address=that.data.userInfo.address
-    }
-    console.log('【提交清单时附带的清单所属的个人信息】',userInfo)
-    
     var submitted_medicine_list = {
       //获取用户提交时间信息
       submit_time: that.getNowTime(),
@@ -272,20 +299,9 @@ Page({
     var that = this
     var unique_code=that.data.unique_code
     var id=that.data.id
-    //改变上一页的清单状态
-    var pages = getCurrentPages()
-    var prePage = pages[pages.length - 2]
-    prePage.setData({
-      ['list.status']: 1,
-      first_submit: true
-    })
-    //改变当前页面渲染
-    that.setData({
-      chooseInfo:false,
-    })
     //上传组织以及user数据库后返回清单页面
     //传入提交的组织unique_code以及清单id
-    that.submitUpload(unique_code, that.data.id)
+    that.submitUpload(unique_code, id)
   },
   //返回上一页面
   back() {
