@@ -28,7 +28,7 @@
 <!--灰色遮罩 end-->
 <view class="mode" wx:if="{{chooseInfo==true}}" style="position:fixed; z-index:999; top:33%;">
   <view class="mode_title">选择配药模式</view>
-  <view class="mode_other"bindtap="for_other"style="{{for_other==true?'background-color:#deedfe;':''}}">代他人配药(填写新的个人信息)</view>
+  <view class="mode_other"bindtap="for_other"style="{{for_other==true?'background-color:#deedfe;':''}}">代他人配药(填写他人的个人信息)</view>
   <view class="mode_myself"bindtap="for_myself"style="{{for_myself==true?'background-color:#deedfe;':''}}">为自己配药（默认个人信息）</view>
   <view class="confirm" bindtap="comfirm" style="color: #1ACB26;">确认</view>
 </view>
