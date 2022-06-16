@@ -19,28 +19,22 @@ exports.main = async (event, context) => { //主函数入口
       name = res.data[0].name
     })
     console.log(medicines)
-    var user_name
+    var userInfo
     await db.collection('checked_medicine_list_table').where({
       id: id
     }).get().then(res => {
-      user_name = res.data[0].user_name
+      userInfo = res.data[0].submit_userInfo
     })
     let namerow = ['姓名', '身份证号', '居住地址', '联系电话']
     alldata.push(namerow)
     var address
-    var id_number
-    var phone_number
-    await db.collection('user').where({
-      real_name: user_name
-    }).get().then(res => {
-      console.log(res.data)
-      address = res.data[0].address
-      id_number = res.data[0].id_number
-      phone_number = res.data[0].phone_number
-    })
-    console.log(address)
-    let membername = [user_name, id_number, address.area + address.building + '号' + address.no + '号楼' + address.room + '室', phone_number]
-    alldata.push(membername);
+    if (userInfo.address.building != "") {
+      address = userInfo.address.area + userInfo.address.building + '栋/幢' + userInfo.address.no + '号楼' + userInfo.address.room + '室'
+    } else {
+      address = userInfo.address.area + userInfo.address.no + '号楼' + userInfo.address.room + '室'
+    }
+    let memberinfo = [userInfo.real_name, userInfo.id_number, address, userInfo.phone_number]
+    alldata.push(memberinfo);
     let dataCVS = `medicines-${Math.floor(Math.random()*1000000000)}.xlsx`
     let row = ['药品名称', '药品规格', '药品品牌', '数量']; //表格的属性，也就是表头说明对象
     alldata.push(row); //将此行数据添加到一个向表格中存数据的数组中
