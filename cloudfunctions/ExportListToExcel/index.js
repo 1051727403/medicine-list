@@ -21,20 +21,11 @@ exports.main = async (event, context) => { //主函数入口
     //声明一个Excel表，表的名字用随机数产生
     let alldata = [];
     for (let i in checked_medicine_list) {
-      let namerow = ['姓名', '身份证号', '居住地址', '联系电话']
+      let namerow = ['姓名', '身份证号', '居住地址','栋/幢','号','室', '联系电话']
       alldata.push(namerow)
       var userInfo=checked_medicine_list[i].submit_userInfo
       console.log(userInfo.address)
-      var address
-      if(userInfo.address.building!="")
-      {
-        address=userInfo.address.area + userInfo.address.building + '栋/幢' + userInfo.address.no + '号楼' + userInfo.address.room + '室'
-      }
-      else
-      {
-        address=userInfo.address.area + userInfo.address.no + '号楼' + userInfo.address.room + '室'
-      }
-      let memberinfo = [userInfo.real_name, userInfo.id_number, address, userInfo.phone_number]
+      let memberinfo = [userInfo.real_name, userInfo.id_number, userInfo.address.area,userInfo.address.building,userInfo.address.no, userInfo.address.room,userInfo.phone_number]
       alldata.push(memberinfo);
       await db.collection('list_table').where({
         id: checked_medicine_list[i].id

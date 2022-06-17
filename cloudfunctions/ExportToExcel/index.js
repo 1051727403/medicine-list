@@ -25,15 +25,9 @@ exports.main = async (event, context) => { //主函数入口
     }).get().then(res => {
       userInfo = res.data[0].submit_userInfo
     })
-    let namerow = ['姓名', '身份证号', '居住地址', '联系电话']
+    let namerow = ['姓名', '身份证号', '居住地址','栋/幢','号','室', '联系电话']
     alldata.push(namerow)
-    var address
-    if (userInfo.address.building != "") {
-      address = userInfo.address.area + userInfo.address.building + '栋/幢' + userInfo.address.no + '号楼' + userInfo.address.room + '室'
-    } else {
-      address = userInfo.address.area + userInfo.address.no + '号楼' + userInfo.address.room + '室'
-    }
-    let memberinfo = [userInfo.real_name, userInfo.id_number, address, userInfo.phone_number]
+    let memberinfo = [userInfo.real_name, userInfo.id_number, userInfo.address.area,userInfo.address.building,userInfo.address.no, userInfo.address.room,userInfo.phone_number]
     alldata.push(memberinfo);
     let dataCVS = `medicines-${Math.floor(Math.random()*1000000000)}.xlsx`
     let row = ['药品名称', '药品规格', '药品品牌', '数量']; //表格的属性，也就是表头说明对象
