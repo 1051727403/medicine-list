@@ -62,15 +62,16 @@ Page({
     var userInfo={}
     //获取信息
     const eventChannel=this.getOpenerEventChannel()
-    eventChannel.on('transform',data=>{
-      console.log('【上个页面获取的完成清单信息】',data)
-      list=data.data.list.list
-      userInfo=data.data.list.submit_userInfo
+    eventChannel.on('transform', data => {
+      console.log('【上个页面获取的完成清单信息】', data)
+      list = data.data.list.list
+      userInfo = data.data.list.submit_userInfo
+      that.setData({
+        list: list,
+        userInfo: userInfo,
+      })
     })
-    that.setData({
-      list:list,
-      userInfo:userInfo,
-    })
+    
   },
 
   //返回上一页面

@@ -30,14 +30,14 @@ Page({
         })
         .get().then(res => {
           //由于添加数据时均添加到数据库尾部，因此，按照顺序即可按时间从旧到新排序
-          console.log('【用户获取清单】', res.data)
+          console.log('【获取组织内已完成清单】', res.data)
 
           for (let j = 0; j < res.data.length; j++) {
             completed_medicine_list.push(res.data[j])
           }
         })
     }
-    console.log('【获取全部待完成清单】', completed_medicine_list)
+    console.log('【获取全部已完成清单】', completed_medicine_list)
     that.setData({
       completed_medicine_list: completed_medicine_list,
       unique_code: unique_code
