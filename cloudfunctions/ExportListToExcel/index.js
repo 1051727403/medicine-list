@@ -23,20 +23,19 @@ exports.main = async (event, context) => { //主函数入口
     for (let i in checked_medicine_list) {
       let namerow = ['姓名', '身份证号', '居住地址', '联系电话']
       alldata.push(namerow)
+      var userInfo=checked_medicine_list[i].submit_userInfo
+      console.log(userInfo.address)
       var address
-      var id_number
-      var phone_number
-      await db.collection('user').where({
-        real_name: checked_medicine_list[i].user_name
-      }).get().then(res => {
-        console.log(res.data)
-        address = res.data[0].address
-        id_number = res.data[0].id_number
-        phone_number = res.data[0].phone_number
-      })
-      console.log(address)
-      let membername = [checked_medicine_list[i].user_name, id_number, address.area + address.building + '号' + address.no + '号楼' + address.room + '室', phone_number]
-      alldata.push(membername);
+      if(userInfo.address.building!="")
+      {
+        address=userInfo.address.area + userInfo.address.building + '栋/幢' + userInfo.address.no + '号楼' + userInfo.address.room + '室'
+      }
+      else
+      {
+        address=userInfo.address.area + userInfo.address.no + '号楼' + userInfo.address.room + '室'
+      }
+      let memberinfo = [userInfo.real_name, userInfo.id_number, address, userInfo.phone_number]
+      alldata.push(memberinfo);
       await db.collection('list_table').where({
         id: checked_medicine_list[i].id
       }).get().then(res => {
