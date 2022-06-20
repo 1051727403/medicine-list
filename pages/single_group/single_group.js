@@ -49,8 +49,9 @@ Page({
         //获取用户身份和权限，若权限在遍历后仍未0，说明该用户未加入过
         var permission = '0'
         var joined_groups = app.globalData.userInfo.joined_groups
+        console.log(joined_groups)
         //遍历用户加入的组织
-        for (let i = 0; i < joined_groups.length; i++) {
+        for (let i = 0; joined_groups!=null&&i < joined_groups.length; i++) {
           if (joined_groups[i].unique_code == unique_code) {
             permission = joined_groups[i].permission
           }
