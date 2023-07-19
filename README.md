@@ -6,8 +6,8 @@
 
 ### 2022-5-2 更新内容：新建码云仓库，将代码上传到仓库  
 ### 2022-5-3 扫码api秘钥信息如下:  
-app_id:hvhmohepuqlrinmo  
-app_secret:TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09  
+app_id:
+app_secret:
 ### 2022-5-7 清单页面、药品页面、个人信息页面大体完成，修复若干bug，修复动画渲染问题，第一阶段任务大体完成，准备进入第二阶段搭建小区的配药清单管理平台，进行数据库、需求文档的设计以及页面UI的设计等    
   
 ### 2022-5-15 对UUID做了优化，清单UUID基于时间数实现，唯一性高，组织UUID基于字符串随机数实现，长度为8，基数为34.  
@@ -34,7 +34,7 @@ app_secret:TCtyRTduSjZNUGhHaGl3K3R5ejhHUT09
 #### 1、查看清单进行排序 
 
 ### 目前存在的BUG：
-1、解散组织时可能user表中未成功移除相关数据   
+
   
   
 ### -----  
